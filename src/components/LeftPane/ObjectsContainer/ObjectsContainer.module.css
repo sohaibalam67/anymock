@@ -1,0 +1,10 @@
+.container {
+  padding-top: 12px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.cardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+}

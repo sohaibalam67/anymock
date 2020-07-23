@@ -1,0 +1,33 @@
+.container {
+  max-width: 300px;
+  min-width: 300px;
+  min-height: 100vh;
+  background-color: blueviolet;
+  background-color: #212529;
+}
+
+.canvasOptionsContainer {
+  padding: 15px;
+}
+
+.canvasOptionContent {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.canvasOptionRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.canvasOptionsLabel {
+  min-width: 85px;
+  color: #adb5bd;
+}
+
+.canvasOptionsInput {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
