@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import styles from "./WorkArea.module.css";
 import Slider from "@material-ui/core/Slider";
 import { Icon, Intent } from "@blueprintjs/core";
+import { connect } from "react-redux";
 
-export default class WorkArea extends Component {
+class WorkArea extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -43,9 +44,9 @@ export default class WorkArea extends Component {
           <div
             className={styles.canvas}
             style={{
-              minWidth: "1600px",
-              minHeight: "1200px",
-              background: "#fff",
+              minWidth: `${this.props.width}px`,
+              minHeight: `${this.props.height}px`,
+              background: this.props.background,
               transform: `scale(${this.state.zoom / 100})`,
             }}
           ></div>
@@ -54,3 +55,11 @@ export default class WorkArea extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  width: state.canvas.width,
+  height: state.canvas.height,
+  background: state.canvas.background,
+});
+
+export default connect(mapStateToProps)(WorkArea);

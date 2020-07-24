@@ -1,16 +1,13 @@
 import React from "react";
-function ObjectsCard() {
-  return <div style={styles.container}></div>;
-}
+import styles from "./ObjectsCard.module.css";
 
-const styles = {
-  container: {
-    margin: "6px",
-    minHeight: "70px",
-    backgroundColor: "#868e96",
-    borderRadius: "6px",
-    width: "70px",
-  },
-};
+function ObjectsCard(props) {
+  return (
+    <div className={styles.container}>
+      <img src={props.source} alt="" className={styles.icon} />
+      <span className={styles.title}>{props.title}</span>
+    </div>
+  );
+}
 
 export default ObjectsCard;

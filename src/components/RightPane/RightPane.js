@@ -2,8 +2,14 @@ import React, { Component } from "react";
 import styles from "./RightPane.module.css";
 import { Button, ButtonGroup, H6, InputGroup, Tag } from "@blueprintjs/core";
 import { SketchPicker } from "react-color";
+import { connect } from "react-redux";
+import {
+  updateWidth,
+  updateHeight,
+  updateBackground,
+} from "../../store/actions/canvas";
 
-export default class RightPane extends Component {
+class RightPane extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -21,7 +27,7 @@ export default class RightPane extends Component {
   };
 
   changeBackgroundColor = (color, event) => {
-    this.setState({ backgroundColor: color.hex });
+    this.props.updateBackground(color.hex);
   };
 
   render() {
@@ -34,7 +40,7 @@ export default class RightPane extends Component {
               <div className={styles.canvasOptionsLabel}>Canvas</div>
               <div className={styles.canvasOptionsInput}>
                 <div className="bp3-select" style={{ width: "100%" }}>
-                  <select class="textInput ">
+                  <select className="textInput ">
                     <optgroup label="Custom">
                       <option value="0" disabled="">
                         Custom canvas
@@ -76,19 +82,27 @@ export default class RightPane extends Component {
               <div className={styles.canvasOptionsInput}>
                 <span style={{ marginRight: "15px" }}>
                   <InputGroup
-                    onChange={() => {}}
-                    leftElement={<Tag minimal={false}>W</Tag>}
+                    onChange={(event) => {
+                      this.props.updateWidth(event.target.value);
+                    }}
+                    leftElement={
+                      <div className={styles.inputIdentifier}>W</div>
+                    }
                     placeholder="Width"
-                    value={1600}
+                    value={this.props.width}
                     small
+                    style={{ paddingLeft: "8px" }}
                   />
                 </span>
                 <InputGroup
-                  onChange={() => {}}
-                  leftElement={<Tag minimal={false}>H</Tag>}
+                  onChange={(event) => {
+                    this.props.updateHeight(event.target.value);
+                  }}
+                  leftElement={<div className={styles.inputIdentifier}>H</div>}
                   placeholder="Height"
-                  value={1200}
+                  value={this.props.height}
                   small
+                  style={{ paddingLeft: "8px" }}
                 />
               </div>
             </div>
@@ -102,11 +116,11 @@ export default class RightPane extends Component {
                       <Tag
                         minimal={true}
                         onClick={this.showColorPicker}
-                        style={{ backgroundColor: this.state.backgroundColor }}
+                        style={{ backgroundColor: this.props.background }}
                       ></Tag>
                     }
-                    placeholder="Width"
-                    value={this.state.backgroundColor}
+                    placeholder="Color"
+                    value={this.props.background}
                     small
                   />
                   {this.state.colorPickerVisible ? (
@@ -128,7 +142,7 @@ export default class RightPane extends Component {
                         onClick={this.hideColorPicker}
                       />
                       <SketchPicker
-                        color={this.state.backgroundColor}
+                        color={this.props.background}
                         onChange={this.changeBackgroundColor}
                         disableAlpha
                       />
@@ -149,3 +163,17 @@ export default class RightPane extends Component {
     );
   }
 }
+
+const mapStateToProps = (state) => ({
+  width: state.canvas.width,
+  height: state.canvas.height,
+  background: state.canvas.background,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  updateWidth: (width) => dispatch(updateWidth(width)),
+  updateHeight: (height) => dispatch(updateHeight(height)),
+  updateBackground: (color) => dispatch(updateBackground(color)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(RightPane);
