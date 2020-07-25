@@ -1,12 +1,9 @@
-@import "~normalize.css";
-@import "~@blueprintjs/core/lib/css/blueprint.css";
-@import "~@blueprintjs/icons/lib/css/blueprint-icons.css";
-
 * {
   box-sizing: inherit;
   -webkit-user-select: none;
   user-select: none;
   -webkit-font-smoothing: antialiased;
+  font-family: "Inter", sans-serif;
 }
 
 /* width */
@@ -17,22 +14,22 @@
 
 /* Track */
 ::-webkit-scrollbar-track {
-  background: #343a40;
+  background: #1d1d1d;
 }
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: #868e96;
+  background: #3a3a3a;
   border-radius: 4px;
 }
 
 /* Handle on hover */
 ::-webkit-scrollbar-thumb:hover {
-  background: #5c7080;
+  background: #5a5a5a;
 }
 
 ::-webkit-scrollbar-corner {
-  background: #343a40;
+  background: #1d1d1d;
 }
 
 .MuiSlider-root {

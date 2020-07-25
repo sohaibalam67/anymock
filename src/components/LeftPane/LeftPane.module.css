@@ -2,20 +2,60 @@
   max-width: 250px;
   min-width: 250px;
   min-height: 100vh;
-  background-color: #212529;
+  background-color: #010101;
   display: flex;
   flex-direction: column;
+  border-right: 1px solid #252729;
 }
 
 .logo {
-  height: 30px;
+  height: 25px;
   width: auto;
 }
 
 .brandContainer {
-  border-bottom: 1px solid #2f353b;
+  border-bottom: 1px solid #252729;
+  padding-left: 12px;
+  padding-right: 12px;
+  padding-top: 18px;
+  padding-bottom: 18px;
 }
 
 .tempObjButtonGroupContainer {
-  border-bottom: 1px solid #2f353b;
+  border-bottom: 1px solid #252729;
+}
+
+.chooseFromTemplatesButton {
+  background-color: #116df7;
+  color: #ffffff;
+  margin: 12px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-radius: 5px;
+  outline: 0;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 600;
+  border: 0px solid #116df7;
+}
+
+.chooseFromTemplatesButton:hover {
+  background-color: #1469e9;
+}
+
+.backButtonContainer {
+  width: 32px;
+  height: 32px;
+  background-color: rgba(255, 255, 255, 0.15);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  border: 0px solid #fff;
+  outline: none;
+}
+
+.templatesContainerHeader {
+  padding: 12px;
 }

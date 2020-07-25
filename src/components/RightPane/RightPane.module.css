@@ -3,7 +3,8 @@
   min-width: 300px;
   min-height: 100vh;
   background-color: blueviolet;
-  background-color: #212529;
+  background-color: #010101;
+  border-left: 1px solid #252729;
 }
 
 .canvasOptionsContainer {
@@ -22,14 +23,16 @@
 }
 
 .canvasOptionsLabel {
-  min-width: 85px;
+  min-width: 80px;
   color: #adb5bd;
+  font-size: 0.8rem;
+  font-weight: 600;
 }
 
 .canvasOptionsInput {
   width: 100%;
-  display: flex;
-  align-items: center;
+  /* display: flex; */
+  /* align-items: center; */
 }
 
 .inputIdentifier {
@@ -40,4 +43,24 @@
   justify-content: center;
   font-size: 8pt;
   color: rgba(255, 255, 255, 0.3);
+}
+
+.twoColumn {
+  display: flex;
+  width: 100%;
+}
+
+.twoColumn:first-child {
+  margin-right: 12px;
+}
+
+.inputBox {
+  width: 50%;
+  background-color: #13171b;
+  border: 0px solid black;
+  outline: none;
+  color: white;
+  padding: 12px;
+  border-radius: 4px;
+  text-indent: 12px;
 }

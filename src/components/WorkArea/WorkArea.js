@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import styles from "./WorkArea.module.css";
 import Slider from "@material-ui/core/Slider";
-import { Icon, Intent } from "@blueprintjs/core";
 import { connect } from "react-redux";
 
 class WorkArea extends Component {
@@ -31,7 +30,7 @@ class WorkArea extends Component {
                 onChange={this.changeZoom}
               />
             </div>
-            <Icon icon="zoom-in" iconSize={16} color="rgba(255,255,255,0.6)" />
+            {/* <Icon icon="zoom-in" iconSize={16} color="rgba(255,255,255,0.6)" /> */}
           </div>
         </div>
         <div
