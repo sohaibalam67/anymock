@@ -8,6 +8,7 @@ import {
   updateBackground,
 } from "../../store/actions/canvas";
 import Select from "react-select";
+import imageIcon from "../../assets/images/icons/app/image-outline.svg";
 
 const options = [
   { value: "0", label: "Custom canvas" },
@@ -71,7 +72,7 @@ class RightPane extends Component {
               marginBottom: "12px",
             }}
           >
-            CANVAS OPTIONS
+            CANVAS SETTINGS
           </h6>
           <div className={styles.canvasOptionContent}>
             <div className={styles.canvasOptionRow}>
@@ -234,6 +235,44 @@ class RightPane extends Component {
                 </div>
               </div>
             </div>
+          </div>
+
+          <h6
+            style={{
+              fontSize: "9pt",
+              color: "#fff",
+              marginTop: "12px",
+              marginBottom: "24px",
+            }}
+          >
+            CANVAS BACKGROUND
+          </h6>
+
+          <div className={styles.canvasImageUploader}>
+            <img
+              src={imageIcon}
+              alt="image icon"
+              style={{ width: "24px", height: "auto" }}
+            />
+            <h6
+              style={{
+                color: "#ffffff",
+                fontSize: "0.9rem",
+                marginTop: "12px",
+                marginBottom: "12px",
+              }}
+            >
+              Drag and drop image
+            </h6>
+            <p
+              style={{
+                color: "rgba(255, 255, 255, 0.5)",
+                fontSize: "0.9rem",
+                margin: "0px",
+              }}
+            >
+              Or click to choose
+            </p>
           </div>
         </div>
       </div>
