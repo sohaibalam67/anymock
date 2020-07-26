@@ -125,59 +125,58 @@ class RightPane extends Component {
             <div className={styles.canvasOptionRow}>
               <div className={styles.canvasOptionsLabel}>Size</div>
               <div className={styles.canvasOptionsInput}>
-                <div className={styles.twoColumn}>
-                  <input
-                    className={styles.inputBox}
-                    onChange={(event) => {
-                      this.props.updateWidth(event.target.value);
-                    }}
-                    leftElement={
-                      <div className={styles.inputIdentifier}>W</div>
-                    }
-                    placeholder="Width"
-                    value={this.props.width}
-                    small
-                    style={{ paddingLeft: "8px" }}
-                  />
-                  <input
-                    className={styles.inputBox}
-                    onChange={(event) => {
-                      this.props.updateHeight(event.target.value);
-                    }}
-                    leftElement={
-                      <div className={styles.inputIdentifier}>H</div>
-                    }
-                    placeholder="Height"
-                    value={this.props.height}
-                    small
-                    style={{ paddingLeft: "8px" }}
-                  />
+                <div className={styles.row}>
+                  <div className={styles.column}>
+                    <input
+                      className={styles.inputBox}
+                      onChange={(event) => {
+                        this.props.updateWidth(event.target.value);
+                      }}
+                      placeholder="Width"
+                      value={this.props.width}
+                    />
+                    <span className={styles.modifier}>W</span>
+                  </div>
+                  <div className={styles.column}>
+                    <input
+                      className={styles.inputBox}
+                      onChange={(event) => {
+                        this.props.updateHeight(event.target.value);
+                      }}
+                      leftElement={
+                        <div className={styles.inputIdentifier}>H</div>
+                      }
+                      placeholder="Height"
+                      value={this.props.height}
+                      small
+                    />
+                    <span className={styles.modifier}>H</span>
+                  </div>
                 </div>
               </div>
             </div>
             <div className={styles.canvasOptionRow}>
               <div className={styles.canvasOptionsLabel}>Color</div>
               <div className={styles.canvasOptionsInput}>
-                <div className={styles.twoColumn}>
-                  <div>
-                    <input
-                      className={styles.inputBox}
-                      onChange={() => {}}
-                      leftElement={
-                        <p
-                          minimal={true}
-                          onClick={this.showColorPicker}
-                          style={{
-                            backgroundColor: this.props.background,
-                            marginRight: "5px",
-                            cursor: "pointer",
-                          }}
-                        ></p>
-                      }
-                      placeholder="Color"
-                      value={strippedBackgroundValue}
-                      small
-                    />
+                <div className={styles.row}>
+                  <div className={styles.column3}>
+                    <div className={styles.colorPickerInput}>
+                      <div
+                        className={styles.colorButton}
+                        onClick={this.showColorPicker}
+                        style={{
+                          backgroundColor: this.props.background,
+                          cursor: "pointer",
+                        }}
+                      />
+                      <input
+                        className={styles.inputBox}
+                        onClick={this.showColorPicker}
+                        placeholder="Color"
+                        value={strippedBackgroundValue}
+                        small
+                      />
+                    </div>
                     {this.state.colorPickerVisible ? (
                       <div
                         style={{
@@ -222,13 +221,16 @@ class RightPane extends Component {
                       </div>
                     ) : null}
                   </div>
-                  <input
-                    className={styles.inputBox}
-                    onChange={() => {}}
-                    placeholder="Height"
-                    value="100%"
-                    small
-                  />
+                  <div className={styles.column1}>
+                    <input
+                      className={styles.inputBox}
+                      onChange={() => {}}
+                      placeholder="Height"
+                      value="100"
+                      small
+                    />
+                    <span className={styles.modifier}>%</span>
+                  </div>
                 </div>
               </div>
             </div>
