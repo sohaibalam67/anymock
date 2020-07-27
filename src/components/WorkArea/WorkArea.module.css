@@ -4,6 +4,9 @@
   background-color: #121417;
   overflow-x: auto;
   overflow-y: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .canvasContainer {

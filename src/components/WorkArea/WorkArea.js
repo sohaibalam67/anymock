@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import styles from "./WorkArea.module.css";
 import Slider from "@material-ui/core/Slider";
 import { connect } from "react-redux";
+import { fabric } from "fabric";
 
 class WorkArea extends Component {
   constructor(props) {
@@ -11,8 +12,63 @@ class WorkArea extends Component {
     };
   }
 
+  componentDidMount() {
+    this.canvas = new fabric.Canvas("fabricCanvas", {
+      backgroundColor: this.props.background,
+      preserveObjectStacking: true,
+      width: this.props.width,
+      height: this.props.height,
+    });
+
+    this.canvas.state = [];
+    this.canvas.index = 0;
+    this.canvas.stateaction = true;
+
+    // canvas.on({
+    //   "object:rotating": canvasAction,
+    //   "object:moving": canvasAction,
+    //   "object:modified": canvasAction,
+    //   "object:scaling": canvasAction,
+    //   "object:selected": canvasBox,
+    //   "selection:updated": canvasBox,
+    //   "before:selection:cleared": clearSelection,
+    // });
+
+    let horizontal_line = new fabric.Line(
+      [this.canvas.width / 2, 0, this.canvas.width / 2, this.canvas.width],
+      {
+        stroke: "red",
+        opacity: 0,
+        selectable: false,
+        evented: false,
+        name: "horizontal_line",
+      }
+    );
+
+    let vertical_line = new fabric.Line(
+      [0, this.canvas.height / 2, this.canvas.width, this.canvas.height / 2],
+      {
+        stroke: "red",
+        opacity: 0,
+        selectable: false,
+        evented: false,
+        name: "vertical_line",
+      }
+    );
+
+    this.canvas.add(horizontal_line);
+    this.canvas.add(vertical_line);
+
+    this.canvas.add(
+      new fabric.Circle({ radius: 100, fill: "#f55", top: 100, left: 100 })
+    );
+
+    this.canvas.renderAll();
+  }
+
   changeZoom = (event, value) => {
     this.setState({ zoom: value });
+    this.canvas.calcOffset();
   };
 
   render() {
@@ -34,13 +90,17 @@ class WorkArea extends Component {
           </div>
         </div>
         <div
-          className={styles.canvasContainer}
+          // className={styles.canvasContainer}
+          // style={{
+          //   width: `${1800 * (this.state.zoom / 100)}px`,
+          //   height: `${1200 * (this.state.zoom / 100)}px`,
+          // }}
           style={{
-            width: `${1800 * (this.state.zoom / 100)}px`,
-            height: `${1200 * (this.state.zoom / 100)}px`,
+            margin: "100px",
+            transform: `scale(${this.state.zoom / 100})`,
           }}
         >
-          <div
+          {/* <div
             className={styles.canvas}
             style={{
               minWidth: `${this.props.width}px`,
@@ -48,7 +108,8 @@ class WorkArea extends Component {
               background: this.props.background,
               transform: `scale(${this.state.zoom / 100})`,
             }}
-          ></div>
+          ></div> */}
+          <canvas id="fabricCanvas"></canvas>
         </div>
       </div>
     );
