@@ -1,21 +1,36 @@
 import {
+  UPDATE_CANVAS,
   UPDATE_WIDTH,
   UPDATE_HEIGHT,
   UPDATE_BACKGROUND,
 } from "../actions/actionTypes";
 
 const INITIAL_STATE = {
+  canvas: null,
   width: 1600,
   height: 1200,
-  background: "#ffffff",
+  background: "#26DE81",
 };
 
 const canvasReducer = (state = INITIAL_STATE, action) => {
+  let canvas = null;
   let width = null;
   let height = null;
   let background = null;
 
   switch (action.type) {
+    case UPDATE_CANVAS:
+      canvas = state.canvas;
+
+      if (action.canvas) {
+        canvas = action.canvas;
+      }
+
+      return {
+        ...state,
+        canvas,
+      };
+
     case UPDATE_WIDTH:
       width = state.width;
 

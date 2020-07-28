@@ -1,4 +1,16 @@
-import { UPDATE_WIDTH, UPDATE_HEIGHT, UPDATE_BACKGROUND } from "./actionTypes";
+import {
+  UPDATE_CANVAS,
+  UPDATE_WIDTH,
+  UPDATE_HEIGHT,
+  UPDATE_BACKGROUND,
+} from "./actionTypes";
+
+export const updateCanvas = (canvas) => {
+  return {
+    type: UPDATE_CANVAS,
+    canvas,
+  };
+};
 
 export const updateWidth = (width) => {
   return {

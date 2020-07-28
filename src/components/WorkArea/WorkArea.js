@@ -2,13 +2,14 @@ import React, { Component } from "react";
 import styles from "./WorkArea.module.css";
 import Slider from "@material-ui/core/Slider";
 import { connect } from "react-redux";
+import { updateCanvas } from "../../store/actions/canvas";
 import { fabric } from "fabric";
 
 class WorkArea extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      zoom: 30,
+      zoom: 50,
     };
   }
 
@@ -59,9 +60,25 @@ class WorkArea extends Component {
     this.canvas.add(horizontal_line);
     this.canvas.add(vertical_line);
 
-    this.canvas.add(
-      new fabric.Circle({ radius: 100, fill: "#f55", top: 100, left: 100 })
-    );
+    this.canvas.renderAll();
+
+    this.props.updateCanvas(this.canvas);
+  }
+
+  componentDidUpdate(oldProps) {
+    const newProps = this.props;
+
+    if (oldProps.background !== newProps.background) {
+      this.canvas.backgroundColor = newProps.background;
+    }
+
+    if (oldProps.width !== newProps.width) {
+      this.canvas.setWidth(newProps.width);
+    }
+
+    if (oldProps.height !== newProps.height) {
+      this.canvas.setHeight(newProps.height);
+    }
 
     this.canvas.renderAll();
   }
@@ -122,4 +139,8 @@ const mapStateToProps = (state) => ({
   background: state.canvas.background,
 });
 
-export default connect(mapStateToProps)(WorkArea);
+const mapDispatchToProps = (dispatch) => ({
+  updateCanvas: (canvas) => dispatch(updateCanvas(canvas)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(WorkArea);

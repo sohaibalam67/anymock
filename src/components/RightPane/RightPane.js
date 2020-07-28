@@ -144,12 +144,8 @@ class RightPane extends Component {
                       onChange={(event) => {
                         this.props.updateHeight(event.target.value);
                       }}
-                      leftElement={
-                        <div className={styles.inputIdentifier}>H</div>
-                      }
                       placeholder="Height"
                       value={this.props.height}
-                      small
                     />
                     <span className={styles.modifier}>H</span>
                   </div>
@@ -175,7 +171,7 @@ class RightPane extends Component {
                         onClick={this.showColorPicker}
                         placeholder="Color"
                         value={strippedBackgroundValue}
-                        small
+                        readOnly
                       />
                     </div>
                     {this.state.colorPickerVisible ? (
@@ -228,7 +224,6 @@ class RightPane extends Component {
                       onChange={() => {}}
                       placeholder="Height"
                       value="100"
-                      small
                     />
                     <span className={styles.modifier}>%</span>
                   </div>
@@ -281,6 +276,7 @@ class RightPane extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  canvas: state.canvas.canvas,
   width: state.canvas.width,
   height: state.canvas.height,
   background: state.canvas.background,
