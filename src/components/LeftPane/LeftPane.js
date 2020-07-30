@@ -7,6 +7,7 @@ import TemplatesContainer from "./TemplatesContainer/TemplatesContainer";
 import { connect } from "react-redux";
 
 import { fabric } from "fabric";
+import { addImage } from "../../helpers/image";
 
 const logo = require("../../assets/images/logo.svg");
 const arrowBack = require("../../assets/images/icons/app/arrow-back-outline.svg");
@@ -61,12 +62,6 @@ class LeftPane extends Component {
     }
   };
 
-  addImage = (url) => {
-    return new Promise((resolve, reject) => {
-      new fabric.Image.fromURL(url, (frameImage) => resolve(frameImage));
-    });
-  };
-
   addFrameToScreen = async () => {
     let margins = {
       left: 8,
@@ -75,7 +70,7 @@ class LeftPane extends Component {
       bottom: 8,
     };
 
-    let frameInstance = await this.addImage(frame);
+    let frameInstance = await addImage(frame);
 
     frameInstance.set({
       left: 0,
@@ -96,23 +91,19 @@ class LeftPane extends Component {
 
     frameInstance.scaleToWidth(600);
 
-    let screenshotInstance = await this.addImage(sample);
+    let screenshotInstance = await addImage(sample);
     screenshotInstance.scaleToWidth(600 - 118);
     screenshotInstance.set({
       left: 60,
       top: 76,
       angle: 0,
-      transparentCorners: false,
-      id: "mockup",
-      borderColor: "#0E98FC",
-      cornerColor: "#0E98FC",
+      id: "screen",
       centeredScaling: false,
       borderOpacityWhenMoving: 1,
-      hasRotationPoint: false,
       lockScalingFlip: true,
       lockUniScaling: true,
       objectCaching: false,
-      name: "mockup",
+      name: "screen",
     });
 
     frameInstance.bringToFront();
@@ -120,6 +111,20 @@ class LeftPane extends Component {
     let group = new fabric.Group([screenshotInstance, frameInstance], {
       left: 150,
       top: 100,
+    });
+
+    group.set({
+      transparentCorners: false,
+      id: "group",
+      borderColor: "#0E98FC",
+      cornerColor: "#0E98FC",
+      centeredScaling: false,
+      borderOpacityWhenMoving: 1,
+      hasRotationPoint: true,
+      lockScalingFlip: true,
+      lockUniScaling: true,
+      objectCaching: false,
+      name: "group",
     });
 
     this.props.canvas.add(group);

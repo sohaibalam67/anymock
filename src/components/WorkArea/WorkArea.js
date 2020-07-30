@@ -5,11 +5,13 @@ import { connect } from "react-redux";
 import { updateCanvas } from "../../store/actions/canvas";
 import { fabric } from "fabric";
 
+const sample2 = require("../../assets/images/sample2.png");
+
 class WorkArea extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      zoom: 50,
+      zoom: 40,
     };
   }
 
@@ -34,6 +36,22 @@ class WorkArea extends Component {
     //   "selection:updated": canvasBox,
     //   "before:selection:cleared": clearSelection,
     // });
+
+    this.canvas.on({
+      "selection:cleared": (event) => {
+        console.log(event);
+      },
+      "object:selected": (event) => {
+        console.log(event);
+      },
+      "selection:updated": (event) => {
+        let activeObject = this.canvas.getActiveObject();
+        activeObject._objects[0].setSrc(sample2, (img) => {
+          // this.canvas.add(img);
+          this.canvas.renderAll();
+        });
+      },
+    });
 
     let horizontal_line = new fabric.Line(
       [this.canvas.width / 2, 0, this.canvas.width / 2, this.canvas.width],
@@ -81,6 +99,10 @@ class WorkArea extends Component {
     }
 
     this.canvas.renderAll();
+  }
+
+  componentWillUnmount() {
+    this.canvas.__eventListeners = {};
   }
 
   changeZoom = (event, value) => {
