@@ -1,0 +1,19 @@
+.imageUploaderContainer {
+  min-height: 150px;
+  width: 100%;
+  background: #13171b;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.backgroundContainer {
+  min-height: 150px;
+  width: 100%;
+  background-size: contain !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+}

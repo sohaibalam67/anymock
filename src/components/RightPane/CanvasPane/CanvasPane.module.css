@@ -1,0 +1,94 @@
+.canvasOptionsContainer {
+  /* padding: 15px; */
+}
+
+.canvasOptionContent {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.canvasOptionRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.canvasOptionsLabel {
+  min-width: 64px;
+  color: #adb5bd;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.canvasOptionsInput {
+  width: 100%;
+}
+
+.row {
+  box-sizing: border-box;
+}
+
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.row > *:not(:last-child) {
+  padding-right: 6px;
+}
+
+.row > *:not(:first-child) {
+  padding-left: 6px;
+}
+
+.inputBox {
+  width: 100%;
+  background-color: #13171b;
+  border: 0px solid black;
+  outline: none;
+  color: white;
+  padding: 12px;
+  padding-right: 32px;
+  border-radius: 4px;
+}
+
+.modifier {
+  position: absolute;
+  margin-left: -24px;
+  margin-top: 12px;
+  font-size: 12px;
+  color: rgb(126, 126, 126);
+}
+
+.column1 {
+  float: left;
+  width: 40%;
+}
+
+.column {
+  float: left;
+  width: 50%;
+}
+
+.column3 {
+  float: left;
+  width: 60%;
+}
+
+.colorPickerInput {
+  display: flex;
+}
+
+.colorPickerInput > input {
+  text-indent: 0px;
+  padding-right: 12px;
+  border-radius: 0px 4px 4px 0px;
+}
+
+.colorButton {
+  min-width: 40px;
+  height: 40px;
+  background-color: #fff;
+  border-radius: 4px 0px 0px 4px;
+}

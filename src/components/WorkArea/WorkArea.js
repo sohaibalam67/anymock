@@ -3,6 +3,8 @@ import styles from "./WorkArea.module.css";
 import Slider from "@material-ui/core/Slider";
 import { connect } from "react-redux";
 import { updateCanvas } from "../../store/actions/canvas";
+import { setActivePane } from "../../store/actions/rightPane";
+import { CANVAS_PANE, DEVICE_PANE } from "../../constants/rightPane";
 import { fabric } from "fabric";
 
 const sample2 = require("../../assets/images/sample2.png");
@@ -38,19 +40,9 @@ class WorkArea extends Component {
     // });
 
     this.canvas.on({
-      "selection:cleared": (event) => {
-        console.log(event);
-      },
-      "object:selected": (event) => {
-        console.log(event);
-      },
-      "selection:updated": (event) => {
-        let activeObject = this.canvas.getActiveObject();
-        activeObject._objects[0].setSrc(sample2, (img) => {
-          // this.canvas.add(img);
-          this.canvas.renderAll();
-        });
-      },
+      "selection:cleared": this.selectionCleared,
+      "object:selected": this.objectSelected,
+      "selection:updated": this.objectSelected,
     });
 
     let horizontal_line = new fabric.Line(
@@ -104,6 +96,15 @@ class WorkArea extends Component {
   componentWillUnmount() {
     this.canvas.__eventListeners = {};
   }
+
+  objectSelected = (event) => {
+    let activeObject = this.canvas.getActiveObject();
+    this.props.setActivePane(DEVICE_PANE);
+  };
+
+  selectionCleared = (event) => {
+    this.props.setActivePane(CANVAS_PANE);
+  };
 
   changeZoom = (event, value) => {
     this.setState({ zoom: value });
@@ -163,6 +164,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   updateCanvas: (canvas) => dispatch(updateCanvas(canvas)),
+  setActivePane: (activePane) => dispatch(setActivePane(activePane)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkArea);

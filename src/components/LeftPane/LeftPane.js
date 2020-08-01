@@ -1,13 +1,17 @@
 import React, { Component } from "react";
 import styles from "./LeftPane.module.css";
+import uuid from "react-uuid";
 
 import { motion } from "framer-motion";
 import ObjectsContainer from "./ObjectsContainer/ObjectsContainer";
 import TemplatesContainer from "./TemplatesContainer/TemplatesContainer";
 import { connect } from "react-redux";
+import { addItemToLayer } from "../../store/actions/layer";
 
 import { fabric } from "fabric";
-import { addImage } from "../../helpers/image";
+import { addImage, addDeviceGroup } from "../../helpers/image";
+
+import { devices } from "../../constants/devices";
 
 const logo = require("../../assets/images/logo.svg");
 const arrowBack = require("../../assets/images/icons/app/arrow-back-outline.svg");
@@ -15,8 +19,9 @@ const arrowBack = require("../../assets/images/icons/app/arrow-back-outline.svg"
 const SEGMENT_TEMPLATE = "segment_template";
 const SEGMENT_OBJECT = "segment_object";
 
-const frame = require("../../assets/images/frame.png");
+// const frame = require("../../assets/images/frame.png");
 const sample = require("../../assets/images/sample.png");
+const sample_screen = require("../../assets/images/sample_screen.png");
 
 class LeftPane extends Component {
   constructor(props) {
@@ -62,73 +67,27 @@ class LeftPane extends Component {
     }
   };
 
-  addFrameToScreen = async () => {
-    let margins = {
-      left: 8,
-      right: 17,
-      top: 4,
-      bottom: 8,
-    };
-
-    let frameInstance = await addImage(frame);
-
-    frameInstance.set({
-      left: 0,
-      top: 0,
-      angle: 0,
-      transparentCorners: false,
-      id: "mockup",
-      borderColor: "#0E98FC",
-      cornerColor: "#0E98FC",
-      centeredScaling: false,
-      borderOpacityWhenMoving: 1,
-      hasRotationPoint: false,
-      lockScalingFlip: true,
-      lockUniScaling: true,
-      objectCaching: false,
-      name: "mockup",
-    });
-
-    frameInstance.scaleToWidth(600);
-
-    let screenshotInstance = await addImage(sample);
-    screenshotInstance.scaleToWidth(600 - 118);
-    screenshotInstance.set({
-      left: 60,
-      top: 76,
-      angle: 0,
-      id: "screen",
-      centeredScaling: false,
-      borderOpacityWhenMoving: 1,
-      lockScalingFlip: true,
-      lockUniScaling: true,
-      objectCaching: false,
-      name: "screen",
-    });
-
-    frameInstance.bringToFront();
-
-    let group = new fabric.Group([screenshotInstance, frameInstance], {
-      left: 150,
-      top: 100,
-    });
-
-    group.set({
-      transparentCorners: false,
-      id: "group",
-      borderColor: "#0E98FC",
-      cornerColor: "#0E98FC",
-      centeredScaling: false,
-      borderOpacityWhenMoving: 1,
-      hasRotationPoint: true,
-      lockScalingFlip: true,
-      lockUniScaling: true,
-      objectCaching: false,
-      name: "group",
-    });
-
+  addDevice = async (
+    id,
+    name,
+    device,
+    screen,
+    transforms = { top: 0, left: 0, angle: 0, scaleX: 1, scaleY: 1 }
+  ) => {
+    let group = await addDeviceGroup(id, name, device, screen, transforms);
     this.props.canvas.add(group);
     this.props.canvas.renderAll();
+
+    this.props.addItemToLayer({
+      id: id,
+      name: name,
+      device_id: device.id,
+      variant_id: device.variant_id,
+      type: device.type,
+      screenOffset: device.screenOffset,
+      transforms: transforms,
+      screenSource: null,
+    });
   };
 
   render() {
@@ -159,7 +118,23 @@ class LeftPane extends Component {
         ) : null}
         {this.state.activeSegment === SEGMENT_OBJECT ? (
           <>
-            <ObjectsContainer addFrameToScreen={this.addFrameToScreen} />
+            <ObjectsContainer
+              addFrameToScreen={() => {
+                this.addDevice(
+                  uuid(),
+                  devices.phones[0].name,
+                  {
+                    id: devices.phones[1].id,
+                    variant_id: devices.phones[1].variants[0].id,
+                    type: devices.phones[1].type,
+                    source: devices.phones[1].variants[0].source,
+                    baseWidth: devices.phones[1].baseWidth,
+                    screenOffset: devices.phones[1].screenOffset,
+                  },
+                  sample_screen
+                );
+              }}
+            />
             <motion.button
               // onClick={() => {
               //   this.switchActiveSegment(SEGMENT_TEMPLATE);
@@ -186,4 +161,8 @@ const mapStateToProps = (state) => ({
   background: state.canvas.background,
 });
 
-export default connect(mapStateToProps)(LeftPane);
+const mapDispatchToProps = (dispatch) => ({
+  addItemToLayer: (item) => dispatch(addItemToLayer(item)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(LeftPane);
