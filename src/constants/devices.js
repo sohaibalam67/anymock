@@ -1215,26 +1215,6 @@ export const devices = {
       ],
     },
     {
-      id: "samsung_galaxy_s3",
-      name: "Samsung Galaxy S3",
-      type: DEVICE_TYPES.PHONE,
-      baseWidth: 600,
-      screenOffset: {
-        left: 64,
-        top: 130,
-        width: 472,
-        height: 836,
-      },
-      thumbnail: require("../assets/images/devices/phones/Samsung Galaxy S3/samsung_galaxy_s3_thumbnail.png"),
-      variants: [
-        {
-          id: "white",
-          name: "White",
-          source: require("../assets/images/devices/phones/Samsung Galaxy S3/Device/Samsung Galaxy S3.png"),
-        },
-      ],
-    },
-    {
       id: "samsung_galaxy_s5",
       name: "Samsung Galaxy S5",
       type: DEVICE_TYPES.PHONE,
