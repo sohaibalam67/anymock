@@ -35,6 +35,51 @@ export const devices = {
       ],
     },
     {
+      id: "apple_iphone_x_flat",
+      name: "Apple iPhone X Flat",
+      type: DEVICE_TYPES.PHONE,
+      baseWidth: 600,
+      screenOffset: {
+        left: 41,
+        top: 36,
+        width: 520,
+        height: 1124,
+      },
+      thumbnail: require("../assets/images/devices/phones/Apple iPhone X Flat/apple_iphone_x_flat_thumbnail.png"),
+      variants: [
+        {
+          id: "white",
+          name: "White",
+          source: require("../assets/images/devices/phones/Apple iPhone X Flat/Device/Apple iPhone X Flat White.png"),
+        },
+        {
+          id: "black",
+          name: "Black",
+          source: require("../assets/images/devices/phones/Apple iPhone X Flat/Device/Apple iPhone X Flat Black.png"),
+        },
+      ],
+    },
+    {
+      id: "apple_iphone_x_clay",
+      name: "Apple iPhone X Clay",
+      type: DEVICE_TYPES.PHONE,
+      baseWidth: 600,
+      screenOffset: {
+        left: 40,
+        top: 36,
+        width: 521,
+        height: 1126,
+      },
+      thumbnail: require("../assets/images/devices/phones/Apple iPhone X Clay/apple_iphone_x_clay_thumbnail.png"),
+      variants: [
+        {
+          id: "white",
+          name: "White",
+          source: require("../assets/images/devices/phones/Apple iPhone X Clay/Device/Apple iPhone X Clay White.png"),
+        },
+      ],
+    },
+    {
       id: "apple_iphone_xr",
       name: "Apple iPhone XR",
       type: DEVICE_TYPES.PHONE,

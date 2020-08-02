@@ -124,12 +124,12 @@ class LeftPane extends Component {
                   uuid(),
                   devices.phones[0].name,
                   {
-                    id: devices.phones[1].id,
-                    variant_id: devices.phones[1].variants[0].id,
-                    type: devices.phones[1].type,
-                    source: devices.phones[1].variants[0].source,
-                    baseWidth: devices.phones[1].baseWidth,
-                    screenOffset: devices.phones[1].screenOffset,
+                    id: devices.phones[0].id,
+                    variant_id: devices.phones[0].variants[0].id,
+                    type: devices.phones[0].type,
+                    source: devices.phones[0].variants[0].source,
+                    baseWidth: devices.phones[0].baseWidth,
+                    screenOffset: devices.phones[0].screenOffset,
                   },
                   sample_screen
                 );
