@@ -1,0 +1,16 @@
+.optionRow {
+  display: flex;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.optionsLabel {
+  min-width: 64px;
+  color: #adb5bd;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.optionsInput {
+  width: 100%;
+}

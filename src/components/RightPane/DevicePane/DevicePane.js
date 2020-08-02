@@ -7,6 +7,7 @@ import { addImage, addDeviceGroup } from "../../../helpers/image";
 import DeviceSelect from "./DeviceSelect/DeviceSelect";
 import { devices } from "../../../constants/devices";
 import DeviceCard from "../../Commons/DeviceCard/DeviceCard";
+import styles from "./DevicePane.module.css";
 const sample = require("../../../assets/images/sample.png");
 
 class DevicePane extends Component {
@@ -70,6 +71,36 @@ class DevicePane extends Component {
     this.props.canvas.renderAll();
   };
 
+  changeScreenFit = (event) => {
+    console.log(event.target.value);
+
+    let activeObject = this.props.canvas.getActiveObject();
+
+    if (event.target.value === "fill") {
+      activeObject._objects[0].set({
+        scaleX:
+          activeObject.device_screen_offset.width /
+          activeObject._objects[0].width,
+        scaleY:
+          activeObject.device_screen_offset.height /
+          activeObject._objects[0].height,
+      });
+    }
+
+    if (event.target.value === "fit") {
+      activeObject._objects[0].set({
+        scaleX:
+          activeObject.device_screen_offset.width /
+          activeObject._objects[0].width,
+        scaleY:
+          activeObject.device_screen_offset.width /
+          activeObject._objects[0].width,
+      });
+    }
+
+    this.props.canvas.renderAll();
+  };
+
   render() {
     let selectedLayer = {};
     let activeObject = this.props.canvas.getActiveObject();
@@ -92,12 +123,36 @@ class DevicePane extends Component {
             marginTop: "12px",
             cursor: "pointer",
             fontSize: "0.9rem",
+            marginBottom: "12px",
           }}
           onClick={() => {
             this.setDeviceSelectVisible(true);
           }}
         >
           Choose Device
+        </div>
+        <div className={styles.optionRow}>
+          <div className={styles.optionsLabel}>Screen</div>
+          <div className={styles.optionsInput}>
+            <select
+              name="screen_fit"
+              onChange={this.changeScreenFit}
+              style={{
+                width: "100%",
+                background: "#13171b",
+                color: "#ffffff",
+                border: "0px solid black",
+                paddingTop: "12px",
+                paddingBottom: "12px",
+                borderRadius: "6px",
+              }}
+            >
+              <option value="fit">Fit</option>
+              <option value="fill" selected>
+                Fill
+              </option>
+            </select>
+          </div>
         </div>
         {this.state.deviceSelectVisible ? (
           <DeviceSelect
