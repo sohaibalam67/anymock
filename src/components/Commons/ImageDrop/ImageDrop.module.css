@@ -1,12 +1,43 @@
 .imageUploaderContainer {
-  min-height: 150px;
+  min-height: 140px;
   width: 100%;
-  background: #13171b;
   border-radius: 6px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
+  border: 1px dashed rgba(255, 255, 255, 0.3);
+  background: rgb(255, 255, 255, 0.08);
+  outline: none;
+}
+
+.imageUploaderContainer:hover {
+  background-color: rgba(255, 255, 255, 0.09);
+}
+
+.emptyStateTitle {
+  color: #e4e4e4;
+  font-size: 0.7rem;
+  margin: 0px;
+  border-radius: 3px;
+  margin-bottom: 3px;
+}
+
+.emptyStateSubtitle {
+  color: rgba(255, 255, 255, 0.4);
+  font-size: 0.65rem;
+  margin-bottom: 16px;
+}
+
+.browseButton {
+  border: none;
+  background: #116df7;
+  color: #ffffff;
+  padding: 4px 12px 3px 12px;
+  border-radius: 3px;
+  font-size: 0.7rem;
+  outline: none;
   cursor: pointer;
 }
 

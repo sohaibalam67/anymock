@@ -1,7 +1,7 @@
 import React, { Component, createRef } from "react";
-import Dropzone from "react-dropzone";
-import imageIcon from "../../../assets/images/icons/app/image-outline.svg";
 import styles from "./ImageDrop.module.css";
+import Dropzone from "react-dropzone";
+import imageIcon from "../../../assets/images/icons/app/cloud-upload-outline.svg";
 
 export default class ImageDrop extends Component {
   state = {
@@ -68,27 +68,17 @@ export default class ImageDrop extends Component {
                 <img
                   src={imageIcon}
                   alt="image icon"
-                  style={{ width: "24px", height: "auto" }}
+                  style={{
+                    width: "24px",
+                    height: "auto",
+                    marginBottom: "6px",
+                  }}
                 />
-                <h6
-                  style={{
-                    color: "#ffffff",
-                    fontSize: "0.9rem",
-                    marginTop: "12px",
-                    marginBottom: "12px",
-                  }}
-                >
-                  Drag and drop image
-                </h6>
-                <p
-                  style={{
-                    color: "rgba(255, 255, 255, 0.5)",
-                    fontSize: "0.9rem",
-                    margin: "0px",
-                  }}
-                >
-                  Or click to choose
-                </p>
+                <h6 className={styles.emptyStateTitle}>Drop image to upload</h6>
+                <span className={styles.emptyStateSubtitle}>
+                  Available formats .jpg, .png, .svg only
+                </span>
+                <button className={styles.browseButton}>Browse files</button>
               </>
             )}
           </div>
