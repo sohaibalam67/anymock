@@ -16,6 +16,25 @@
   background-color: rgba(255, 255, 255, 0.09);
 }
 
+.backgroudHoverText {
+  opacity: 0;
+  width: 100%;
+  min-height: inherit;
+  color: #ffffff;
+  font-size: 0.75rem;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: 0.2s ease-in-out;
+  text-align: center;
+  border-radius: 6px;
+}
+
+.imageUploaderContainer:hover .backgroudHoverText {
+  opacity: 1;
+}
+
 .emptyStateTitle {
   color: #e4e4e4;
   font-size: 0.7rem;

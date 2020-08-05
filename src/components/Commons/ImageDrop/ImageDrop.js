@@ -30,7 +30,7 @@ export default class ImageDrop extends Component {
 
   render = () => {
     const dropzoneRef = createRef();
-    let title = this.props.title || "Drop your screenshot here";
+    let title = this.props.title || "Drop your image here";
     return (
       <Dropzone ref={dropzoneRef} onDrop={this.processFile}>
         {({ getRootProps, getInputProps }) => (
@@ -42,7 +42,12 @@ export default class ImageDrop extends Component {
                 style={{
                   background: `url(${this.props.file})`,
                 }}
-              ></div>
+              >
+                <div className={styles.backgroudHoverText}>
+                  Drop a new image <br />
+                  or, click to change image
+                </div>
+              </div>
             ) : (
               <>
                 <img

@@ -4,31 +4,13 @@ import Select from "react-select";
 import ImageDrop from "../../Commons/ImageDrop/ImageDrop";
 import { connect } from "react-redux";
 import styles from "./CanvasPane.module.css";
+import { presets } from "../../../constants/canvas";
 
 import {
   updateWidth,
   updateHeight,
   updateBackground,
 } from "../../../store/actions/canvas";
-
-const options = [
-  { value: "0", label: "Custom canvas" },
-  { value: "11", label: "iPhone X, Xs, 11 Pro" },
-  { value: "12", label: "iPhone 6s Plus, 7 Plus, 8 Plus" },
-  { value: "13", label: "iPhone 6, 6s, 7, 8" },
-  { value: "14", label: "iPhone SE" },
-  { value: "15", label: "iPhone 4s" },
-  { value: "21", label: "Android devices (Portrait)" },
-  { value: "22", label: "Android devices (Landscape)" },
-  { value: "31", label: "Instagram Photo" },
-  { value: "32", label: "Instagram Story" },
-  { value: "33", label: "Facebook Cover" },
-  { value: "34", label: "Twitter Header" },
-  { value: "35", label: "Twitter Timeline" },
-  { value: "36", label: "Pinterest Standard Pin" },
-  { value: "37", label: "Pinterest Giraffe Pin" },
-  { value: "41", label: "Dribbble" },
-];
 
 class CanvasPane extends Component {
   constructor(props) {
@@ -77,9 +59,9 @@ class CanvasPane extends Component {
             <div className={styles.canvasOptionsLabel}>Preset</div>
             <div className={styles.canvasOptionsInput}>
               <Select
-                value={options[0]}
+                value={presets[0]}
                 onChange={() => {}}
-                options={options}
+                options={presets}
                 styles={{
                   control: (provided) => ({
                     ...provided,
@@ -258,7 +240,7 @@ class CanvasPane extends Component {
         >
           CANVAS BACKGROUND
         </h6>
-        <ImageDrop />
+        <ImageDrop title="Drop your background image here" />
       </div>
     );
   }

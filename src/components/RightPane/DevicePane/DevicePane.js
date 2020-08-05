@@ -200,6 +200,7 @@ class DevicePane extends Component {
 
         <div style={{ paddingTop: "15px", paddingBottom: "15px" }}>
           <ImageDrop
+            title="Drop your screenshot here"
             file={selectedLayer.screenSource}
             setImageFile={this.setImageFile}
           />
