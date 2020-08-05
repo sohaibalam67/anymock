@@ -7,8 +7,6 @@ import { setActivePane } from "../../store/actions/rightPane";
 import { CANVAS_PANE, DEVICE_PANE } from "../../constants/rightPane";
 import { fabric } from "fabric";
 
-const sample2 = require("../../assets/images/sample2.png");
-
 class WorkArea extends Component {
   constructor(props) {
     super(props);

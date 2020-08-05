@@ -4,7 +4,7 @@ import styles from "./RightPane.module.css";
 import { connect } from "react-redux";
 
 import CanvasPane from "./CanvasPane/CanvasPane";
-import { CANVAS_PANE, DEVICE_PANE } from "../../constants/rightPane";
+import { DEVICE_PANE } from "../../constants/rightPane";
 import DevicePane from "./DevicePane/DevicePane";
 
 class RightPane extends Component {

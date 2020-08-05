@@ -1,17 +1,14 @@
 import React, { Component } from "react";
 import styles from "./LeftPane.module.css";
 import uuid from "react-uuid";
-
 import { motion } from "framer-motion";
+import { connect } from "react-redux";
 import ObjectsContainer from "./ObjectsContainer/ObjectsContainer";
 import TemplatesContainer from "./TemplatesContainer/TemplatesContainer";
-import { connect } from "react-redux";
 import { addItemToLayer } from "../../store/actions/layer";
-
-import { fabric } from "fabric";
-import { addImage, addDeviceGroup } from "../../helpers/image";
-
+import { addDeviceGroup, downloadAsPNG } from "../../helpers/image";
 import { devices } from "../../constants/devices";
+import { SCREEN_SIZE_FILL } from "../../constants/screen";
 
 const logo = require("../../assets/images/logo.svg");
 const arrowBack = require("../../assets/images/icons/app/arrow-back-outline.svg");
@@ -19,8 +16,6 @@ const arrowBack = require("../../assets/images/icons/app/arrow-back-outline.svg"
 const SEGMENT_TEMPLATE = "segment_template";
 const SEGMENT_OBJECT = "segment_object";
 
-// const frame = require("../../assets/images/frame.png");
-const sample = require("../../assets/images/sample.png");
 const sample_screen = require("../../assets/images/sample_screen.png");
 
 class LeftPane extends Component {
@@ -38,56 +33,49 @@ class LeftPane extends Component {
     });
   };
 
-  downloadAsPNG = () => {
-    var currentTime = new Date();
-    var month = currentTime.getMonth() + 1;
-    var day = currentTime.getDate();
-    var year = currentTime.getFullYear();
-    var hours = currentTime.getHours();
-    var minutes = currentTime.getMinutes();
-    var seconds = currentTime.getSeconds();
-    var fileName =
-      month + "" + day + "" + year + "" + hours + "" + minutes + "" + seconds;
-    const canvasdata = this.props.canvas;
-    const canvasDataUrl = canvasdata
-        .toDataURL()
-        .replace(/^data:image\/[^;]*/, "data:application/octet-stream"),
-      link = document.createElement("a");
-    fileName = fileName + ".png";
-    link.setAttribute("href", canvasDataUrl);
-    link.setAttribute("crossOrigin", "anonymous");
-    link.setAttribute("target", "_blank");
-    link.setAttribute("download", fileName);
-    if (document.createEvent) {
-      var evtObj = document.createEvent("MouseEvents");
-      evtObj.initEvent("click", true, true);
-      link.dispatchEvent(evtObj);
-    } else if (link.click) {
-      link.click();
-    }
-  };
-
   addDevice = async (
-    id,
-    name,
     device,
-    screen,
     transforms = { top: 0, left: 0, angle: 0, scaleX: 1, scaleY: 1 }
   ) => {
-    let group = await addDeviceGroup(id, name, device, screen, transforms);
-    this.props.canvas.add(group);
-    this.props.canvas.renderAll();
+    let id = uuid();
 
-    this.props.addItemToLayer({
-      id: id,
-      name: name,
+    let deviceInfo = {
       device_id: device.id,
-      variant_id: device.variant_id,
-      type: device.type,
+      device_name: device.name,
+      variant_id: device.variants[0].id,
+      device_type: device.type,
+      source: device.variants[0].source,
+      baseWidth: device.baseWidth,
       screenOffset: device.screenOffset,
-      transforms: transforms,
-      screenSource: null,
-    });
+    };
+
+    // Make a group of frame and screen (behind the frame)
+    let group = await addDeviceGroup(
+      id,
+      deviceInfo.device_name,
+      deviceInfo,
+      sample_screen,
+      transforms
+    );
+
+    // If the group is created sucessfully, then add it on canvas
+    // and add it in redux state layer
+    if (group !== null && typeof group === "object" && group.id === id) {
+      this.props.canvas.add(group);
+      this.props.canvas.renderAll();
+
+      this.props.addItemToLayer({
+        id: id,
+        name: device.name,
+        device_id: device.id,
+        variant_id: device.variant_id,
+        type: device.type,
+        screenOffset: device.screenOffset,
+        transforms: transforms,
+        screenSource: null,
+        screenSize: SCREEN_SIZE_FILL,
+      });
+    }
   };
 
   render() {
@@ -120,26 +108,16 @@ class LeftPane extends Component {
           <>
             <ObjectsContainer
               addFrameToScreen={() => {
-                this.addDevice(
-                  uuid(),
-                  devices.phones[0].name,
-                  {
-                    id: devices.phones[0].id,
-                    variant_id: devices.phones[0].variants[0].id,
-                    type: devices.phones[0].type,
-                    source: devices.phones[0].variants[0].source,
-                    baseWidth: devices.phones[0].baseWidth,
-                    screenOffset: devices.phones[0].screenOffset,
-                  },
-                  sample_screen
-                );
+                this.addDevice(devices.phones[0]);
               }}
             />
             <motion.button
               // onClick={() => {
               //   this.switchActiveSegment(SEGMENT_TEMPLATE);
               // }}
-              onClick={this.downloadAsPNG}
+              onClick={() => {
+                downloadAsPNG(this.props.canvas);
+              }}
               className={styles.chooseFromTemplatesButton}
               whileTap={{
                 scale: 0.96,

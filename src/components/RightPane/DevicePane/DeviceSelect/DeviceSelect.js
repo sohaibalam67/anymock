@@ -3,10 +3,6 @@ import styles from "./DeviceSelect.module.css";
 import DeviceCard from "../../../Commons/DeviceCard/DeviceCard";
 
 export default class DeviceSelect extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   changeFrame = (device) => {
     this.props.changeFrame(device, device.variants[0]);
   };

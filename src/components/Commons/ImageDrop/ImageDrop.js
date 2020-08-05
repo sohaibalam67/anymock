@@ -4,15 +4,7 @@ import Dropzone from "react-dropzone";
 import imageIcon from "../../../assets/images/icons/app/cloud-upload-outline.svg";
 
 export default class ImageDrop extends Component {
-  state = {
-    isDragging: false,
-    showReplaceOption: false,
-  };
-
   processFile = (files) => {
-    this.setState({
-      isDragging: false,
-    });
     var file = files[0];
     if (file) {
       if (
@@ -32,25 +24,13 @@ export default class ImageDrop extends Component {
     }
   };
 
-  handleDrag = (bool) => {
-    this.setState({
-      isDragging: bool,
-    });
-  };
-
   removeFile = () => {
     this.props.setImageFile(null);
   };
 
-  toggleReplaceOption = () => {
-    this.setState({ showReplaceOption: !this.state.showReplaceOption });
-  };
-
   render = () => {
     const dropzoneRef = createRef();
-    let title = this.props.title || "Drop your design or screenshot here";
-    let showReplaceOption = this.state.showReplaceOption;
-    let supportMultipleSources = this.props.supportMultipleSources;
+    let title = this.props.title || "Drop your screenshot here";
     return (
       <Dropzone ref={dropzoneRef} onDrop={this.processFile}>
         {({ getRootProps, getInputProps }) => (
@@ -67,14 +47,14 @@ export default class ImageDrop extends Component {
               <>
                 <img
                   src={imageIcon}
-                  alt="image icon"
+                  alt="upload icon"
                   style={{
                     width: "24px",
                     height: "auto",
                     marginBottom: "6px",
                   }}
                 />
-                <h6 className={styles.emptyStateTitle}>Drop image to upload</h6>
+                <h6 className={styles.emptyStateTitle}>{title}</h6>
                 <span className={styles.emptyStateSubtitle}>
                   Available formats .jpg, .png, .svg only
                 </span>

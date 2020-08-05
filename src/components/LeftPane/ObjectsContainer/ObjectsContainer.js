@@ -10,10 +10,6 @@ let watch_icon = require("../../../assets/images/icons/objects/watch.svg");
 let display_icon = require("../../../assets/images/icons/objects/display.svg");
 
 export default class ObjectsContainer extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     return (
       <div className={styles.container}>

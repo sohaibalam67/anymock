@@ -4,6 +4,7 @@ function TemplateCard(props) {
     <div style={styles.container}>
       <img
         src={props.thumbnail}
+        alt="template thumbnail"
         style={{
           height: "150px",
           width: "100%",

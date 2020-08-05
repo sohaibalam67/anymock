@@ -3,14 +3,12 @@ import { connect } from "react-redux";
 import { updateDeviceScreenSource } from "../../../store/actions/layer";
 import ImageDrop from "../../Commons/ImageDrop/ImageDrop";
 import _ from "lodash";
-import { addImage, addDeviceGroup } from "../../../helpers/image";
+import { addDeviceGroup } from "../../../helpers/image";
 import DeviceSelect from "./DeviceSelect/DeviceSelect";
 import { devices } from "../../../constants/devices";
 import DeviceCard from "../../Commons/DeviceCard/DeviceCard";
 import styles from "./DevicePane.module.css";
 import Select from "react-select";
-import { fabric } from "fabric";
-const sample = require("../../../assets/images/sample.png");
 
 class DevicePane extends Component {
   constructor(props) {
@@ -28,9 +26,6 @@ class DevicePane extends Component {
     let activeObject = this.props.canvas.getActiveObject();
 
     activeObject._objects[0].setSrc(source, (img) => {
-      let ratio =
-        activeObject.device_screen_offset.height /
-        activeObject.device_screen_offset.width;
       img.set({
         scaleX: activeObject.device_screen_offset.width / img.width,
         scaleY: activeObject.device_screen_offset.height / img.height,
@@ -87,7 +82,6 @@ class DevicePane extends Component {
         scaleY:
           activeObject.device_screen_offset.height /
           activeObject._objects[0].height,
-        // cropY: 0,
       });
     }
 
@@ -99,11 +93,6 @@ class DevicePane extends Component {
         scaleY:
           activeObject.device_screen_offset.width /
           activeObject._objects[0].width,
-        // cropY:
-        // (1 -
-        //   activeObject.device_screen_offset.height /
-        //     activeObject._objects[0].height) *
-        // activeObject._objects[0].height,
       });
     }
 
