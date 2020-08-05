@@ -13,13 +13,12 @@ import {
 
 const options = [
   { value: "0", label: "Custom canvas" },
-  { value: "11", label: "5.8″ (iPhone X, Xs, 11 Pro)" },
-  { value: "12", label: "5.5″ (iPhone 6s Plus, 7 Plus, 8 Plus)" },
-  { value: "13", label: "4.7″ (iPhone 6, 6s, 7, 8)" },
-  { value: "14", label: "4.0″ (iPhone SE)" },
-  { value: "15", label: "3.5 inch (iPhone 4s)" },
+  { value: "11", label: "iPhone X, Xs, 11 Pro" },
+  { value: "12", label: "iPhone 6s Plus, 7 Plus, 8 Plus" },
+  { value: "13", label: "iPhone 6, 6s, 7, 8" },
+  { value: "14", label: "iPhone SE" },
+  { value: "15", label: "iPhone 4s" },
   { value: "21", label: "Android devices (Portrait)" },
-  { value: "22", label: "Android devices (Landscape)" },
   { value: "22", label: "Android devices (Landscape)" },
   { value: "31", label: "Instagram Photo" },
   { value: "32", label: "Instagram Story" },
@@ -82,27 +81,37 @@ class CanvasPane extends Component {
                 onChange={() => {}}
                 options={options}
                 styles={{
-                  control: (provided, state) => ({
+                  control: (provided) => ({
                     ...provided,
                     borderColor: "#13171b",
+                    minHeight: "27px",
                   }),
-                  option: (provided, state) => ({
+                  valueContainer: (provided) => ({
+                    ...provided,
+                    paddingTop: "0px",
+                    paddingBottom: "0px",
+                  }),
+                  option: (provided) => ({
                     ...provided,
                     background: "#13171b",
                     color: "#fff",
                     fontSize: "0.8rem",
                   }),
-                  placeholder: (provided, state) => ({
+                  placeholder: (provided) => ({
                     ...provided,
                     color: "#fff",
                     fontSize: "0.8rem",
                     fontWeight: "600",
                   }),
-                  singleValue: (provided, state) => ({
+                  singleValue: (provided) => ({
                     ...provided,
                     color: "#fff",
                     fontSize: "0.8rem",
                     fontWeight: "600",
+                  }),
+                  indicatorsContainer: (provided) => ({
+                    ...provided,
+                    maxHeight: "27px",
                   }),
                 }}
                 theme={(theme) => ({
@@ -178,7 +187,7 @@ class CanvasPane extends Component {
                       style={{
                         position: "absolute",
                         zIndex: 100,
-                        marginLeft: "-50px",
+                        marginLeft: "-70px",
                       }}
                     >
                       <div

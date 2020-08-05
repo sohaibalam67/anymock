@@ -11,10 +11,10 @@
 }
 
 .deviceThumbnail {
-  min-width: 80px;
-  max-width: 80px;
-  min-height: 60px;
-  max-height: 60px;
+  min-width: 60px;
+  max-width: 60px;
+  min-height: 45px;
+  max-height: 45px;
   background-color: aliceblue;
   margin-right: 10px;
   border-radius: 3px;
@@ -23,14 +23,15 @@
   background-size: cover !important;
 }
 
-.deviceTitle {
+.title {
   color: #dddddd;
   font-weight: bold;
-  font-size: 0.9rem;
+  font-size: 0.75rem;
+  font-weight: bold;
   margin-bottom: 2px;
 }
 
-.deviceScreenDimension {
+.subtitle {
   color: #636e72;
   font-weight: 500;
   font-size: 0.8rem;

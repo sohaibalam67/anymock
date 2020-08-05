@@ -7,15 +7,21 @@ export default class DeviceSelect extends Component {
     super(props);
   }
 
+  changeFrame = (device) => {
+    this.props.changeFrame(device, device.variants[0]);
+  };
+
   render() {
     let devices = this.props.devices ?? [];
     return (
       <div className={styles.container}>
-        {devices.map((device, index) => (
+        {devices.map((device) => (
           <DeviceCard
             key={device.id}
-            device={device}
-            changeFrame={this.props.changeFrame}
+            thumbnail={device.thumbnail}
+            title={device.name}
+            subtitle="1125 x 2463"
+            onClick={this.changeFrame.bind(this, device)}
           />
         ))}
       </div>

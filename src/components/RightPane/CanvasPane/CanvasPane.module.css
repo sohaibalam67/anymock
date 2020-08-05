@@ -14,7 +14,7 @@
 }
 
 .canvasOptionsLabel {
-  min-width: 64px;
+  min-width: 50px;
   color: #adb5bd;
   font-size: 0.8rem;
   font-weight: 600;
@@ -48,15 +48,25 @@
   border: 0px solid black;
   outline: none;
   color: white;
-  padding: 12px;
+  padding: 6px 12px 6px 12px;
   padding-right: 32px;
   border-radius: 4px;
+  font-size: 0.75rem;
+  border: 1px solid transparent;
+}
+
+.inputBox:focus {
+  outline: thin;
+  outline-style: solid;
+  outline: 1px solid rgb(3, 103, 170);
+  border: 1px solid rgb(3, 103, 170);
+  outline-offset: -2px;
 }
 
 .modifier {
   position: absolute;
   margin-left: -24px;
-  margin-top: 12px;
+  margin-top: 6px;
   font-size: 12px;
   color: rgb(126, 126, 126);
 }
@@ -87,8 +97,8 @@
 }
 
 .colorButton {
-  min-width: 40px;
-  height: 40px;
+  min-width: 28px;
+  height: 28px;
   background-color: #fff;
   border-radius: 4px 0px 0px 4px;
 }

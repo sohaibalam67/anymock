@@ -8,6 +8,8 @@ import DeviceSelect from "./DeviceSelect/DeviceSelect";
 import { devices } from "../../../constants/devices";
 import DeviceCard from "../../Commons/DeviceCard/DeviceCard";
 import styles from "./DevicePane.module.css";
+import Select from "react-select";
+import { fabric } from "fabric";
 const sample = require("../../../assets/images/sample.png");
 
 class DevicePane extends Component {
@@ -26,6 +28,9 @@ class DevicePane extends Component {
     let activeObject = this.props.canvas.getActiveObject();
 
     activeObject._objects[0].setSrc(source, (img) => {
+      let ratio =
+        activeObject.device_screen_offset.height /
+        activeObject.device_screen_offset.width;
       img.set({
         scaleX: activeObject.device_screen_offset.width / img.width,
         scaleY: activeObject.device_screen_offset.height / img.height,
@@ -50,8 +55,6 @@ class DevicePane extends Component {
 
     let items = activeObject.getObjects();
 
-    this.props.canvas.remove(activeObject);
-
     let group = await addDeviceGroup(
       id,
       device.name,
@@ -68,15 +71,15 @@ class DevicePane extends Component {
     );
 
     this.props.canvas.add(group);
+    this.props.canvas.remove(activeObject);
+    this.props.canvas.setActiveObject(group);
     this.props.canvas.renderAll();
   };
 
-  changeScreenFit = (event) => {
-    console.log(event.target.value);
-
+  changeScreenFit = (value) => {
     let activeObject = this.props.canvas.getActiveObject();
 
-    if (event.target.value === "fill") {
+    if (value.value === "fill") {
       activeObject._objects[0].set({
         scaleX:
           activeObject.device_screen_offset.width /
@@ -84,10 +87,11 @@ class DevicePane extends Component {
         scaleY:
           activeObject.device_screen_offset.height /
           activeObject._objects[0].height,
+        // cropY: 0,
       });
     }
 
-    if (event.target.value === "fit") {
+    if (value.value === "fit") {
       activeObject._objects[0].set({
         scaleX:
           activeObject.device_screen_offset.width /
@@ -95,6 +99,11 @@ class DevicePane extends Component {
         scaleY:
           activeObject.device_screen_offset.width /
           activeObject._objects[0].width,
+        // cropY:
+        // (1 -
+        //   activeObject.device_screen_offset.height /
+        //     activeObject._objects[0].height) *
+        // activeObject._objects[0].height,
       });
     }
 
@@ -108,50 +117,160 @@ class DevicePane extends Component {
     if (item_index >= 0) {
       selectedLayer = this.props.layers[item_index];
     }
+
+    let options = [
+      { value: "fit", label: "Fit" },
+      { value: "fill", label: "Fill" },
+    ];
+
     return (
       <div>
-        <ImageDrop
-          file={selectedLayer.screenSource}
-          setImageFile={this.setImageFile}
-        />
-        <div
+        <h6
           style={{
-            color: "#ffffff",
-            background: "rgba(255,255,255,0.1)",
-            borderRadius: "3px",
-            padding: "12px",
+            fontSize: "9pt",
+            color: "#fff",
             marginTop: "12px",
-            cursor: "pointer",
-            fontSize: "0.9rem",
             marginBottom: "12px",
           }}
-          onClick={() => {
-            this.setDeviceSelectVisible(true);
+        >
+          DEVICE SETTINGS
+        </h6>
+        <div style={{ paddingTop: "15px", paddingBottom: "15px" }}>
+          <div className={styles.optionRow}>
+            <div className={styles.optionsLabel}>Position</div>
+            <div className={styles.optionsInput}>
+              <div className={styles.row}>
+                <div className={styles.column}>
+                  <input
+                    className={styles.inputBox}
+                    onChange={(event) => {
+                      // this.props.updateWidth(event.target.value);
+                    }}
+                    placeholder="Left"
+                    value={this.props.width}
+                  />
+                  <span className={styles.modifier}>X</span>
+                </div>
+                <div className={styles.column}>
+                  <input
+                    className={styles.inputBox}
+                    onChange={(event) => {
+                      // this.props.updateHeight(event.target.value);
+                    }}
+                    placeholder="Top"
+                    value={this.props.height}
+                  />
+                  <span className={styles.modifier}>Y</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <h6
+          style={{
+            fontSize: "9pt",
+            color: "#fff",
+            marginTop: "12px",
+            marginBottom: "12px",
           }}
         >
-          Choose Device
+          ACTIVE DEVICE
+        </h6>
+        <div
+          style={{
+            borderRadius: "3px",
+            paddingTop: "15px",
+            paddingBottom: "15px",
+          }}
+        >
+          <DeviceCard
+            title="Apple iPhone X"
+            subtitle="Click to change device"
+            thumbnail={devices.phones[0].thumbnail}
+            onClick={() => {
+              this.setDeviceSelectVisible(true);
+            }}
+            style={{ padding: "0px", marginBottom: "12px" }}
+            thumbnailStyle={{
+              borderTopRightRadius: "0px",
+              borderBottomRightRadius: "0px",
+            }}
+          />
         </div>
-        <div className={styles.optionRow}>
-          <div className={styles.optionsLabel}>Screen</div>
-          <div className={styles.optionsInput}>
-            <select
-              name="screen_fit"
-              onChange={this.changeScreenFit}
-              style={{
-                width: "100%",
-                background: "#13171b",
-                color: "#ffffff",
-                border: "0px solid black",
-                paddingTop: "12px",
-                paddingBottom: "12px",
-                borderRadius: "6px",
-              }}
-            >
-              <option value="fit">Fit</option>
-              <option value="fill" selected>
-                Fill
-              </option>
-            </select>
+
+        <h6
+          style={{
+            fontSize: "9pt",
+            color: "#fff",
+            marginTop: "12px",
+            marginBottom: "12px",
+          }}
+        >
+          SCREEN SETTINGS
+        </h6>
+
+        <div style={{ paddingTop: "15px", paddingBottom: "15px" }}>
+          <ImageDrop
+            file={selectedLayer.screenSource}
+            setImageFile={this.setImageFile}
+          />
+          <div className={styles.optionRow} style={{ marginTop: "15px" }}>
+            <div className={styles.optionsLabel}>Fitting</div>
+            <div className={styles.optionsInput}>
+              <Select
+                value={options[0]}
+                onChange={this.changeScreenFit}
+                options={options}
+                styles={{
+                  control: (provided) => ({
+                    ...provided,
+                    borderColor: "#13171b",
+                    minHeight: "27px",
+                  }),
+                  valueContainer: (provided) => ({
+                    ...provided,
+                    paddingTop: "0px",
+                    paddingBottom: "0px",
+                  }),
+                  option: (provided) => ({
+                    ...provided,
+                    background: "#13171b",
+                    color: "#fff",
+                    fontSize: "0.8rem",
+                  }),
+                  placeholder: (provided) => ({
+                    ...provided,
+                    color: "#fff",
+                    fontSize: "0.8rem",
+                    fontWeight: "600",
+                  }),
+                  singleValue: (provided) => ({
+                    ...provided,
+                    color: "#fff",
+                    fontSize: "0.8rem",
+                    fontWeight: "600",
+                  }),
+                  indicatorsContainer: (provided) => ({
+                    ...provided,
+                    maxHeight: "27px",
+                  }),
+                }}
+                theme={(theme) => ({
+                  ...theme,
+                  colors: {
+                    ...theme.colors,
+                    primary25: "hotpink",
+                    primary: "black",
+                    neutral0: "#13171b",
+                    neutral5: "#13171b",
+                    neutral10: "#13171b",
+                    neutral20: "#2e3740",
+                    neutral30: "#13171b",
+                    neutral40: "#13171b",
+                  },
+                })}
+              />
+            </div>
           </div>
         </div>
         {this.state.deviceSelectVisible ? (

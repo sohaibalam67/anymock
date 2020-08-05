@@ -39,6 +39,8 @@ export const addDeviceGroup = async (
   screenshotInstance.set({
     left: device.screenOffset.left,
     top: device.screenOffset.top,
+    cropX: 0,
+    cropY: 0,
     id: "screen",
     scaleX: device.screenOffset.width / screenshotInstance.width,
     scaleY: device.screenOffset.height / screenshotInstance.height,

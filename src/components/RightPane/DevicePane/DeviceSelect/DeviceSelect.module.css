@@ -4,8 +4,8 @@
   right: 0;
   bottom: 0;
   background: #010101;
-  width: 300px;
+  width: 270px;
   z-index: 99;
   height: 100vh;
-  overflow-x: scroll;
+  overflow-y: auto;
 }

@@ -9,7 +9,7 @@ const INITIAL_STATE = {
   canvas: null,
   width: 1600,
   height: 1200,
-  background: "#FFFFFF",
+  background: "#ffffff",
 };
 
 const canvasReducer = (state = INITIAL_STATE, action) => {

@@ -1,6 +1,7 @@
 .container {
-  width: calc(100% - 550px);
+  width: calc(100% - 520px);
   min-height: 100vh;
+  max-height: 100vh;
   background-color: #121417;
   overflow-x: auto;
   overflow-y: auto;
