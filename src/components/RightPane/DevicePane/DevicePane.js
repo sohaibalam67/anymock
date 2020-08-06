@@ -5,10 +5,11 @@ import ImageDrop from "../../Commons/ImageDrop/ImageDrop";
 import _ from "lodash";
 import { addDeviceGroup } from "../../../helpers/image";
 import DeviceSelect from "./DeviceSelect/DeviceSelect";
-import { devices } from "../../../constants/devices";
+import { devices, DEVICE_TYPES } from "../../../constants/devices";
 import DeviceCard from "../../Commons/DeviceCard/DeviceCard";
 import styles from "./DevicePane.module.css";
 import Select from "react-select";
+import { getSelectedLayer } from "../../../store/selectors";
 
 class DevicePane extends Component {
   constructor(props) {
@@ -24,6 +25,10 @@ class DevicePane extends Component {
 
   setImageFile = (source) => {
     let activeObject = this.props.canvas.getActiveObject();
+
+    if (!Object.values(DEVICE_TYPES).includes(activeObject.device_type)) {
+      return;
+    }
 
     activeObject._objects[0].setSrc(source, (img) => {
       img.set({
@@ -100,13 +105,6 @@ class DevicePane extends Component {
   };
 
   render() {
-    let selectedLayer = {};
-    let activeObject = this.props.canvas.getActiveObject();
-    const item_index = _.findIndex(this.props.layers, { id: activeObject.id });
-    if (item_index >= 0) {
-      selectedLayer = this.props.layers[item_index];
-    }
-
     let options = [
       { value: "fit", label: "Fit" },
       { value: "fill", label: "Fill" },
@@ -201,7 +199,11 @@ class DevicePane extends Component {
         <div style={{ paddingTop: "15px", paddingBottom: "15px" }}>
           <ImageDrop
             title="Drop your screenshot here"
-            file={selectedLayer.screenSource}
+            file={
+              this.props.selectedLayer
+                ? this.props.selectedLayer.screenSource
+                : null
+            }
             setImageFile={this.setImageFile}
           />
           <div className={styles.optionRow} style={{ marginTop: "15px" }}>
@@ -280,6 +282,7 @@ class DevicePane extends Component {
 const mapStateToProps = (state) => ({
   canvas: state.canvas.canvas,
   layers: state.layers.layers,
+  selectedLayer: getSelectedLayer(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

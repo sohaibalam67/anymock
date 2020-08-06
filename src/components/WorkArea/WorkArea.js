@@ -3,6 +3,7 @@ import styles from "./WorkArea.module.css";
 import Slider from "@material-ui/core/Slider";
 import { connect } from "react-redux";
 import { updateCanvas } from "../../store/actions/canvas";
+import { updateSelectedItemId } from "../../store/actions/layer";
 import { setActivePane } from "../../store/actions/rightPane";
 import { CANVAS_PANE, DEVICE_PANE } from "../../constants/rightPane";
 import { fabric } from "fabric";
@@ -97,10 +98,12 @@ class WorkArea extends Component {
 
   objectSelected = (event) => {
     let activeObject = this.canvas.getActiveObject();
+    this.props.updateSelectedItemId(activeObject.id);
     this.props.setActivePane(DEVICE_PANE);
   };
 
   selectionCleared = (event) => {
+    this.props.updateSelectedItemId(null);
     this.props.setActivePane(CANVAS_PANE);
   };
 
@@ -163,6 +166,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   updateCanvas: (canvas) => dispatch(updateCanvas(canvas)),
   setActivePane: (activePane) => dispatch(setActivePane(activePane)),
+  updateSelectedItemId: (id) => dispatch(updateSelectedItemId(id)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkArea);

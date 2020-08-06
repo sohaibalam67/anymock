@@ -1,6 +1,7 @@
 import {
   ADD_LAYER_ITEM,
   UPDATE_LAYER_DEVICE_SCREEN_SOURCE,
+  UPDATE_SELECTED_ITEM_ID,
 } from "./actionTypes";
 
 export const addItemToLayer = (item) => {
@@ -15,5 +16,12 @@ export const updateDeviceScreenSource = (id, source) => {
     type: UPDATE_LAYER_DEVICE_SCREEN_SOURCE,
     id,
     source,
+  };
+};
+
+export const updateSelectedItemId = (id) => {
+  return {
+    type: UPDATE_SELECTED_ITEM_ID,
+    id,
   };
 };
