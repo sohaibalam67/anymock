@@ -20,3 +20,21 @@ export const getSelectedLayer = createSelector(
     return selectedLayer;
   }
 );
+
+export const getSelectedLayerIndex = createSelector(
+  [getSelectedItemId, getLayers],
+  (selectedItemId, layers) => {
+    if (selectedItemId === null) {
+      return null;
+    }
+
+    let selectedLayerIndex = null;
+    for (let index = 0; index < layers.length; index++) {
+      if (layers[index].id === selectedItemId) {
+        selectedLayerIndex = index;
+        break;
+      }
+    }
+    return selectedLayerIndex;
+  }
+);

@@ -17,16 +17,14 @@ const INITIAL_STATE = {
 };
 
 const canvasReducer = (state = INITIAL_STATE, action) => {
-  let canvas = null;
-  let preset = null;
-  let width = null;
-  let height = null;
-  let background = null;
+  let canvas = state.canvas;
+  let preset = state.preset;
+  let width = state.width;
+  let height = state.height;
+  let background = state.background;
 
   switch (action.type) {
     case UPDATE_CANVAS:
-      canvas = state.canvas;
-
       if (action.canvas) {
         canvas = action.canvas;
       }
@@ -37,10 +35,6 @@ const canvasReducer = (state = INITIAL_STATE, action) => {
       };
 
     case UPDATE_PRESET:
-      preset = state.preset;
-      width = state.width;
-      height = state.height;
-
       if (action.preset) {
         preset = action.preset;
         if (preset.id !== CUSTOM_CANVAS) {
@@ -57,9 +51,6 @@ const canvasReducer = (state = INITIAL_STATE, action) => {
       };
 
     case UPDATE_WIDTH:
-      width = state.width;
-      preset = state.preset;
-
       if (action.width >= 0) {
         width = action.width;
         preset = presets[0];
@@ -72,9 +63,6 @@ const canvasReducer = (state = INITIAL_STATE, action) => {
       };
 
     case UPDATE_HEIGHT:
-      height = state.height;
-      preset = state.preset;
-
       if (action.height >= 0) {
         height = action.height;
         preset = presets[0];
@@ -87,8 +75,6 @@ const canvasReducer = (state = INITIAL_STATE, action) => {
       };
 
     case UPDATE_BACKGROUND:
-      background = state.background;
-
       if (action.color) {
         background = action.color;
       }

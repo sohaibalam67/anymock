@@ -3,10 +3,14 @@ import styles from "./WorkArea.module.css";
 import Slider from "@material-ui/core/Slider";
 import { connect } from "react-redux";
 import { updateCanvas } from "../../store/actions/canvas";
-import { updateSelectedItemId } from "../../store/actions/layer";
+import {
+  updateSelectedItemId,
+  updateItemPositionByIndex,
+} from "../../store/actions/layer";
 import { setActivePane } from "../../store/actions/rightPane";
 import { CANVAS_PANE, DEVICE_PANE } from "../../constants/rightPane";
 import { fabric } from "fabric";
+import { getSelectedLayerIndex } from "../../store/selectors";
 
 class WorkArea extends Component {
   constructor(props) {
@@ -42,6 +46,7 @@ class WorkArea extends Component {
       "selection:cleared": this.selectionCleared,
       "object:selected": this.objectSelected,
       "selection:updated": this.objectSelected,
+      "mouse:up": this.objectMouseUp,
     });
 
     let horizontal_line = new fabric.Line(
@@ -107,6 +112,19 @@ class WorkArea extends Component {
     this.props.setActivePane(CANVAS_PANE);
   };
 
+  objectMouseUp = (event) => {
+    if (
+      this.props.selectedLayerIndex !== null &&
+      this.props.selectedLayerIndex >= 0
+    ) {
+      this.props.updateItemPositionByIndex(
+        this.props.selectedLayerIndex,
+        event.target.left,
+        event.target.top
+      );
+    }
+  };
+
   changeZoom = (event, value) => {
     this.setState({ zoom: value });
     this.canvas.calcOffset();
@@ -161,12 +179,15 @@ const mapStateToProps = (state) => ({
   width: state.canvas.width,
   height: state.canvas.height,
   background: state.canvas.background,
+  selectedLayerIndex: getSelectedLayerIndex(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   updateCanvas: (canvas) => dispatch(updateCanvas(canvas)),
   setActivePane: (activePane) => dispatch(setActivePane(activePane)),
   updateSelectedItemId: (id) => dispatch(updateSelectedItemId(id)),
+  updateItemPositionByIndex: (index, left, top) =>
+    dispatch(updateItemPositionByIndex(index, left, top)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkArea);

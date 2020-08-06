@@ -110,6 +110,19 @@ class DevicePane extends Component {
       { value: "fill", label: "Fill" },
     ];
 
+    let screenSource = null;
+    let left = null;
+    let top = null;
+
+    if (
+      this.props.selectedLayer !== null &&
+      Object.values(DEVICE_TYPES).includes(this.props.selectedLayer.type)
+    ) {
+      screenSource = this.props.selectedLayer.screenSource ?? null;
+      left = this.props.selectedLayer.transforms.left ?? null;
+      top = this.props.selectedLayer.transforms.top ?? null;
+    }
+
     return (
       <div>
         <h6
@@ -134,7 +147,7 @@ class DevicePane extends Component {
                       // this.props.updateWidth(event.target.value);
                     }}
                     placeholder="Left"
-                    value={this.props.width}
+                    value={left}
                   />
                   <span className={styles.modifier}>X</span>
                 </div>
@@ -145,7 +158,7 @@ class DevicePane extends Component {
                       // this.props.updateHeight(event.target.value);
                     }}
                     placeholder="Top"
-                    value={this.props.height}
+                    value={top}
                   />
                   <span className={styles.modifier}>Y</span>
                 </div>
@@ -199,11 +212,7 @@ class DevicePane extends Component {
         <div style={{ paddingTop: "15px", paddingBottom: "15px" }}>
           <ImageDrop
             title="Drop your screenshot here"
-            file={
-              this.props.selectedLayer
-                ? this.props.selectedLayer.screenSource
-                : null
-            }
+            file={screenSource}
             setImageFile={this.setImageFile}
           />
           <div className={styles.optionRow} style={{ marginTop: "15px" }}>

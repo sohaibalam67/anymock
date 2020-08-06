@@ -3,6 +3,7 @@ import _ from "lodash";
 import {
   ADD_LAYER_ITEM,
   UPDATE_SELECTED_ITEM_ID,
+  UPDATE_ITEM_POSITION_BY_INDEX,
   UPDATE_LAYER_DEVICE_SCREEN_SOURCE,
 } from "../actions/actionTypes";
 
@@ -12,13 +13,11 @@ const INITIAL_STATE = {
 };
 
 const layersReducer = (state = INITIAL_STATE, action) => {
-  let layers = [];
-  let selectedItemId = null;
+  let layers = [...state.layers];
+  let selectedItemId = state.selectedItemId;
 
   switch (action.type) {
     case ADD_LAYER_ITEM:
-      layers = [...state.layers];
-
       if (typeof action.item === "object" && action.item.hasOwnProperty("id")) {
         layers.push(action.item);
       }
@@ -29,7 +28,6 @@ const layersReducer = (state = INITIAL_STATE, action) => {
       };
 
     case UPDATE_SELECTED_ITEM_ID:
-      selectedItemId = state.selectedItemId;
       selectedItemId = action.id;
 
       return {
@@ -37,9 +35,26 @@ const layersReducer = (state = INITIAL_STATE, action) => {
         selectedItemId,
       };
 
-    case UPDATE_LAYER_DEVICE_SCREEN_SOURCE:
-      layers = [...state.layers];
+    case UPDATE_ITEM_POSITION_BY_INDEX:
+      if (
+        typeof action.index === "number" &&
+        typeof action.left === "number" &&
+        typeof action.top === "number" &&
+        action.index >= 0
+      ) {
+        layers = Object.assign([], state.layers);
+        let transforms = { ...layers[action.index].transforms };
+        transforms.top = action.top;
+        transforms.left = action.left;
+        layers[action.index].transforms = transforms;
+      }
 
+      return {
+        ...state,
+        layers,
+      };
+
+    case UPDATE_LAYER_DEVICE_SCREEN_SOURCE:
       const item_index = _.findIndex(layers, { id: action.id });
 
       if (item_index >= 0) {
