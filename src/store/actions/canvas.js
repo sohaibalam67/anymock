@@ -1,5 +1,6 @@
 import {
   UPDATE_CANVAS,
+  UPDATE_PRESET,
   UPDATE_WIDTH,
   UPDATE_HEIGHT,
   UPDATE_BACKGROUND,
@@ -9,6 +10,13 @@ export const updateCanvas = (canvas) => {
   return {
     type: UPDATE_CANVAS,
     canvas,
+  };
+};
+
+export const updatePreset = (preset) => {
+  return {
+    type: UPDATE_PRESET,
+    preset,
   };
 };
 

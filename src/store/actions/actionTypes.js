@@ -1,5 +1,6 @@
 // Canvas Types
 export const UPDATE_CANVAS = "UPDATE_CANVAS";
+export const UPDATE_PRESET = "UPDATE_PRESET";
 export const UPDATE_WIDTH = "UPDATE_WIDTH";
 export const UPDATE_HEIGHT = "UPDATE_HEIGHT";
 export const UPDATE_BACKGROUND = "UPDATE_BACKGROUND";

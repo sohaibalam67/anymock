@@ -7,6 +7,7 @@ import styles from "./CanvasPane.module.css";
 import { presets } from "../../../constants/canvas";
 
 import {
+  updatePreset,
   updateWidth,
   updateHeight,
   updateBackground,
@@ -59,8 +60,10 @@ class CanvasPane extends Component {
             <div className={styles.canvasOptionsLabel}>Preset</div>
             <div className={styles.canvasOptionsInput}>
               <Select
-                value={presets[0]}
-                onChange={() => {}}
+                value={this.props.preset}
+                onChange={(value) => {
+                  this.props.updatePreset(value);
+                }}
                 options={presets}
                 styles={{
                   control: (provided) => ({
@@ -248,6 +251,7 @@ class CanvasPane extends Component {
 
 const mapStateToProps = (state) => ({
   canvas: state.canvas.canvas,
+  preset: state.canvas.preset,
   width: state.canvas.width,
   height: state.canvas.height,
   background: state.canvas.background,
@@ -255,6 +259,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  updatePreset: (preset) => dispatch(updatePreset(preset)),
   updateWidth: (width) => dispatch(updateWidth(width)),
   updateHeight: (height) => dispatch(updateHeight(height)),
   updateBackground: (color) => dispatch(updateBackground(color)),
