@@ -5,6 +5,7 @@ import {
   UPDATE_DEVICE_SCREEN_FIT_BY_INDEX,
   UPDATE_ITEM_ANGLE_BY_INDEX,
   UPDATE_SELECTED_ITEM_ID,
+  UPDATE_LAYER_ITEM,
 } from "./actionTypes";
 
 export const addItemToLayer = (item) => {
@@ -26,6 +27,13 @@ export const updateSelectedItemId = (id) => {
   return {
     type: UPDATE_SELECTED_ITEM_ID,
     id,
+  };
+};
+
+export const updateLayerItem = (item) => {
+  return {
+    type: UPDATE_LAYER_ITEM,
+    item,
   };
 };
 

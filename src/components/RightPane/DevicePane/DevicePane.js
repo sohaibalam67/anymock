@@ -5,6 +5,7 @@ import {
   updateItemPositionByIndex,
   updateItemAngleByIndex,
   updateDeviceSreenFitByIndex,
+  updateLayerItem,
 } from "../../../store/actions/layer";
 import ImageDrop from "../../Commons/ImageDrop/ImageDrop";
 import _ from "lodash";
@@ -65,17 +66,20 @@ class DevicePane extends Component {
 
     let items = activeObject.getObjects();
 
+    let deviceInfo = {
+      device_id: device.id,
+      device_name: device.name,
+      variant_id: variant.id,
+      device_type: device.type,
+      source: variant.source,
+      baseWidth: device.baseWidth,
+      screenOffset: device.screenOffset,
+    };
+
     let group = await addDeviceGroup(
       id,
-      device.name,
-      {
-        id: device.id,
-        variant_id: variant.id,
-        type: device.type,
-        source: variant.source,
-        baseWidth: device.baseWidth,
-        screenOffset: device.screenOffset,
-      },
+      deviceInfo.device_name,
+      deviceInfo,
       items[0].getSrc(),
       transforms
     );
@@ -84,6 +88,13 @@ class DevicePane extends Component {
     this.props.canvas.remove(activeObject);
     this.props.canvas.setActiveObject(group);
     this.props.canvas.renderAll();
+
+    this.props.updateLayerItem({
+      id: id,
+      name: device.name,
+      device_id: device.id,
+      variant_id: variant.id,
+    });
   };
 
   changeScreenFit = (value) => {
@@ -416,6 +427,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
+  updateLayerItem: (item) => dispatch(updateLayerItem(item)),
   updateDeviceScreenSource: (id, source) =>
     dispatch(updateDeviceScreenSource(id, source)),
   updateItemPositionByIndex: (index, left, top) =>

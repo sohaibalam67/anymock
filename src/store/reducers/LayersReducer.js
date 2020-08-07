@@ -9,6 +9,7 @@ import {
   UPDATE_ITEM_POSITION_BY_INDEX,
   UPDATE_LAYER_DEVICE_SCREEN_SOURCE,
   UPDATE_DEVICE_SCREEN_FIT_BY_INDEX,
+  UPDATE_LAYER_ITEM,
 } from "../actions/actionTypes";
 
 const INITIAL_STATE = {
@@ -25,6 +26,22 @@ const layersReducer = (state = INITIAL_STATE, action) => {
       if (typeof action.item === "object" && action.item.hasOwnProperty("id")) {
         layers.push(action.item);
       }
+
+      return {
+        ...state,
+        layers,
+      };
+
+    case UPDATE_LAYER_ITEM:
+      if (typeof action.item === "object" && action.item.hasOwnProperty("id")) {
+        const item_index = _.findIndex(layers, { id: action.item.id });
+
+        if (item_index >= 0) {
+          layers[item_index] = { ...layers[item_index], ...action.item };
+        }
+      }
+
+      console.log(layers);
 
       return {
         ...state,

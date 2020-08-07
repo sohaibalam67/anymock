@@ -9,6 +9,7 @@ import { addItemToLayer } from "../../store/actions/layer";
 import { addDeviceGroup, downloadAsPNG } from "../../helpers/image";
 import { devices } from "../../constants/devices";
 import { SCREEN_SIZE_FILL } from "../../constants/screen";
+import Layers from "./Layers/Layers";
 
 const logo = require("../../assets/images/logo.svg");
 const arrowBack = require("../../assets/images/icons/app/arrow-back-outline.svg");
@@ -106,25 +107,28 @@ class LeftPane extends Component {
         ) : null}
         {this.state.activeSegment === SEGMENT_OBJECT ? (
           <>
-            <ObjectsContainer
-              addFrameToScreen={() => {
-                this.addDevice(devices.phones[0]);
-              }}
-            />
-            <motion.button
-              // onClick={() => {
-              //   this.switchActiveSegment(SEGMENT_TEMPLATE);
-              // }}
-              onClick={() => {
-                downloadAsPNG(this.props.canvas);
-              }}
-              className={styles.chooseFromTemplatesButton}
-              whileTap={{
-                scale: 0.96,
-              }}
-            >
-              Choose a template
-            </motion.button>
+            <div className={styles.toolsContainer}>
+              <ObjectsContainer
+                addFrameToScreen={() => {
+                  this.addDevice(devices.phones[0]);
+                }}
+              />
+              <motion.button
+                // onClick={() => {
+                //   this.switchActiveSegment(SEGMENT_TEMPLATE);
+                // }}
+                onClick={() => {
+                  downloadAsPNG(this.props.canvas);
+                }}
+                className={styles.chooseFromTemplatesButton}
+                whileTap={{
+                  scale: 0.96,
+                }}
+              >
+                Choose a template
+              </motion.button>
+            </div>
+            <Layers />
           </>
         ) : null}
       </div>

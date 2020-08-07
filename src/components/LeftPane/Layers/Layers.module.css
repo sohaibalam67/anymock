@@ -1,0 +1,10 @@
+.itemContainer {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 6px 12px 6px 12px;
+  display: flex;
+}
+
+.itemName {
+  font-size: 0.7rem;
+  color: #ffffff;
+}
