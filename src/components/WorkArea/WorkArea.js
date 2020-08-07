@@ -114,6 +114,10 @@ class WorkArea extends Component {
   };
 
   objectMouseUp = (event) => {
+    if (!event.target) {
+      return;
+    }
+
     if (
       this.props.selectedLayerIndex !== null &&
       this.props.selectedLayerIndex >= 0
@@ -135,9 +139,16 @@ class WorkArea extends Component {
     this.canvas.calcOffset();
   };
 
+  deselectAllItemsOnCanvas = (event) => {
+    event.preventDefault();
+    if (this.canvas && event.target === event.currentTarget) {
+      this.canvas.discardActiveObject().renderAll();
+    }
+  };
+
   render() {
     return (
-      <div className={styles.container}>
+      <div className={styles.container} onClick={this.deselectAllItemsOnCanvas}>
         <div className={styles.zoomControlContainer}>
           <div className={styles.controlsContainer}>
             <span className={styles.zoomLabel}>{this.state.zoom}%</span>
