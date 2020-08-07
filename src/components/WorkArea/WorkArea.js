@@ -6,6 +6,7 @@ import { updateCanvas } from "../../store/actions/canvas";
 import {
   updateSelectedItemId,
   updateItemPositionByIndex,
+  updateItemAngleByIndex,
 } from "../../store/actions/layer";
 import { setActivePane } from "../../store/actions/rightPane";
 import { CANVAS_PANE, DEVICE_PANE } from "../../constants/rightPane";
@@ -122,6 +123,10 @@ class WorkArea extends Component {
         event.target.left,
         event.target.top
       );
+      this.props.updateItemAngleByIndex(
+        this.props.selectedLayerIndex,
+        event.target.angle
+      );
     }
   };
 
@@ -188,6 +193,8 @@ const mapDispatchToProps = (dispatch) => ({
   updateSelectedItemId: (id) => dispatch(updateSelectedItemId(id)),
   updateItemPositionByIndex: (index, left, top) =>
     dispatch(updateItemPositionByIndex(index, left, top)),
+  updateItemAngleByIndex: (index, angle) =>
+    dispatch(updateItemAngleByIndex(index, angle)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkArea);

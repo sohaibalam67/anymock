@@ -1,10 +1,14 @@
 import _ from "lodash";
+import { isNumber } from "../../helpers/common";
+import { SCREEN_SIZE_FILL, SCREEN_SIZE_FIT } from "../../constants/screen";
 
 import {
   ADD_LAYER_ITEM,
   UPDATE_SELECTED_ITEM_ID,
+  UPDATE_ITEM_ANGLE_BY_INDEX,
   UPDATE_ITEM_POSITION_BY_INDEX,
   UPDATE_LAYER_DEVICE_SCREEN_SOURCE,
+  UPDATE_DEVICE_SCREEN_FIT_BY_INDEX,
 } from "../actions/actionTypes";
 
 const INITIAL_STATE = {
@@ -37,15 +41,33 @@ const layersReducer = (state = INITIAL_STATE, action) => {
 
     case UPDATE_ITEM_POSITION_BY_INDEX:
       if (
-        typeof action.index === "number" &&
-        typeof action.left === "number" &&
-        typeof action.top === "number" &&
+        isNumber(action.index) &&
+        isNumber(action.left) &&
+        isNumber(action.top) &&
         action.index >= 0
       ) {
         layers = Object.assign([], state.layers);
         let transforms = { ...layers[action.index].transforms };
-        transforms.top = action.top;
-        transforms.left = action.left;
+        transforms.top = Math.round(action.top * 100 + Number.EPSILON) / 100;
+        transforms.left = Math.round(action.left * 100 + Number.EPSILON) / 100;
+        layers[action.index].transforms = transforms;
+      }
+
+      return {
+        ...state,
+        layers,
+      };
+
+    case UPDATE_ITEM_ANGLE_BY_INDEX:
+      if (
+        isNumber(action.index) &&
+        isNumber(action.angle) &&
+        action.index >= 0
+      ) {
+        layers = Object.assign([], state.layers);
+        let transforms = { ...layers[action.index].transforms };
+        transforms.angle =
+          Math.round(action.angle * 100 + Number.EPSILON) / 100;
         layers[action.index].transforms = transforms;
       }
 
@@ -59,6 +81,22 @@ const layersReducer = (state = INITIAL_STATE, action) => {
 
       if (item_index >= 0) {
         layers[item_index].screenSource = action.source;
+      }
+
+      return {
+        ...state,
+        layers,
+      };
+
+    case UPDATE_DEVICE_SCREEN_FIT_BY_INDEX:
+      if (
+        isNumber(action.index) &&
+        action.index >= 0 &&
+        action.index < state.layers.length &&
+        [SCREEN_SIZE_FILL, SCREEN_SIZE_FIT].includes(action.fit)
+      ) {
+        layers = Object.assign([], state.layers);
+        layers[action.index].screenSize = action.fit;
       }
 
       return {

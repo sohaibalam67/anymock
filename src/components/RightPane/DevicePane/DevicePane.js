@@ -1,6 +1,11 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { updateDeviceScreenSource } from "../../../store/actions/layer";
+import {
+  updateDeviceScreenSource,
+  updateItemPositionByIndex,
+  updateItemAngleByIndex,
+  updateDeviceSreenFitByIndex,
+} from "../../../store/actions/layer";
 import ImageDrop from "../../Commons/ImageDrop/ImageDrop";
 import _ from "lodash";
 import { addDeviceGroup } from "../../../helpers/image";
@@ -9,7 +14,12 @@ import { devices, DEVICE_TYPES } from "../../../constants/devices";
 import DeviceCard from "../../Commons/DeviceCard/DeviceCard";
 import styles from "./DevicePane.module.css";
 import Select from "react-select";
-import { getSelectedLayer } from "../../../store/selectors";
+import {
+  getSelectedLayer,
+  getSelectedLayerIndex,
+} from "../../../store/selectors";
+import { isNumber } from "../../../helpers/common";
+import { SCREEN_SIZE_FIT, SCREEN_SIZE_FILL } from "../../../constants/screen";
 
 class DevicePane extends Component {
   constructor(props) {
@@ -79,7 +89,7 @@ class DevicePane extends Component {
   changeScreenFit = (value) => {
     let activeObject = this.props.canvas.getActiveObject();
 
-    if (value.value === "fill") {
+    if (value.value === SCREEN_SIZE_FILL) {
       activeObject._objects[0].set({
         scaleX:
           activeObject.device_screen_offset.width /
@@ -90,7 +100,7 @@ class DevicePane extends Component {
       });
     }
 
-    if (value.value === "fit") {
+    if (value.value === SCREEN_SIZE_FIT) {
       activeObject._objects[0].set({
         scaleX:
           activeObject.device_screen_offset.width /
@@ -101,18 +111,107 @@ class DevicePane extends Component {
       });
     }
 
+    this.props.updateDeviceSreenFitByIndex(
+      this.props.selectedLayerIndex,
+      value.value
+    );
+
     this.props.canvas.renderAll();
+  };
+
+  changeActiveDevicePosition = (left, top) => {
+    let activeObject = this.props.canvas.getActiveObject();
+    let objectLeft = activeObject.left;
+    let objectTop = activeObject.top;
+
+    activeObject.set({
+      left: left ?? objectLeft,
+      top: top ?? objectTop,
+    });
+
+    activeObject.setCoords();
+    this.props.canvas.renderAll();
+  };
+
+  changeActiveDeviceAngle = (angle) => {
+    let activeObject = this.props.canvas.getActiveObject();
+
+    if (isNumber(angle)) {
+      activeObject.rotate(angle);
+    }
+
+    activeObject.setCoords();
+    this.props.canvas.renderAll();
+  };
+
+  handleLeftPositionChange = (event) => {
+    let value = +event.target.value;
+
+    if (!isNumber(value)) {
+      return;
+    }
+
+    if (
+      this.props.selectedLayerIndex !== null &&
+      this.props.selectedLayerIndex >= 0
+    ) {
+      this.changeActiveDevicePosition(value, null);
+      this.props.updateItemPositionByIndex(
+        this.props.selectedLayerIndex,
+        value,
+        this.props.selectedLayer.transforms.top
+      );
+    }
+  };
+
+  handleTopPositionChange = (event) => {
+    let value = +event.target.value;
+
+    if (!isNumber(value)) {
+      return;
+    }
+
+    if (
+      this.props.selectedLayerIndex !== null &&
+      this.props.selectedLayerIndex >= 0
+    ) {
+      this.changeActiveDevicePosition(null, value);
+      this.props.updateItemPositionByIndex(
+        this.props.selectedLayerIndex,
+        this.props.selectedLayer.transforms.left,
+        value
+      );
+    }
+  };
+
+  handleAngleChange = (event) => {
+    let value = +event.target.value;
+
+    if (!isNumber(value)) {
+      return;
+    }
+
+    if (
+      this.props.selectedLayerIndex !== null &&
+      this.props.selectedLayerIndex >= 0
+    ) {
+      this.changeActiveDeviceAngle(value);
+      this.props.updateItemAngleByIndex(this.props.selectedLayerIndex, value);
+    }
   };
 
   render() {
     let options = [
-      { value: "fit", label: "Fit" },
-      { value: "fill", label: "Fill" },
+      { value: SCREEN_SIZE_FIT, label: "Fit" },
+      { value: SCREEN_SIZE_FILL, label: "Fill" },
     ];
 
     let screenSource = null;
     let left = null;
     let top = null;
+    let angle = null;
+    let screenSize = null;
+    let screenSizeValue = null;
 
     if (
       this.props.selectedLayer !== null &&
@@ -121,6 +220,14 @@ class DevicePane extends Component {
       screenSource = this.props.selectedLayer.screenSource ?? null;
       left = this.props.selectedLayer.transforms.left ?? null;
       top = this.props.selectedLayer.transforms.top ?? null;
+      angle = this.props.selectedLayer.transforms.angle ?? null;
+      screenSize = this.props.selectedLayer.screenSize ?? null;
+
+      if (options[0].value === screenSize) {
+        screenSizeValue = options[0];
+      } else {
+        screenSizeValue = options[1];
+      }
     }
 
     return (
@@ -143,9 +250,7 @@ class DevicePane extends Component {
                 <div className={styles.column}>
                   <input
                     className={styles.inputBox}
-                    onChange={(event) => {
-                      // this.props.updateWidth(event.target.value);
-                    }}
+                    onChange={this.handleLeftPositionChange}
                     placeholder="Left"
                     value={left}
                   />
@@ -154,14 +259,29 @@ class DevicePane extends Component {
                 <div className={styles.column}>
                   <input
                     className={styles.inputBox}
-                    onChange={(event) => {
-                      // this.props.updateHeight(event.target.value);
-                    }}
+                    onChange={this.handleTopPositionChange}
                     placeholder="Top"
                     value={top}
                   />
                   <span className={styles.modifier}>Y</span>
                 </div>
+              </div>
+            </div>
+          </div>
+          <div className={styles.optionRow}>
+            <div className={styles.optionsLabel}>Rotation</div>
+            <div className={styles.optionsInput}>
+              <div className={styles.row}>
+                <div className={styles.column}>
+                  <input
+                    className={styles.inputBox}
+                    onChange={this.handleAngleChange}
+                    placeholder="Angle"
+                    value={angle}
+                  />
+                  <span className={styles.modifier}>°</span>
+                </div>
+                <div className={styles.column}></div>
               </div>
             </div>
           </div>
@@ -219,7 +339,7 @@ class DevicePane extends Component {
             <div className={styles.optionsLabel}>Fitting</div>
             <div className={styles.optionsInput}>
               <Select
-                value={options[0]}
+                value={screenSizeValue}
                 onChange={this.changeScreenFit}
                 options={options}
                 styles={{
@@ -292,11 +412,18 @@ const mapStateToProps = (state) => ({
   canvas: state.canvas.canvas,
   layers: state.layers.layers,
   selectedLayer: getSelectedLayer(state),
+  selectedLayerIndex: getSelectedLayerIndex(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
   updateDeviceScreenSource: (id, source) =>
     dispatch(updateDeviceScreenSource(id, source)),
+  updateItemPositionByIndex: (index, left, top) =>
+    dispatch(updateItemPositionByIndex(index, left, top)),
+  updateItemAngleByIndex: (index, angle) =>
+    dispatch(updateItemAngleByIndex(index, angle)),
+  updateDeviceSreenFitByIndex: (index, fit) =>
+    dispatch(updateDeviceSreenFitByIndex(index, fit)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DevicePane);
