@@ -44,36 +44,44 @@ class WorkArea extends Component {
     // });
 
     this.canvas.on({
+      "object:rotating": this.centerLines,
+      "object:moving": this.centerLines,
+      "object:modified": this.centerLines,
+      "object:scaling": this.centerLines,
       "selection:cleared": this.selectionCleared,
       "object:selected": this.objectSelected,
       "selection:updated": this.objectSelected,
       "mouse:up": this.objectMouseUp,
     });
 
-    let horizontal_line = new fabric.Line(
+    this.line_h = new fabric.Line(
       [this.canvas.width / 2, 0, this.canvas.width / 2, this.canvas.width],
       {
         stroke: "red",
         opacity: 0,
+        strokeWidth: 3,
         selectable: false,
         evented: false,
-        name: "horizontal_line",
+        id: "line_h",
+        name: "line_h",
       }
     );
 
-    let vertical_line = new fabric.Line(
+    this.line_v = new fabric.Line(
       [0, this.canvas.height / 2, this.canvas.width, this.canvas.height / 2],
       {
         stroke: "red",
         opacity: 0,
+        strokeWidth: 3,
         selectable: false,
         evented: false,
-        name: "vertical_line",
+        id: "line_v",
+        name: "line_v",
       }
     );
 
-    this.canvas.add(horizontal_line);
-    this.canvas.add(vertical_line);
+    this.canvas.add(this.line_h);
+    this.canvas.add(this.line_v);
 
     this.canvas.renderAll();
 
@@ -89,10 +97,20 @@ class WorkArea extends Component {
 
     if (oldProps.width !== newProps.width) {
       this.canvas.setWidth(newProps.width);
+      // adjust guideline
+      this.line_v.top = this.canvas.height / 2;
+      this.line_h.left = this.canvas.width / 2;
+      this.line_v.width = this.canvas.width;
+      this.line_h.height = this.canvas.height;
     }
 
     if (oldProps.height !== newProps.height) {
       this.canvas.setHeight(newProps.height);
+      // adjust guideline
+      this.line_v.top = newProps.height / 2;
+      this.line_h.left = this.canvas.width / 2;
+      this.line_v.width = this.canvas.width;
+      this.line_h.height = newProps.height;
     }
 
     this.canvas.renderAll();
@@ -114,6 +132,8 @@ class WorkArea extends Component {
   };
 
   objectMouseUp = (event) => {
+    this.hideLines();
+
     if (!event.target) {
       return;
     }
@@ -132,6 +152,58 @@ class WorkArea extends Component {
         event.target.angle
       );
     }
+  };
+
+  // Show alignment guides
+  centerLines = (event) => {
+    // TODO: activeGuideLine switch
+    if (true) {
+      const snapZone = 10;
+      const obj_v =
+        event.target.left +
+        (event.target.get("width") * event.target.scaleX) / 2;
+      const obj_h =
+        event.target.top +
+        (event.target.get("height") * event.target.scaleY) / 2;
+      if (
+        obj_v > this.canvas.width / 2 - snapZone &&
+        obj_v < this.canvas.width / 2 + snapZone
+      ) {
+        this.line_h.opacity = 1;
+        this.line_h.bringToFront();
+        event.target
+          .set({
+            left:
+              this.canvas.width / 2 -
+              (event.target.get("width") * event.target.scaleX) / 2,
+          })
+          .setCoords();
+      } else {
+        this.line_h.opacity = 0;
+      }
+      if (
+        obj_h > this.canvas.height / 2 - snapZone &&
+        obj_h < this.canvas.height / 2 + snapZone
+      ) {
+        this.line_v.opacity = 1;
+        this.line_v.bringToFront();
+        event.target
+          .set({
+            top:
+              this.canvas.height / 2 -
+              (event.target.get("height") * event.target.scaleY) / 2,
+          })
+          .setCoords();
+      } else {
+        this.line_v.opacity = 0;
+      }
+    }
+  };
+
+  // Hide alignment guides
+  hideLines = () => {
+    this.line_h.opacity = 0;
+    this.line_v.opacity = 0;
   };
 
   changeZoom = (event, value) => {

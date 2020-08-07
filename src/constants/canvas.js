@@ -74,7 +74,7 @@ export const presets = [
   },
   {
     id: INSTAGRAM_PHOTO,
-    label: "Instagram Square Photo",
+    label: "Instagram Photo",
     width: 1080,
     height: 1080,
   },
