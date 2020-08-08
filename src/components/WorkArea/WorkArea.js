@@ -7,6 +7,7 @@ import {
   updateSelectedItemId,
   updateItemPositionByIndex,
   updateItemAngleByIndex,
+  deleteItemsByIds,
 } from "../../store/actions/layer";
 import { setActivePane } from "../../store/actions/rightPane";
 import { CANVAS_PANE, DEVICE_PANE } from "../../constants/rightPane";
@@ -17,6 +18,7 @@ import {
   mergeColorAndOpacity,
   opacityPercentToHex,
 } from "../../helpers/common";
+import Hotkeys from "react-hot-keys";
 
 class WorkArea extends Component {
   constructor(props) {
@@ -233,36 +235,81 @@ class WorkArea extends Component {
     }
   };
 
+  onKeyDown(keyName, e, handle) {
+    e.preventDefault();
+    if (keyName === "backspace") {
+      let activeObjects = this.canvas.getActiveObjects();
+
+      if (!(Array.isArray(activeObjects) && activeObjects.length > 0)) {
+        return;
+      }
+
+      let ids = [];
+
+      for (let object of activeObjects) {
+        if (object.id) {
+          ids.push(object.id);
+        }
+      }
+      this.props.deleteItemsByIds(ids);
+      this.canvas.discardActiveObject();
+      this.canvas.remove(...activeObjects);
+      this.canvas.renderAll();
+    }
+
+    if (
+      keyName === "cmd+a" ||
+      keyName === "control+a" ||
+      keyName === "ctrl+a"
+    ) {
+      let objs = this.canvas.getObjects().filter((obj) => {
+        return !(obj.id === "line_h" || obj.id === "line_v");
+      });
+
+      let selection = new fabric.ActiveSelection(objs, {
+        canvas: this.canvas,
+      });
+      this.canvas.setActiveObject(selection).renderAll();
+    }
+  }
+
   render() {
     return (
-      <div className={styles.container} onClick={this.deselectAllItemsOnCanvas}>
-        <div className={styles.zoomControlContainer}>
-          <div className={styles.controlsContainer}>
-            <span className={styles.zoomLabel}>{this.state.zoom}%</span>
-            <div className={styles.sliderContainer}>
-              <Slider
-                value={this.state.zoom}
-                min={10}
-                step={1}
-                max={100}
-                onChange={this.changeZoom}
-              />
-            </div>
-            {/* <Icon icon="zoom-in" iconSize={16} color="rgba(255,255,255,0.6)" /> */}
-          </div>
-        </div>
+      <Hotkeys
+        keyName="backspace,cmd+a,control+a,ctrl+a"
+        onKeyDown={this.onKeyDown.bind(this)}
+      >
         <div
-          // className={styles.canvasContainer}
-          // style={{
-          //   width: `${1800 * (this.state.zoom / 100)}px`,
-          //   height: `${1200 * (this.state.zoom / 100)}px`,
-          // }}
-          style={{
-            margin: "100px",
-            transform: `scale(${this.state.zoom / 100})`,
-          }}
+          className={styles.container}
+          onClick={this.deselectAllItemsOnCanvas}
         >
-          {/* <div
+          <div className={styles.zoomControlContainer}>
+            <div className={styles.controlsContainer}>
+              <span className={styles.zoomLabel}>{this.state.zoom}%</span>
+              <div className={styles.sliderContainer}>
+                <Slider
+                  value={this.state.zoom}
+                  min={10}
+                  step={1}
+                  max={100}
+                  onChange={this.changeZoom}
+                />
+              </div>
+              {/* <Icon icon="zoom-in" iconSize={16} color="rgba(255,255,255,0.6)" /> */}
+            </div>
+          </div>
+          <div
+            // className={styles.canvasContainer}
+            // style={{
+            //   width: `${1800 * (this.state.zoom / 100)}px`,
+            //   height: `${1200 * (this.state.zoom / 100)}px`,
+            // }}
+            style={{
+              margin: "100px",
+              transform: `scale(${this.state.zoom / 100})`,
+            }}
+          >
+            {/* <div
             className={styles.canvas}
             style={{
               minWidth: `${this.props.width}px`,
@@ -271,18 +318,19 @@ class WorkArea extends Component {
               transform: `scale(${this.state.zoom / 100})`,
             }}
           ></div> */}
-          <div
-            style={{
-              position: "absolute",
-              minWidth: `${this.props.width}px`,
-              minHeight: `${this.props.height}px`,
-              background:
-                "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAEhJREFUWAnt1rENADAIA0HICuy/IZ4BsoMjpXn6l9A1kN09YUxVGXXEseoHMQsggAACCCCAQM4d56pKcnL+AQQQQAABBBD4L7D9Pwr+3ufr7AAAAABJRU5ErkJggg==')",
-            }}
-          ></div>
-          <canvas id="fabricCanvas"></canvas>
+            <div
+              style={{
+                position: "absolute",
+                minWidth: `${this.props.width}px`,
+                minHeight: `${this.props.height}px`,
+                background:
+                  "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAEhJREFUWAnt1rENADAIA0HICuy/IZ4BsoMjpXn6l9A1kN09YUxVGXXEseoHMQsggAACCCCAQM4d56pKcnL+AQQQQAABBBD4L7D9Pwr+3ufr7AAAAABJRU5ErkJggg==')",
+              }}
+            ></div>
+            <canvas id="fabricCanvas"></canvas>
+          </div>
         </div>
-      </div>
+      </Hotkeys>
     );
   }
 }
@@ -304,6 +352,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(updateItemPositionByIndex(index, left, top)),
   updateItemAngleByIndex: (index, angle) =>
     dispatch(updateItemAngleByIndex(index, angle)),
+  deleteItemsByIds: (ids) => dispatch(deleteItemsByIds(ids)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(WorkArea);

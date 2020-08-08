@@ -10,6 +10,7 @@ import {
   UPDATE_LAYER_DEVICE_SCREEN_SOURCE,
   UPDATE_DEVICE_SCREEN_FIT_BY_INDEX,
   UPDATE_LAYER_ITEM,
+  DELETE_ITEMS_BY_IDS,
 } from "../actions/actionTypes";
 
 const INITIAL_STATE = {
@@ -119,6 +120,22 @@ const layersReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         layers,
+      };
+
+    case DELETE_ITEMS_BY_IDS:
+      if (Array.isArray(action.ids) && action.ids.length > 0) {
+        layers = Object.assign([], state.layers);
+        layers = layers.filter((layer) => {
+          return !action.ids.includes(layer.id);
+        });
+
+        selectedItemId = null;
+      }
+
+      return {
+        ...state,
+        layers,
+        selectedItemId,
       };
 
     default:

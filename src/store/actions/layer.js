@@ -6,6 +6,7 @@ import {
   UPDATE_ITEM_ANGLE_BY_INDEX,
   UPDATE_SELECTED_ITEM_ID,
   UPDATE_LAYER_ITEM,
+  DELETE_ITEMS_BY_IDS,
 } from "./actionTypes";
 
 export const addItemToLayer = (item) => {
@@ -59,5 +60,12 @@ export const updateDeviceSreenFitByIndex = (index, fit) => {
     type: UPDATE_DEVICE_SCREEN_FIT_BY_INDEX,
     index,
     fit,
+  };
+};
+
+export const deleteItemsByIds = (ids) => {
+  return {
+    type: DELETE_ITEMS_BY_IDS,
+    ids,
   };
 };
