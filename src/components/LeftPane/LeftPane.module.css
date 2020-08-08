@@ -78,4 +78,10 @@
   display: flex;
   flex-direction: column;
   border-bottom: 1px solid #252729;
+  width: 100%;
+}
+
+.layersContainer {
+  min-height: calc(100vh - 66px -301px);
+  overflow-y: auto;
 }

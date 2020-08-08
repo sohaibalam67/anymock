@@ -128,7 +128,9 @@ class LeftPane extends Component {
                 Choose a template
               </motion.button>
             </div>
-            <Layers />
+            <div className={styles.layersContainer}>
+              <Layers />
+            </div>
           </>
         ) : null}
       </div>
