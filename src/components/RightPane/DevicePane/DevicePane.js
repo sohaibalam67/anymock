@@ -8,7 +8,6 @@ import {
   updateLayerItem,
 } from "../../../store/actions/layer";
 import ImageDrop from "../../Commons/ImageDrop/ImageDrop";
-import _ from "lodash";
 import { addDeviceGroup } from "../../../helpers/image";
 import DeviceSelect from "./DeviceSelect/DeviceSelect";
 import { devices, DEVICE_TYPES } from "../../../constants/devices";
