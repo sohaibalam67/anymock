@@ -17,7 +17,7 @@ const arrowBack = require("../../assets/images/icons/app/arrow-back-outline.svg"
 const SEGMENT_TEMPLATE = "segment_template";
 const SEGMENT_OBJECT = "segment_object";
 
-const sample_screen = require("../../assets/images/sample_screen.png");
+const sample_screen = require("../../assets/images/sample_screen.webp");
 
 class LeftPane extends Component {
   constructor(props) {
