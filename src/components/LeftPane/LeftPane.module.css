@@ -82,7 +82,28 @@
 }
 
 .layersContainer {
-  min-height: calc(100vh - 400px);
-  max-height: calc(100vh - 400px);
+  min-height: calc(100vh - 430px);
+  max-height: calc(100vh - 430px);
   overflow-y: auto;
+}
+
+.makerContainer {
+  color: #ffffff;
+  font-size: 0.7rem;
+  padding: 10px 12px 10px 12px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.makerLink {
+  text-decoration: none;
+}
+
+.linkContainer {
+  display: flex;
+  background: rgba(255, 255, 255, 0.15);
+  padding: 5px 10px;
+  border-radius: 4px;
+  color: #ffffff;
 }

@@ -10,6 +10,7 @@ import { addDeviceGroup, downloadAsPNG } from "../../helpers/image";
 import { devices } from "../../constants/devices";
 import { SCREEN_SIZE_FILL } from "../../constants/screen";
 import Layers from "./Layers/Layers";
+import twitter_logo from "../../assets/images/icons/app/twitter.svg";
 
 const logo = require("../../assets/images/logo.svg");
 const arrowBack = require("../../assets/images/icons/app/arrow-back-outline.svg");
@@ -131,6 +132,47 @@ class LeftPane extends Component {
             </div>
             <div className={styles.layersContainer}>
               <Layers />
+            </div>
+            <div className={styles.makerContainer}>
+              <a
+                href="https://twitter.com/getanymock"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.makerLink}
+                style={{ marginRight: "6px" }}
+              >
+                <div className={styles.linkContainer}>
+                  <img
+                    src={twitter_logo}
+                    alt="twitter logo"
+                    style={{
+                      width: "12px",
+                      height: "auto",
+                      marginRight: "6px",
+                    }}
+                  />
+                  Follow Project
+                </div>
+              </a>
+              <a
+                href="https://twitter.com/sohaibalam67"
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.makerLink}
+              >
+                <div className={styles.linkContainer}>
+                  <img
+                    src={twitter_logo}
+                    alt="twitter logo"
+                    style={{
+                      width: "12px",
+                      height: "auto",
+                      marginRight: "6px",
+                    }}
+                  />
+                  Follow Maker
+                </div>
+              </a>
             </div>
           </>
         ) : null}
