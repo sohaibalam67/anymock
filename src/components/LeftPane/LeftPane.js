@@ -63,6 +63,7 @@ class LeftPane extends Component {
     // and add it in redux state layer
     if (group !== null && typeof group === "object" && group.id === id) {
       this.props.canvas.add(group);
+      this.props.canvas.setActiveObject(group);
       this.props.canvas.renderAll();
 
       this.props.addItemToLayer({
