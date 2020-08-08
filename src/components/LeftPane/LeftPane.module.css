@@ -82,6 +82,7 @@
 }
 
 .layersContainer {
-  min-height: calc(100vh - 66px -301px);
+  min-height: calc(100vh - 400px);
+  max-height: calc(100vh - 400px);
   overflow-y: auto;
 }
