@@ -12,6 +12,11 @@ import { setActivePane } from "../../store/actions/rightPane";
 import { CANVAS_PANE, DEVICE_PANE } from "../../constants/rightPane";
 import { fabric } from "fabric";
 import { getSelectedLayerIndex } from "../../store/selectors";
+import { setCanvasBackgroundImage } from "../../helpers/canvas";
+import {
+  mergeColorAndOpacity,
+  opacityPercentToHex,
+} from "../../helpers/common";
 
 class WorkArea extends Component {
   constructor(props) {
@@ -23,7 +28,10 @@ class WorkArea extends Component {
 
   componentDidMount() {
     this.canvas = new fabric.Canvas("fabricCanvas", {
-      backgroundColor: this.props.background,
+      backgroundColor: mergeColorAndOpacity(
+        this.props.background,
+        opacityPercentToHex(this.props.backgroundOpacity)
+      ),
       preserveObjectStacking: true,
       width: this.props.width,
       height: this.props.height,
@@ -91,8 +99,14 @@ class WorkArea extends Component {
   componentDidUpdate(oldProps) {
     const newProps = this.props;
 
-    if (oldProps.background !== newProps.background) {
-      this.canvas.backgroundColor = newProps.background;
+    if (
+      oldProps.background !== newProps.background ||
+      oldProps.backgroundOpacity !== newProps.backgroundOpacity
+    ) {
+      this.canvas.backgroundColor = mergeColorAndOpacity(
+        newProps.background,
+        opacityPercentToHex(newProps.backgroundOpacity)
+      );
     }
 
     if (oldProps.width !== newProps.width) {
@@ -112,8 +126,9 @@ class WorkArea extends Component {
       this.line_v.width = this.canvas.width;
       this.line_h.height = newProps.height;
     }
-
     this.canvas.renderAll();
+
+    setCanvasBackgroundImage(this.canvas, this.props.backgroundImage);
   }
 
   componentWillUnmount() {
@@ -256,6 +271,15 @@ class WorkArea extends Component {
               transform: `scale(${this.state.zoom / 100})`,
             }}
           ></div> */}
+          <div
+            style={{
+              position: "absolute",
+              minWidth: `${this.props.width}px`,
+              minHeight: `${this.props.height}px`,
+              background:
+                "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAEhJREFUWAnt1rENADAIA0HICuy/IZ4BsoMjpXn6l9A1kN09YUxVGXXEseoHMQsggAACCCCAQM4d56pKcnL+AQQQQAABBBD4L7D9Pwr+3ufr7AAAAABJRU5ErkJggg==')",
+            }}
+          ></div>
           <canvas id="fabricCanvas"></canvas>
         </div>
       </div>
@@ -267,6 +291,8 @@ const mapStateToProps = (state) => ({
   width: state.canvas.width,
   height: state.canvas.height,
   background: state.canvas.background,
+  backgroundImage: state.canvas.backgroundImage,
+  backgroundOpacity: state.canvas.backgroundOpacity,
   selectedLayerIndex: getSelectedLayerIndex(state),
 });
 

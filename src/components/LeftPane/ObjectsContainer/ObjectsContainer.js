@@ -8,6 +8,9 @@ let laptop_icon = require("../../../assets/images/icons/objects/laptop.svg");
 let tablet_icon = require("../../../assets/images/icons/objects/tablet.svg");
 let watch_icon = require("../../../assets/images/icons/objects/watch.svg");
 let display_icon = require("../../../assets/images/icons/objects/display.svg");
+let text_icon = require("../../../assets/images/icons/objects/text.svg");
+let image_icon = require("../../../assets/images/icons/objects/image.svg");
+let shape_icon = require("../../../assets/images/icons/objects/shape.svg");
 
 export default class ObjectsContainer extends Component {
   render() {
@@ -16,30 +19,25 @@ export default class ObjectsContainer extends Component {
         <div className={styles.cardsContainer}>
           <ObjectsCard
             source={browser_icon}
-            title="Browsers"
+            title="Browser"
             onClick={() => {}}
           />
           <ObjectsCard
             source={phone_icon}
-            title="Phones"
+            title="Phone"
             onClick={this.props.addFrameToScreen}
           />
-          <ObjectsCard
-            source={laptop_icon}
-            title="Laptops"
-            onClick={() => {}}
-          />
-          <ObjectsCard
-            source={tablet_icon}
-            title="Tablets"
-            onClick={() => {}}
-          />
-          <ObjectsCard source={watch_icon} title="Watches" onClick={() => {}} />
+          <ObjectsCard source={laptop_icon} title="Laptop" onClick={() => {}} />
+          <ObjectsCard source={tablet_icon} title="Tablet" onClick={() => {}} />
+          <ObjectsCard source={watch_icon} title="Watch" onClick={() => {}} />
           <ObjectsCard
             source={display_icon}
-            title="Displays"
+            title="Display"
             onClick={() => {}}
           />
+          <ObjectsCard source={text_icon} title="Text" onClick={() => {}} />
+          <ObjectsCard source={image_icon} title="Image" onClick={() => {}} />
+          <ObjectsCard source={shape_icon} title="Shape" onClick={() => {}} />
         </div>
       </div>
     );

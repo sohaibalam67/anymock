@@ -33,7 +33,7 @@ class Layers extends Component {
             <img
               src={phone}
               alt="phone icon"
-              style={{ width: "10px", height: "auto", marginRight: "6px" }}
+              style={{ width: "14px", height: "auto", marginRight: "6px" }}
             />
             <div className={styles.itemName}>{item.name}</div>
           </div>

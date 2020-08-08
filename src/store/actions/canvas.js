@@ -4,6 +4,8 @@ import {
   UPDATE_WIDTH,
   UPDATE_HEIGHT,
   UPDATE_BACKGROUND,
+  UPDATE_BACKGROUND_IMAGE,
+  UPDATE_BACKGROUND_OPACITY,
 } from "./actionTypes";
 
 export const updateCanvas = (canvas) => {
@@ -38,5 +40,19 @@ export const updateBackground = (color) => {
   return {
     type: UPDATE_BACKGROUND,
     color,
+  };
+};
+
+export const updateCanvasBackgroundImage = (source) => {
+  return {
+    type: UPDATE_BACKGROUND_IMAGE,
+    source,
+  };
+};
+
+export const updateCanvasBackgroundOpacity = (opacity) => {
+  return {
+    type: UPDATE_BACKGROUND_OPACITY,
+    opacity,
   };
 };

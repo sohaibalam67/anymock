@@ -4,9 +4,12 @@ import {
   UPDATE_WIDTH,
   UPDATE_HEIGHT,
   UPDATE_BACKGROUND,
+  UPDATE_BACKGROUND_IMAGE,
+  UPDATE_BACKGROUND_OPACITY,
 } from "../actions/actionTypes";
 
 import { presets, CUSTOM_CANVAS } from "../../constants/canvas";
+import { isNumber } from "../../helpers/common";
 
 const INITIAL_STATE = {
   canvas: null,
@@ -14,6 +17,8 @@ const INITIAL_STATE = {
   width: 1600,
   height: 1200,
   background: "#ffffff",
+  backgroundOpacity: 100,
+  backgroundImage: null,
 };
 
 const canvasReducer = (state = INITIAL_STATE, action) => {
@@ -22,6 +27,8 @@ const canvasReducer = (state = INITIAL_STATE, action) => {
   let width = state.width;
   let height = state.height;
   let background = state.background;
+  let backgroundImage = state.backgroundImage;
+  let backgroundOpacity = state.backgroundOpacity;
 
   switch (action.type) {
     case UPDATE_CANVAS:
@@ -82,6 +89,24 @@ const canvasReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         background,
+      };
+
+    case UPDATE_BACKGROUND_IMAGE:
+      backgroundImage = action.source;
+
+      return {
+        ...state,
+        backgroundImage,
+      };
+
+    case UPDATE_BACKGROUND_OPACITY:
+      if (isNumber(action.opacity)) {
+        backgroundOpacity = Math.min(Math.max(action.opacity, 0), 100);
+      }
+
+      return {
+        ...state,
+        backgroundOpacity,
       };
 
     default:

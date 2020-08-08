@@ -5,12 +5,15 @@ import ImageDrop from "../../Commons/ImageDrop/ImageDrop";
 import { connect } from "react-redux";
 import styles from "./CanvasPane.module.css";
 import { presets } from "../../../constants/canvas";
+import { setCanvasBackgroundImage } from "../../../helpers/canvas";
 
 import {
   updatePreset,
   updateWidth,
   updateHeight,
   updateBackground,
+  updateCanvasBackgroundImage,
+  updateCanvasBackgroundOpacity,
 } from "../../../store/actions/canvas";
 
 class CanvasPane extends Component {
@@ -32,6 +35,14 @@ class CanvasPane extends Component {
 
   changeBackgroundColor = (color, event) => {
     this.props.updateBackground(color.hex);
+  };
+
+  setImageFile = (source) => {
+    let success = setCanvasBackgroundImage(this.props.canvas, source);
+
+    if (success) {
+      this.props.updateCanvasBackgroundImage(source);
+    }
   };
 
   render() {
@@ -222,9 +233,13 @@ class CanvasPane extends Component {
                 <div className={styles.column1}>
                   <input
                     className={styles.inputBox}
-                    onChange={() => {}}
-                    placeholder="Height"
-                    value="100"
+                    onChange={(event) => {
+                      this.props.updateCanvasBackgroundOpacity(
+                        +event.target.value
+                      );
+                    }}
+                    placeholder="Opacity"
+                    value={this.props.backgroundOpacity ?? 0}
                   />
                   <span className={styles.modifier}>%</span>
                 </div>
@@ -243,7 +258,11 @@ class CanvasPane extends Component {
         >
           CANVAS BACKGROUND
         </h6>
-        <ImageDrop title="Drop your background image here" />
+        <ImageDrop
+          title="Drop your background image here"
+          file={this.props.backgroundImage}
+          setImageFile={this.setImageFile}
+        />
       </div>
     );
   }
@@ -255,6 +274,8 @@ const mapStateToProps = (state) => ({
   width: state.canvas.width,
   height: state.canvas.height,
   background: state.canvas.background,
+  backgroundImage: state.canvas.backgroundImage,
+  backgroundOpacity: state.canvas.backgroundOpacity,
   activePane: state.rightPane.activePane,
 });
 
@@ -263,6 +284,10 @@ const mapDispatchToProps = (dispatch) => ({
   updateWidth: (width) => dispatch(updateWidth(width)),
   updateHeight: (height) => dispatch(updateHeight(height)),
   updateBackground: (color) => dispatch(updateBackground(color)),
+  updateCanvasBackgroundImage: (source) =>
+    dispatch(updateCanvasBackgroundImage(source)),
+  updateCanvasBackgroundOpacity: (opacity) =>
+    dispatch(updateCanvasBackgroundOpacity(opacity)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CanvasPane);
