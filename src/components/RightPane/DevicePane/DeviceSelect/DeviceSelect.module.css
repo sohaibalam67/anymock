@@ -3,9 +3,14 @@
   top: 0;
   right: 0;
   bottom: 0;
-  background: #010101;
+  background: #111111;
   width: 270px;
   z-index: 99;
-  height: 100vh;
+  height: calc(100vh - 50px);
+  margin-top: 50px;
+}
+
+.scrollView {
   overflow-y: auto;
+  height: calc(100vh - 100px);
 }

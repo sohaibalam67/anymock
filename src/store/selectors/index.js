@@ -1,5 +1,6 @@
 import { createSelector } from "reselect";
-import { DEVICE_TYPES, devices } from "../../constants/devices";
+import { devices } from "../../constants/devices";
+import { DEVICE_TYPES } from "../../constants/deviceTypes";
 
 const getSelectedItemId = (state) => state.layers.selectedItemId;
 const getLayers = (state) => state.layers.layers;

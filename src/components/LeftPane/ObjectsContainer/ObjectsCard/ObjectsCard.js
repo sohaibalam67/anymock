@@ -1,17 +1,19 @@
 import React from "react";
 import styles from "./ObjectsCard.module.css";
+import { motion } from "framer-motion";
 
-function ObjectsCard(props) {
+function ObjectsCard({ source, title, onClick }) {
   return (
-    <div
+    <motion.div
       className={styles.container}
-      onClick={() => {
-        props.onClick();
+      whileTap={{
+        scale: 0.95,
       }}
+      onClick={onClick}
     >
-      <img src={props.source} alt="" className={styles.icon} />
-      <span className={styles.title}>{props.title}</span>
-    </div>
+      <img src={source} alt="object icon" className={styles.icon} />
+      <span className={styles.title}>{title}</span>
+    </motion.div>
   );
 }
 

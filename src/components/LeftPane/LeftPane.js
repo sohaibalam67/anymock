@@ -1,37 +1,41 @@
 import React, { Component } from "react";
 import styles from "./LeftPane.module.css";
+
+// packages
 import uuid from "react-uuid";
 import { motion } from "framer-motion";
+
+// redux
 import { connect } from "react-redux";
+import { addItemToLayer } from "../../store/actions/layer";
+
+// components
+import Layers from "./Layers/Layers";
+import HeadBar from "../Commons/HeadBar";
 import ObjectsContainer from "./ObjectsContainer/ObjectsContainer";
 import TemplatesContainer from "./TemplatesContainer/TemplatesContainer";
-import { addItemToLayer } from "../../store/actions/layer";
-import { addDeviceGroup, downloadAsPNG } from "../../helpers/image";
+
+// helpers
+import { addDeviceGroup } from "../../helpers/image";
+
+// constants
 import { devices } from "../../constants/devices";
 import { SCREEN_SIZE_FILL } from "../../constants/screen";
-import Layers from "./Layers/Layers";
-import twitter_logo from "../../assets/images/icons/app/twitter.svg";
-
-const logo = require("../../assets/images/logo.svg");
-const arrowBack = require("../../assets/images/icons/app/arrow-back-outline.svg");
-
-const SEGMENT_TEMPLATE = "segment_template";
-const SEGMENT_OBJECT = "segment_object";
 
 const sample_screen = require("../../assets/images/sample_screen.webp");
+const arrowBack = require("../../assets/images/icons/app/arrow-back-outline.svg");
+
+const SEGMENT_TEMPLATE = "SEGMENT_TEMPLATE";
+const SEGMENT_OBJECT = "SEGMENT_OBJECT";
 
 class LeftPane extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    activeSegment: SEGMENT_OBJECT,
+  };
 
-    this.state = {
-      activeSegment: SEGMENT_OBJECT,
-    };
-  }
-
-  switchActiveSegment = (sengment) => {
+  switchActiveSegment = (activeSegment) => {
     this.setState({
-      activeSegment: sengment,
+      activeSegment,
     });
   };
 
@@ -81,50 +85,78 @@ class LeftPane extends Component {
     }
   };
 
+  addPhone = () => {
+    this.addDevice(devices.phones[0]);
+  };
+
+  addBrowser = () => {
+    // this.addDevice(devices.browsers[0]);
+  };
+
+  addLaptop = () => {
+    // this.addDevice(devices.laptops[0]);
+  };
+
+  addTablet = () => {
+    // this.addDevice(devices.tablets[0]);
+  };
+
+  addWatch = () => {
+    // this.addDevice(devices.watches[0]);
+  };
+
+  addDisplay = () => {
+    // this.addDevice(devices.displays[0]);
+  };
+
+  addText = () => {
+    // todo
+  };
+
+  addImage = () => {
+    // todo
+  };
+
+  addShape = () => {
+    // todo
+  };
+
   render() {
     return (
       <div className={styles.container}>
-        <div className={styles.brandContainer}>
-          <img src={logo} alt="anymock logo" className={styles.logo} />
-          <span className={styles.proBadge}>PRO</span>
-        </div>
         {this.state.activeSegment === SEGMENT_TEMPLATE ? (
           <>
-            <div className={styles.templatesContainerHeader}>
-              <div
-                className={styles.backButtonContainer}
-                onClick={() => {
-                  this.switchActiveSegment(SEGMENT_OBJECT);
-                }}
-              >
-                <img
-                  src={arrowBack}
-                  alt=""
-                  style={{ width: "18px", height: "auto" }}
-                />
-              </div>
-            </div>
+            <HeadBar
+              title="Choose Template"
+              onBackClick={() => {
+                this.switchActiveSegment(SEGMENT_OBJECT);
+              }}
+            />
             <TemplatesContainer />
           </>
         ) : null}
+
         {this.state.activeSegment === SEGMENT_OBJECT ? (
           <>
             <div className={styles.toolsContainer}>
               <ObjectsContainer
-                addFrameToScreen={() => {
-                  this.addDevice(devices.phones[0]);
-                }}
+                addPhone={this.addPhone}
+                addBrowser={this.addBrowser}
+                addLaptop={this.addLaptop}
+                addTablet={this.addTablet}
+                addWatch={this.addWatch}
+                addDisplay={this.addDisplay}
+                addText={this.addText}
+                addImage={this.addImage}
+                addShape={this.addShape}
               />
               <motion.button
-                // onClick={() => {
-                //   this.switchActiveSegment(SEGMENT_TEMPLATE);
-                // }}
-                onClick={() => {
-                  downloadAsPNG(this.props.canvas);
-                }}
                 className={styles.chooseFromTemplatesButton}
                 whileTap={{
                   scale: 0.96,
+                }}
+                onClick={() => {
+                  this.switchActiveSegment(SEGMENT_TEMPLATE);
                 }}
               >
                 Choose a template
@@ -132,47 +164,6 @@ class LeftPane extends Component {
             </div>
             <div className={styles.layersContainer}>
               <Layers />
-            </div>
-            <div className={styles.makerContainer}>
-              <a
-                href="https://twitter.com/getanymock"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.makerLink}
-                style={{ marginRight: "6px" }}
-              >
-                <div className={styles.linkContainer}>
-                  <img
-                    src={twitter_logo}
-                    alt="twitter logo"
-                    style={{
-                      width: "12px",
-                      height: "auto",
-                      marginRight: "6px",
-                    }}
-                  />
-                  Follow Project
-                </div>
-              </a>
-              <a
-                href="https://twitter.com/sohaibalam67"
-                target="_blank"
-                rel="noopener noreferrer"
-                className={styles.makerLink}
-              >
-                <div className={styles.linkContainer}>
-                  <img
-                    src={twitter_logo}
-                    alt="twitter logo"
-                    style={{
-                      width: "12px",
-                      height: "auto",
-                      marginRight: "6px",
-                    }}
-                  />
-                  Follow Maker
-                </div>
-              </a>
             </div>
           </>
         ) : null}

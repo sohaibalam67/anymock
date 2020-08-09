@@ -1,37 +1,12 @@
 .container {
   max-width: 250px;
   min-width: 250px;
-  min-height: 100vh;
-  background-color: #010101;
+  min-height: calc(100vh - 50px);
+  max-height: calc(100vh - 50px);
+  background-color: #111111;
   display: flex;
   flex-direction: column;
   border-right: 1px solid #252729;
-}
-
-.logo {
-  height: 25px;
-  width: auto;
-}
-
-.proBadge {
-  color: #010101;
-  background-color: #ffd700;
-  font-size: 0.6rem;
-  font-weight: 600;
-  padding-left: 5px;
-  padding-right: 5px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  border-radius: 3px;
-  float: right;
-}
-
-.brandContainer {
-  border-bottom: 1px solid #252729;
-  padding-left: 12px;
-  padding-right: 12px;
-  padding-top: 18px;
-  padding-bottom: 18px;
 }
 
 .tempObjButtonGroupContainer {
@@ -39,7 +14,7 @@
 }
 
 .chooseFromTemplatesButton {
-  background-color: #116df7;
+  background-color: #0099ff;
   color: #ffffff;
   margin: 12px;
   padding-top: 6px;
@@ -49,28 +24,11 @@
   cursor: pointer;
   font-size: 0.8rem;
   font-weight: 600;
-  border: 0px solid #116df7;
+  border: 0px solid #0099ff;
 }
 
 .chooseFromTemplatesButton:hover {
-  background-color: #1469e9;
-}
-
-.backButtonContainer {
-  width: 32px;
-  height: 32px;
-  background-color: rgba(255, 255, 255, 0.15);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 20px;
-  border: 0px solid #fff;
-  outline: none;
-}
-
-.templatesContainerHeader {
-  padding: 12px;
+  background-color: #0088ff;
 }
 
 .toolsContainer {
@@ -82,28 +40,7 @@
 }
 
 .layersContainer {
-  min-height: calc(100vh - 430px);
-  max-height: calc(100vh - 430px);
+  min-height: calc(100vh - 370px);
+  max-height: calc(100vh - 370px);
   overflow-y: auto;
-}
-
-.makerContainer {
-  color: #ffffff;
-  font-size: 0.7rem;
-  padding: 10px 12px 10px 12px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-}
-
-.makerLink {
-  text-decoration: none;
-}
-
-.linkContainer {
-  display: flex;
-  background: rgba(255, 255, 255, 0.15);
-  padding: 5px 10px;
-  border-radius: 4px;
-  color: #ffffff;
 }

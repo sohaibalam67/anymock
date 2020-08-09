@@ -10,8 +10,9 @@ import {
 import ImageDrop from "../../Commons/ImageDrop/ImageDrop";
 import { addDeviceGroup } from "../../../helpers/image";
 import DeviceSelect from "./DeviceSelect/DeviceSelect";
-import { devices, DEVICE_TYPES } from "../../../constants/devices";
-import DeviceCard from "../../Commons/DeviceCard/DeviceCard";
+import { devices } from "../../../constants/devices";
+import { DEVICE_TYPES } from "../../../constants/deviceTypes";
+import DeviceCard from "../../Commons/DeviceCard";
 import styles from "./DevicePane.module.css";
 import Select from "react-select";
 import {
@@ -348,7 +349,7 @@ class DevicePane extends Component {
               styles={{
                 control: (provided) => ({
                   ...provided,
-                  borderColor: "#13171b",
+                  borderColor: "#2b2b2b",
                   minHeight: "27px",
                 }),
                 valueContainer: (provided) => ({
@@ -358,7 +359,7 @@ class DevicePane extends Component {
                 }),
                 option: (provided) => ({
                   ...provided,
-                  background: "#13171b",
+                  background: "#2b2b2b",
                   color: "#fff",
                   fontSize: "0.8rem",
                 }),
@@ -391,12 +392,12 @@ class DevicePane extends Component {
                   ...theme.colors,
                   primary25: "hotpink",
                   primary: "black",
-                  neutral0: "#13171b",
-                  neutral5: "#13171b",
-                  neutral10: "#13171b",
+                  neutral0: "#2b2b2b",
+                  neutral5: "#2b2b2b",
+                  neutral10: "#2b2b2b",
                   neutral20: "#2e3740",
-                  neutral30: "#13171b",
-                  neutral40: "#13171b",
+                  neutral30: "#2b2b2b",
+                  neutral40: "#2b2b2b",
                 },
               })}
             />
@@ -430,7 +431,7 @@ class DevicePane extends Component {
                 styles={{
                   control: (provided) => ({
                     ...provided,
-                    borderColor: "#13171b",
+                    borderColor: "#2b2b2b",
                     minHeight: "27px",
                   }),
                   valueContainer: (provided) => ({
@@ -440,7 +441,7 @@ class DevicePane extends Component {
                   }),
                   option: (provided) => ({
                     ...provided,
-                    background: "#13171b",
+                    background: "#2b2b2b",
                     color: "#fff",
                     fontSize: "0.8rem",
                   }),
@@ -471,12 +472,12 @@ class DevicePane extends Component {
                     ...theme.colors,
                     primary25: "hotpink",
                     primary: "black",
-                    neutral0: "#13171b",
-                    neutral5: "#13171b",
-                    neutral10: "#13171b",
+                    neutral0: "#2b2b2b",
+                    neutral5: "#2b2b2b",
+                    neutral10: "#2b2b2b",
                     neutral20: "#2e3740",
-                    neutral30: "#13171b",
-                    neutral40: "#13171b",
+                    neutral30: "#2b2b2b",
+                    neutral40: "#2b2b2b",
                   },
                 })}
               />

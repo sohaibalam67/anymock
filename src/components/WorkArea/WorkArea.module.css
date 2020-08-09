@@ -1,8 +1,8 @@
 .container {
   width: calc(100% - 520px);
-  min-height: 100vh;
-  max-height: 100vh;
-  background-color: #121417;
+  min-height: calc(100vh - 50px);
+  max-height: calc(100vh - 50px);
+  background-color: #252526;
   overflow-x: auto;
   overflow-y: auto;
   display: flex;

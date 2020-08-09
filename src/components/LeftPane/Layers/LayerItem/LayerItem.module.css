@@ -1,0 +1,15 @@
+.container {
+  padding: 6px 12px 6px 12px;
+  display: flex;
+}
+
+.name {
+  font-size: 0.7rem;
+  color: #ffffff;
+}
+
+.itemIcon {
+  width: 14px;
+  height: auto;
+  margin-right: 6px;
+}

@@ -15,9 +15,8 @@
 
 .canvasOptionsLabel {
   min-width: 50px;
-  color: #adb5bd;
-  font-size: 0.8rem;
-  font-weight: 600;
+  color: #eeeeee;
+  font-size: 0.75rem;
 }
 
 .canvasOptionsInput {
@@ -44,7 +43,7 @@
 
 .inputBox {
   width: 100%;
-  background-color: #13171b;
+  background-color: #2b2b2b;
   border: 0px solid black;
   outline: none;
   color: white;
@@ -65,10 +64,10 @@
 
 .modifier {
   position: absolute;
-  margin-left: -24px;
-  margin-top: 6px;
-  font-size: 12px;
-  color: rgb(126, 126, 126);
+  margin-left: -14px;
+  margin-top: 8px;
+  font-size: 9px;
+  color: #999999;
 }
 
 .column1 {
@@ -105,4 +104,14 @@
 
 .selectBox ::-webkit-scrollbar {
   width: 4px;
+}
+
+.exportButton {
+  background: #6ab04c;
+  color: #fff;
+  bottom: 0px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

@@ -1,0 +1,37 @@
+.container {
+  max-height: 49px;
+  min-height: 49px;
+  border-bottom: 1px solid #252729;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.backButtonContainer {
+  width: 49px;
+  height: 49px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.backIcon {
+  width: 20px;
+  height: auto;
+}
+
+.title {
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  width: calc(100% - 98px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.filler {
+  min-width: 49px;
+  min-height: 49px;
+}
