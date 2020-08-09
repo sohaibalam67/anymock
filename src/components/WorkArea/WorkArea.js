@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import styles from "./WorkArea.module.css";
+
+// packages
+import { fabric } from "fabric";
+import Hotkeys from "react-hot-keys";
 import Slider from "@material-ui/core/Slider";
+
+// redux
 import { connect } from "react-redux";
 import { updateCanvas } from "../../store/actions/canvas";
 import {
@@ -10,15 +16,17 @@ import {
   deleteItemsByIds,
 } from "../../store/actions/layer";
 import { setActivePane } from "../../store/actions/rightPane";
-import { CANVAS_PANE, DEVICE_PANE } from "../../constants/rightPane";
-import { fabric } from "fabric";
 import { getSelectedLayerIndex } from "../../store/selectors";
+
+// helpers
 import { setCanvasBackgroundImage } from "../../helpers/canvas";
 import {
   mergeColorAndOpacity,
   opacityPercentToHex,
 } from "../../helpers/common";
-import Hotkeys from "react-hot-keys";
+
+// constants
+import { CANVAS_PANE, DEVICE_PANE } from "../../constants/rightPane";
 
 class WorkArea extends Component {
   constructor(props) {
@@ -29,6 +37,7 @@ class WorkArea extends Component {
   }
 
   componentDidMount() {
+    // initialize canvas
     this.canvas = new fabric.Canvas("fabricCanvas", {
       backgroundColor: mergeColorAndOpacity(
         this.props.background,
@@ -43,16 +52,7 @@ class WorkArea extends Component {
     this.canvas.index = 0;
     this.canvas.stateaction = true;
 
-    // canvas.on({
-    //   "object:rotating": canvasAction,
-    //   "object:moving": canvasAction,
-    //   "object:modified": canvasAction,
-    //   "object:scaling": canvasAction,
-    //   "object:selected": canvasBox,
-    //   "selection:updated": canvasBox,
-    //   "before:selection:cleared": clearSelection,
-    // });
-
+    // canvas events
     this.canvas.on({
       "object:rotating": this.centerLines,
       "object:moving": this.centerLines,
@@ -64,37 +64,38 @@ class WorkArea extends Component {
       "mouse:up": this.objectMouseUp,
     });
 
+    // horizontal alignment line
     this.line_h = new fabric.Line(
       [this.canvas.width / 2, 0, this.canvas.width / 2, this.canvas.width],
       {
-        stroke: "red",
-        opacity: 0,
-        strokeWidth: 3,
-        selectable: false,
-        evented: false,
         id: "line_h",
         name: "line_h",
+        opacity: 0,
+        stroke: "red",
+        strokeWidth: 3,
+        evented: false,
+        selectable: false,
       }
     );
 
+    // vertical alignment line
     this.line_v = new fabric.Line(
       [0, this.canvas.height / 2, this.canvas.width, this.canvas.height / 2],
       {
-        stroke: "red",
-        opacity: 0,
-        strokeWidth: 3,
-        selectable: false,
-        evented: false,
         id: "line_v",
         name: "line_v",
+        opacity: 0,
+        stroke: "red",
+        strokeWidth: 3,
+        evented: false,
+        selectable: false,
       }
     );
 
-    this.canvas.add(this.line_h);
-    this.canvas.add(this.line_v);
+    this.canvas.add(this.line_h).add(this.line_v).renderAll();
 
-    this.canvas.renderAll();
-
+    // Updating the canvas instance in redux store, so that
+    // other components can access the canvas from props
     this.props.updateCanvas(this.canvas);
   }
 
@@ -128,9 +129,12 @@ class WorkArea extends Component {
       this.line_v.width = this.canvas.width;
       this.line_h.height = newProps.height;
     }
-    this.canvas.renderAll();
 
-    setCanvasBackgroundImage(this.canvas, this.props.backgroundImage);
+    if (oldProps.backgroundImage !== newProps.backgroundImage) {
+      setCanvasBackgroundImage(this.canvas, this.props.backgroundImage);
+    }
+
+    this.canvas.renderAll();
   }
 
   componentWillUnmount() {
@@ -237,7 +241,7 @@ class WorkArea extends Component {
 
   onKeyDown(keyName, e, handle) {
     e.preventDefault();
-    if (keyName === "backspace") {
+    if (keyName === "backspace" || keyName === "del") {
       let activeObjects = this.canvas.getActiveObjects();
 
       if (!(Array.isArray(activeObjects) && activeObjects.length > 0)) {
@@ -271,13 +275,26 @@ class WorkArea extends Component {
       });
       this.canvas.setActiveObject(selection).renderAll();
     }
+
+    if (keyName === "cmd+=") {
+      let zoom = this.state.zoom;
+
+      this.changeZoom(null, Math.min(zoom + 5, 100));
+    }
+
+    if (keyName === "cmd+-") {
+      let zoom = this.state.zoom;
+
+      this.changeZoom(null, Math.max(zoom - 5, 0));
+    }
   }
 
   render() {
     return (
       <Hotkeys
-        keyName="backspace,cmd+a,control+a,ctrl+a"
+        keyName="backspace,cmd+a,control+a,ctrl+a,cmd+=,cmd+-"
         onKeyDown={this.onKeyDown.bind(this)}
+        allowRepeat
       >
         <div
           className={styles.container}
@@ -295,34 +312,21 @@ class WorkArea extends Component {
                   onChange={this.changeZoom}
                 />
               </div>
-              {/* <Icon icon="zoom-in" iconSize={16} color="rgba(255,255,255,0.6)" /> */}
             </div>
           </div>
           <div
-            // className={styles.canvasContainer}
-            // style={{
-            //   width: `${1800 * (this.state.zoom / 100)}px`,
-            //   height: `${1200 * (this.state.zoom / 100)}px`,
-            // }}
             style={{
               margin: "100px",
               transform: `scale(${this.state.zoom / 100})`,
+              transition: "0.1s ease-in-out",
             }}
           >
-            {/* <div
-            className={styles.canvas}
-            style={{
-              minWidth: `${this.props.width}px`,
-              minHeight: `${this.props.height}px`,
-              background: this.props.background,
-              transform: `scale(${this.state.zoom / 100})`,
-            }}
-          ></div> */}
             <div
               style={{
                 position: "absolute",
-                minWidth: `${this.props.width}px`,
-                minHeight: `${this.props.height}px`,
+                minWidth: `${Math.max(this.props.width, 2) - 2}px`,
+                minHeight: `${Math.max(this.props.height, 2) - 2}px`,
+                margin: "1px",
                 background:
                   "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAEhJREFUWAnt1rENADAIA0HICuy/IZ4BsoMjpXn6l9A1kN09YUxVGXXEseoHMQsggAACCCCAQM4d56pKcnL+AQQQQAABBBD4L7D9Pwr+3ufr7AAAAABJRU5ErkJggg==')",
               }}

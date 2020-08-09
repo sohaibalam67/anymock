@@ -23,7 +23,6 @@ import { devices } from "../../constants/devices";
 import { SCREEN_SIZE_FILL } from "../../constants/screen";
 
 const sample_screen = require("../../assets/images/sample_screen.webp");
-const arrowBack = require("../../assets/images/icons/app/arrow-back-outline.svg");
 
 const SEGMENT_TEMPLATE = "SEGMENT_TEMPLATE";
 const SEGMENT_OBJECT = "SEGMENT_OBJECT";
