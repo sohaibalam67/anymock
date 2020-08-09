@@ -15,6 +15,7 @@ import { DEVICE_TYPES } from "../../../constants/deviceTypes";
 import DeviceCard from "../../Commons/DeviceCard";
 import styles from "./DevicePane.module.css";
 import Select from "react-select";
+import InputBox from "../../Commons/InputBox";
 import {
   getSelectedLayer,
   getSelectedLayerIndex,
@@ -161,9 +162,7 @@ class DevicePane extends Component {
     this.props.canvas.renderAll();
   };
 
-  handleLeftPositionChange = (event) => {
-    let value = +event.target.value;
-
+  handleLeftPositionChange = (value) => {
     if (!isNumber(value)) {
       return;
     }
@@ -181,9 +180,7 @@ class DevicePane extends Component {
     }
   };
 
-  handleTopPositionChange = (event) => {
-    let value = +event.target.value;
-
+  handleTopPositionChange = (value) => {
     if (!isNumber(value)) {
       return;
     }
@@ -201,9 +198,7 @@ class DevicePane extends Component {
     }
   };
 
-  handleAngleChange = (event) => {
-    let value = +event.target.value;
-
+  handleAngleChange = (value) => {
     if (!isNumber(value)) {
       return;
     }
@@ -267,22 +262,24 @@ class DevicePane extends Component {
             <div className={styles.optionsInput}>
               <div className={styles.row}>
                 <div className={styles.column}>
-                  <input
-                    className={styles.inputBox}
-                    onChange={this.handleLeftPositionChange}
-                    placeholder="Left"
+                  <InputBox
                     value={left}
+                    placeholder="Left"
+                    onChange={(value) => {
+                      this.handleLeftPositionChange(+value);
+                    }}
+                    modifier="X"
                   />
-                  <span className={styles.modifier}>X</span>
                 </div>
                 <div className={styles.column}>
-                  <input
-                    className={styles.inputBox}
-                    onChange={this.handleTopPositionChange}
-                    placeholder="Top"
+                  <InputBox
                     value={top}
+                    placeholder="Top"
+                    onChange={(value) => {
+                      this.handleTopPositionChange(+value);
+                    }}
+                    modifier="Y"
                   />
-                  <span className={styles.modifier}>Y</span>
                 </div>
               </div>
             </div>
@@ -292,13 +289,14 @@ class DevicePane extends Component {
             <div className={styles.optionsInput}>
               <div className={styles.row}>
                 <div className={styles.column}>
-                  <input
-                    className={styles.inputBox}
-                    onChange={this.handleAngleChange}
-                    placeholder="Angle"
+                  <InputBox
                     value={angle}
+                    placeholder="Angle"
+                    onChange={(value) => {
+                      this.handleAngleChange(+value);
+                    }}
+                    modifier="°"
                   />
-                  <span className={styles.modifier}>°</span>
                 </div>
                 <div className={styles.column}></div>
               </div>

@@ -14,7 +14,7 @@ import phone from "../../../assets/images/icons/objects/phone.svg";
 function Layers({ layers = [], selectedLayerIndex }) {
   return (
     <>
-      <Heading>LAYERS</Heading>
+      <Heading style={{ padding: "12px" }}>LAYERS</Heading>
       {layers.map((item, index) => (
         <LayerItem
           key={item.id}

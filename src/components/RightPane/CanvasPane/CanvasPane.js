@@ -1,11 +1,23 @@
 import React, { Component } from "react";
-import { SketchPicker } from "react-color";
-import Select from "react-select";
-import ImageDrop from "../../Commons/ImageDrop/ImageDrop";
-import { connect } from "react-redux";
 import styles from "./CanvasPane.module.css";
-import { presets } from "../../../constants/canvas";
+
+// packages
+import Select from "react-select";
+import { SketchPicker } from "react-color";
+
+// redux
+import { connect } from "react-redux";
+
+// components
+import InputBox from "../../Commons/InputBox";
+import Heading from "../../Commons/Heading";
+import ImageDrop from "../../Commons/ImageDrop/ImageDrop";
+
+// helpers
 import { setCanvasBackgroundImage } from "../../../helpers/canvas";
+
+// constants
+import { presets } from "../../../constants/canvas";
 
 import {
   updatePreset,
@@ -56,16 +68,7 @@ class CanvasPane extends Component {
     }
     return (
       <div className={styles.canvasOptionsContainer}>
-        <h6
-          style={{
-            fontSize: "9pt",
-            color: "#fff",
-            marginTop: "12px",
-            marginBottom: "12px",
-          }}
-        >
-          CANVAS SETTINGS
-        </h6>
+        <Heading>CANVAS SETTINGS</Heading>
         <div className={styles.canvasOptionContent}>
           <div className={styles.canvasOptionRow}>
             <div className={styles.canvasOptionsLabel}>Preset</div>
@@ -137,26 +140,24 @@ class CanvasPane extends Component {
             <div className={styles.canvasOptionsInput}>
               <div className={styles.row}>
                 <div className={styles.column}>
-                  <input
-                    className={styles.inputBox}
-                    onChange={(event) => {
-                      this.props.updateWidth(event.target.value);
-                    }}
-                    placeholder="Width"
+                  <InputBox
                     value={this.props.width}
+                    placeholder="Width"
+                    onChange={(value) => {
+                      this.props.updateWidth(value);
+                    }}
+                    modifier="W"
                   />
-                  <span className={styles.modifier}>W</span>
                 </div>
                 <div className={styles.column}>
-                  <input
-                    className={styles.inputBox}
-                    onChange={(event) => {
-                      this.props.updateHeight(event.target.value);
-                    }}
-                    placeholder="Height"
+                  <InputBox
                     value={this.props.height}
+                    placeholder="Height"
+                    onChange={(value) => {
+                      this.props.updateHeight(value);
+                    }}
+                    modifier="H"
                   />
-                  <span className={styles.modifier}>H</span>
                 </div>
               </div>
             </div>
@@ -236,33 +237,22 @@ class CanvasPane extends Component {
                   ) : null}
                 </div>
                 <div className={styles.column1}>
-                  <input
-                    className={styles.inputBox}
-                    onChange={(event) => {
-                      this.props.updateCanvasBackgroundOpacity(
-                        +event.target.value
-                      );
-                    }}
-                    placeholder="Opacity"
+                  <InputBox
                     value={this.props.backgroundOpacity ?? 0}
+                    placeholder="Opacity"
+                    onChange={(value) => {
+                      this.props.updateCanvasBackgroundOpacity(+value);
+                    }}
+                    modifier="%"
                   />
-                  <span className={styles.modifier}>%</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-
-        <h6
-          style={{
-            fontSize: "9pt",
-            color: "#fff",
-            marginTop: "12px",
-            marginBottom: "24px",
-          }}
-        >
+        <Heading style={{ marginTop: "12px", marginBottom: "24px" }}>
           CANVAS BACKGROUND
-        </h6>
+        </Heading>
         <ImageDrop
           title="Drop your background image here"
           file={this.props.backgroundImage}
