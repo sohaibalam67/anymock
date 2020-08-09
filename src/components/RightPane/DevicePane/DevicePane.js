@@ -17,6 +17,7 @@ import Select from "react-select";
 import {
   getSelectedLayer,
   getSelectedLayerIndex,
+  getSelectedDevice,
 } from "../../../store/selectors";
 import { isNumber } from "../../../helpers/common";
 import { SCREEN_SIZE_FIT, SCREEN_SIZE_FILL } from "../../../constants/screen";
@@ -216,21 +217,21 @@ class DevicePane extends Component {
       { value: SCREEN_SIZE_FILL, label: "Fill" },
     ];
 
-    let screenSource = null;
-    let left = null;
-    let top = null;
-    let angle = null;
-    let screenSize = null;
-    let screenSizeValue = null;
+    let screenSource;
+    let left = "";
+    let top = "";
+    let angle = "";
+    let screenSize;
+    let screenSizeValue;
 
     if (
       this.props.selectedLayer !== null &&
       Object.values(DEVICE_TYPES).includes(this.props.selectedLayer.type)
     ) {
       screenSource = this.props.selectedLayer.screenSource ?? null;
-      left = this.props.selectedLayer.transforms.left ?? null;
-      top = this.props.selectedLayer.transforms.top ?? null;
-      angle = this.props.selectedLayer.transforms.angle ?? null;
+      left = this.props.selectedLayer.transforms.left ?? "";
+      top = this.props.selectedLayer.transforms.top ?? "";
+      angle = this.props.selectedLayer.transforms.angle ?? "";
       screenSize = this.props.selectedLayer.screenSize ?? null;
 
       if (options[0].value === screenSize) {
@@ -314,9 +315,17 @@ class DevicePane extends Component {
           }}
         >
           <DeviceCard
-            title="Apple iPhone X"
+            title={
+              this.props.selectedDevice
+                ? this.props.selectedDevice.name
+                : "Untitled"
+            }
             subtitle="Click to change device"
-            thumbnail={devices.phones[0].thumbnail}
+            thumbnail={
+              this.props.selectedDevice
+                ? this.props.selectedDevice.thumbnail
+                : null
+            }
             onClick={() => {
               this.setDeviceSelectVisible(true);
             }}
@@ -423,6 +432,7 @@ const mapStateToProps = (state) => ({
   layers: state.layers.layers,
   selectedLayer: getSelectedLayer(state),
   selectedLayerIndex: getSelectedLayerIndex(state),
+  selectedDevice: getSelectedDevice(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

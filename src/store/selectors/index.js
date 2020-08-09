@@ -1,4 +1,5 @@
 import { createSelector } from "reselect";
+import { DEVICE_TYPES, devices } from "../../constants/devices";
 
 const getSelectedItemId = (state) => state.layers.selectedItemId;
 const getLayers = (state) => state.layers.layers;
@@ -36,5 +37,30 @@ export const getSelectedLayerIndex = createSelector(
       }
     }
     return selectedLayerIndex;
+  }
+);
+
+export const getSelectedDevice = createSelector(
+  [getSelectedLayer],
+  (selectedLayer) => {
+    if (
+      selectedLayer === null ||
+      !Object.values(DEVICE_TYPES).includes(selectedLayer.type)
+    ) {
+      return null;
+    }
+
+    let selectedDevice = null;
+
+    if (selectedLayer.type === DEVICE_TYPES.PHONE) {
+      for (let index = 0; index < devices.phones.length; index++) {
+        if (devices.phones[index].id === selectedLayer.device_id) {
+          selectedDevice = devices.phones[index];
+          break;
+        }
+      }
+    }
+
+    return selectedDevice;
   }
 );

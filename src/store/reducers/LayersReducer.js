@@ -1,4 +1,4 @@
-import _ from "lodash";
+import findIndex from "lodash/findIndex";
 import { isNumber } from "../../helpers/common";
 import { SCREEN_SIZE_FILL, SCREEN_SIZE_FIT } from "../../constants/screen";
 
@@ -35,14 +35,12 @@ const layersReducer = (state = INITIAL_STATE, action) => {
 
     case UPDATE_LAYER_ITEM:
       if (typeof action.item === "object" && action.item.hasOwnProperty("id")) {
-        const item_index = _.findIndex(layers, { id: action.item.id });
+        const item_index = findIndex(layers, { id: action.item.id });
 
         if (item_index >= 0) {
           layers[item_index] = { ...layers[item_index], ...action.item };
         }
       }
-
-      console.log(layers);
 
       return {
         ...state,
@@ -95,7 +93,7 @@ const layersReducer = (state = INITIAL_STATE, action) => {
       };
 
     case UPDATE_LAYER_DEVICE_SCREEN_SOURCE:
-      const item_index = _.findIndex(layers, { id: action.id });
+      const item_index = findIndex(layers, { id: action.id });
 
       if (item_index >= 0) {
         layers[item_index].screenSource = action.source;
