@@ -64,3 +64,29 @@ export const getSelectedDevice = createSelector(
     return selectedDevice;
   }
 );
+
+export const getSelectedDeviceVariant = createSelector(
+  [getSelectedDevice, getSelectedLayer],
+  (selectedDevice, selectedLayer) => {
+    if (
+      selectedDevice === null ||
+      selectedLayer === null ||
+      !Object.values(DEVICE_TYPES).includes(selectedLayer.type)
+    ) {
+      return null;
+    }
+
+    let selectedDeviceVariant = null;
+
+    if (selectedLayer.type === DEVICE_TYPES.PHONE) {
+      for (let index = 0; index < selectedDevice.variants.length; index++) {
+        if (selectedDevice.variants[index].id === selectedLayer.variant_id) {
+          selectedDeviceVariant = selectedDevice.variants[index];
+          break;
+        }
+      }
+    }
+
+    return selectedDeviceVariant;
+  }
+);

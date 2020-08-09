@@ -71,6 +71,7 @@ class CanvasPane extends Component {
             <div className={styles.canvasOptionsLabel}>Preset</div>
             <div className={styles.canvasOptionsInput}>
               <Select
+                className={styles.selectBox}
                 value={this.props.preset}
                 onChange={(value) => {
                   this.props.updatePreset(value);
@@ -108,6 +109,10 @@ class CanvasPane extends Component {
                   indicatorsContainer: (provided) => ({
                     ...provided,
                     maxHeight: "27px",
+                  }),
+                  menu: (provided) => ({
+                    ...provided,
+                    marginTop: "4px",
                   }),
                 }}
                 theme={(theme) => ({

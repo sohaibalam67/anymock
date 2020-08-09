@@ -18,6 +18,7 @@ import {
   getSelectedLayer,
   getSelectedLayerIndex,
   getSelectedDevice,
+  getSelectedDeviceVariant,
 } from "../../../store/selectors";
 import { isNumber } from "../../../helpers/common";
 import { SCREEN_SIZE_FIT, SCREEN_SIZE_FILL } from "../../../constants/screen";
@@ -53,6 +54,10 @@ class DevicePane extends Component {
   };
 
   changeFrame = async (device, variant) => {
+    if (!device || !variant) {
+      return;
+    }
+
     let activeObject = this.props.canvas.getActiveObject();
 
     let id = activeObject.id;
@@ -223,6 +228,8 @@ class DevicePane extends Component {
     let angle = "";
     let screenSize;
     let screenSizeValue;
+    let selectedDevice = this.props.selectedDevice;
+    let selectedDeviceVariants = selectedDevice ? selectedDevice.variants : [];
 
     if (
       this.props.selectedLayer !== null &&
@@ -311,21 +318,12 @@ class DevicePane extends Component {
           style={{
             borderRadius: "3px",
             paddingTop: "15px",
-            paddingBottom: "15px",
           }}
         >
           <DeviceCard
-            title={
-              this.props.selectedDevice
-                ? this.props.selectedDevice.name
-                : "Untitled"
-            }
+            title={selectedDevice ? selectedDevice.name : "Untitled"}
             subtitle="Click to change device"
-            thumbnail={
-              this.props.selectedDevice
-                ? this.props.selectedDevice.thumbnail
-                : null
-            }
+            thumbnail={selectedDevice ? selectedDevice.thumbnail : null}
             onClick={() => {
               this.setDeviceSelectVisible(true);
             }}
@@ -335,6 +333,74 @@ class DevicePane extends Component {
               borderBottomRightRadius: "0px",
             }}
           />
+        </div>
+
+        <div className={styles.optionRow} style={{ paddingBottom: "15px" }}>
+          <div className={styles.optionsInput}>
+            <Select
+              value={this.props.selectedDeviceVariant}
+              onChange={(value) => {
+                this.changeFrame(selectedDevice, value);
+              }}
+              options={selectedDeviceVariants}
+              getOptionValue={(option) => `${option}`}
+              getOptionLabel={(option) => `${option.name}`}
+              styles={{
+                control: (provided) => ({
+                  ...provided,
+                  borderColor: "#13171b",
+                  minHeight: "27px",
+                }),
+                valueContainer: (provided) => ({
+                  ...provided,
+                  paddingTop: "0px",
+                  paddingBottom: "0px",
+                }),
+                option: (provided) => ({
+                  ...provided,
+                  background: "#13171b",
+                  color: "#fff",
+                  fontSize: "0.8rem",
+                }),
+                placeholder: (provided) => ({
+                  ...provided,
+                  color: "#fff",
+                  fontSize: "0.8rem",
+                  fontWeight: "600",
+                }),
+                singleValue: (provided) => ({
+                  ...provided,
+                  color: "#fff",
+                  fontSize: "0.8rem",
+                  fontWeight: "600",
+                }),
+                indicatorsContainer: (provided) => ({
+                  ...provided,
+                  maxHeight: "27px",
+                }),
+                menu: (provided) => ({
+                  ...provided,
+                  marginTop: "4px",
+                  boxShadow:
+                    "0 2px 3.4px rgba(0, 0, 0, 0.084),0 5.5px 9.4px rgba(0, 0, 0, 0.12),0 13.3px 22.6px rgba(0, 0, 0, 0.156),0 44px 75px rgba(0, 0, 0, 0.24)",
+                }),
+              }}
+              theme={(theme) => ({
+                ...theme,
+                colors: {
+                  ...theme.colors,
+                  primary25: "hotpink",
+                  primary: "black",
+                  neutral0: "#13171b",
+                  neutral5: "#13171b",
+                  neutral10: "#13171b",
+                  neutral20: "#2e3740",
+                  neutral30: "#13171b",
+                  neutral40: "#13171b",
+                },
+              })}
+            />
+          </div>
         </div>
 
         <h6
@@ -394,6 +460,10 @@ class DevicePane extends Component {
                     ...provided,
                     maxHeight: "27px",
                   }),
+                  menu: (provided) => ({
+                    ...provided,
+                    marginTop: "4px",
+                  }),
                 }}
                 theme={(theme) => ({
                   ...theme,
@@ -433,6 +503,7 @@ const mapStateToProps = (state) => ({
   selectedLayer: getSelectedLayer(state),
   selectedLayerIndex: getSelectedLayerIndex(state),
   selectedDevice: getSelectedDevice(state),
+  selectedDeviceVariant: getSelectedDeviceVariant(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

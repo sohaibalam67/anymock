@@ -71,7 +71,7 @@ class LeftPane extends Component {
         id: id,
         name: device.name,
         device_id: device.id,
-        variant_id: device.variant_id,
+        variant_id: device.variants[0].id,
         type: device.type,
         screenOffset: device.screenOffset,
         transforms: transforms,
