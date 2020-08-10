@@ -1,7 +1,7 @@
 import React, { Component, createRef } from "react";
 import styles from "./ImageDrop.module.css";
 import Dropzone from "react-dropzone";
-import imageIcon from "../../../assets/images/icons/app/cloud-upload-outline.svg";
+import { ReactComponent as UploadIcon } from "../../../assets/images/icons/app/cloud-upload-outline.svg";
 
 export default class ImageDrop extends Component {
   processFile = (files) => {
@@ -50,9 +50,7 @@ export default class ImageDrop extends Component {
               </div>
             ) : (
               <>
-                <img
-                  src={imageIcon}
-                  alt="upload icon"
+                <UploadIcon
                   style={{
                     width: "24px",
                     height: "auto",

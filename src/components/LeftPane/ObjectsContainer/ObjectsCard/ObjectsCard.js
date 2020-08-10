@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./ObjectsCard.module.css";
 import { motion } from "framer-motion";
 
-function ObjectsCard({ source, title, onClick }) {
+function ObjectsCard({ title, onClick, children }) {
   return (
     <motion.div
       className={styles.container}
@@ -11,7 +11,7 @@ function ObjectsCard({ source, title, onClick }) {
       }}
       onClick={onClick}
     >
-      <img src={source} alt="object icon" className={styles.icon} />
+      {children}
       <span className={styles.title}>{title}</span>
     </motion.div>
   );

@@ -18,6 +18,11 @@ import { setCanvasBackgroundImage } from "../../../helpers/canvas";
 
 // constants
 import { presets } from "../../../constants/canvas";
+import { PRESET_COLORS } from "../../../constants/colorPicker";
+import {
+  DEFAULT_SELECT_THEME,
+  DEFAULT_SELECT_STYLES,
+} from "../../../constants/selectComponentStyles";
 
 import {
   updatePreset,
@@ -33,7 +38,6 @@ class CanvasPane extends Component {
     super(props);
     this.state = {
       colorPickerVisible: false,
-      tempBackground: "#ffffff",
     };
   }
 
@@ -80,58 +84,8 @@ class CanvasPane extends Component {
                   this.props.updatePreset(value);
                 }}
                 options={presets}
-                styles={{
-                  control: (provided) => ({
-                    ...provided,
-                    borderColor: "#2b2b2b",
-                    minHeight: "27px",
-                  }),
-                  valueContainer: (provided) => ({
-                    ...provided,
-                    paddingTop: "0px",
-                    paddingBottom: "0px",
-                  }),
-                  option: (provided) => ({
-                    ...provided,
-                    background: "#2b2b2b",
-                    color: "#fff",
-                    fontSize: "0.8rem",
-                  }),
-                  placeholder: (provided) => ({
-                    ...provided,
-                    color: "#fff",
-                    fontSize: "0.8rem",
-                    fontWeight: "600",
-                  }),
-                  singleValue: (provided) => ({
-                    ...provided,
-                    color: "#fff",
-                    fontSize: "0.8rem",
-                    fontWeight: "600",
-                  }),
-                  indicatorsContainer: (provided) => ({
-                    ...provided,
-                    maxHeight: "27px",
-                  }),
-                  menu: (provided) => ({
-                    ...provided,
-                    marginTop: "4px",
-                  }),
-                }}
-                theme={(theme) => ({
-                  ...theme,
-                  colors: {
-                    ...theme.colors,
-                    primary25: "hotpink",
-                    primary: "black",
-                    neutral0: "#2b2b2b",
-                    neutral5: "#2b2b2b",
-                    neutral10: "#2b2b2b",
-                    neutral20: "#2e3740",
-                    neutral30: "#2b2b2b",
-                    neutral40: "#2b2b2b",
-                  },
-                })}
+                styles={DEFAULT_SELECT_STYLES}
+                theme={DEFAULT_SELECT_THEME}
               />
             </div>
           </div>
@@ -185,53 +139,16 @@ class CanvasPane extends Component {
                     />
                   </div>
                   {this.state.colorPickerVisible ? (
-                    <div
-                      style={{
-                        position: "absolute",
-                        zIndex: 100,
-                        marginLeft: "-70px",
-                      }}
-                    >
+                    <div className={styles.sketchPickerContainer}>
                       <div
-                        style={{
-                          position: "fixed",
-                          top: "0px",
-                          right: "0px",
-                          bottom: "0px",
-                          left: "0px",
-                        }}
+                        className={styles.sketchPickerCover}
                         onClick={this.hideColorPicker}
                       />
                       <SketchPicker
                         color={this.props.background}
                         onChange={this.changeBackgroundColor}
                         disableAlpha
-                        presetColors={[
-                          "#ef5777",
-                          "#575fcf",
-                          "#4bcffa",
-                          "#34e7e4",
-                          "#0be881",
-                          "#f53b57",
-                          "#3c40c6",
-                          "#0fbcf9",
-                          "#00d8d6",
-                          "#05c46b",
-                          "#f1c40f",
-                          "#fff200",
-                          "#ff5e57",
-                          "#d2dae2",
-                          "#485460",
-                          "#ffa801",
-                          "#ffd32a",
-                          "#ff3f34",
-                          "#f1f2f6",
-                          "#1e272e",
-                          "#be2edd",
-                          "#3742fa",
-                          "#ffffff",
-                          "#000000",
-                        ]}
+                        presetColors={PRESET_COLORS}
                       />
                     </div>
                   ) : null}
@@ -250,9 +167,7 @@ class CanvasPane extends Component {
             </div>
           </div>
         </div>
-        <Heading style={{ marginTop: "12px", marginBottom: "24px" }}>
-          CANVAS BACKGROUND
-        </Heading>
+        <Heading>CANVAS BACKGROUND</Heading>
         <ImageDrop
           title="Drop your background image here"
           file={this.props.backgroundImage}

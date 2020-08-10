@@ -7,9 +7,8 @@
   border: 0px solid black;
   outline: none;
   color: white;
-  padding: 6px 12px 6px 12px;
-  padding-right: 32px;
-  border-radius: 4px;
+  padding: 6px 18px 6px 12px;
+  border-radius: var(--radius-2);
   font-size: 0.75rem;
   border: 1px solid transparent;
 }
@@ -25,7 +24,7 @@
 .modifier {
   position: absolute;
   margin-left: -14px;
-  margin-top: 8px;
+  margin-top: 9px;
   font-size: 9px;
   color: #999999;
 }

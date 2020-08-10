@@ -1,8 +1,8 @@
 .container {
   max-width: 270px;
   min-width: 270px;
-  min-height: calc(100vh - 50px);
-  max-height: calc(100vh - 50px);
+  min-height: calc(100vh - var(--topbar-height));
+  max-height: calc(100vh - var(--topbar-height));
   background-color: blueviolet;
   background-color: #111111;
   border-left: 1px solid #252729;
@@ -10,5 +10,6 @@
 }
 
 .container > * {
-  padding: 15px;
+  padding-left: 12px;
+  padding-right: 12px;
 }

@@ -1,4 +1,5 @@
 import { fabric } from "fabric";
+import uuid from "react-uuid";
 
 export const addImage = (url) => {
   return new Promise((resolve, reject) => {
@@ -84,22 +85,14 @@ export const addDeviceGroup = async (
   return group;
 };
 
-export const downloadAsPNG = (canvas) => {
-  var currentTime = new Date();
-  var month = currentTime.getMonth() + 1;
-  var day = currentTime.getDate();
-  var year = currentTime.getFullYear();
-  var hours = currentTime.getHours();
-  var minutes = currentTime.getMinutes();
-  var seconds = currentTime.getSeconds();
-  var fileName =
-    month + "" + day + "" + year + "" + hours + "" + minutes + "" + seconds;
-  const canvasdata = canvas;
-  const canvasDataUrl = canvasdata
-      .toDataURL()
-      .replace(/^data:image\/[^;]*/, "data:application/octet-stream"),
-    link = document.createElement("a");
-  fileName = fileName + ".png";
+export const downloadImage = (canvas, type = "png") => {
+  var fileName = uuid();
+  const canvasDataUrl = canvas.toDataURL({
+    format: type ? type : "png",
+    multiplier: 1,
+  });
+  let link = document.createElement("a");
+  fileName = `${fileName}.${type}`;
   link.setAttribute("href", canvasDataUrl);
   link.setAttribute("crossOrigin", "anonymous");
   link.setAttribute("target", "_blank");

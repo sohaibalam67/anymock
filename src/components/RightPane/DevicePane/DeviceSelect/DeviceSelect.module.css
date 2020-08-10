@@ -6,11 +6,12 @@
   background: #111111;
   width: 270px;
   z-index: 99;
-  height: calc(100vh - 50px);
-  margin-top: 50px;
+  height: calc(100vh - var(--topbar-height));
+  margin-top: var(--topbar-height);
 }
 
 .scrollView {
+  --total-height: calc(var(--topbar-height) + 50px);
   overflow-y: auto;
-  height: calc(100vh - 100px);
+  height: calc(100vh - var(--total-height));
 }

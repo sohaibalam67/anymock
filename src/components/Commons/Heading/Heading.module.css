@@ -1,5 +1,8 @@
 .heading {
-  font-size: 9pt;
+  font-size: var(--text-xs);
   color: #fff;
-  margin: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+  margin-top: var(--space-3);
+  margin-bottom: var(--space-3);
 }

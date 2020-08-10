@@ -3,8 +3,7 @@
 }
 
 .canvasOptionContent {
-  padding-top: 15px;
-  padding-bottom: 15px;
+  margin-bottom: 42px;
 }
 
 .canvasOptionRow {
@@ -106,12 +105,16 @@
   width: 4px;
 }
 
-.exportButton {
-  background: #6ab04c;
-  color: #fff;
+.sketchPickerContainer {
+  position: absolute;
+  z-index: 100;
+  margin-left: -70px;
+}
+
+.sketchPickerCover {
+  position: fixed;
+  top: 0px;
+  right: 0px;
   bottom: 0px;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  left: 0px;
 }

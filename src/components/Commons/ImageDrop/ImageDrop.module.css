@@ -1,7 +1,7 @@
 .imageUploaderContainer {
   min-height: 140px;
   width: 100%;
-  border-radius: 6px;
+  border-radius: var(--radius-3);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,14 +21,14 @@
   width: 100%;
   min-height: inherit;
   color: #ffffff;
-  font-size: 0.75rem;
+  font-size: var(--text-xs);
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
   transition: 0.2s ease-in-out;
   text-align: center;
-  border-radius: 6px;
+  border-radius: var(--radius-3);
 }
 
 .imageUploaderContainer:hover .backgroudHoverText {
@@ -37,27 +37,32 @@
 
 .emptyStateTitle {
   color: #e4e4e4;
-  font-size: 0.7rem;
+  font-size: var(--text-xxs);
   margin: 0px;
-  border-radius: 3px;
-  margin-bottom: 3px;
+  margin-bottom: var(--space-1);
 }
 
 .emptyStateSubtitle {
   color: rgba(255, 255, 255, 0.4);
   font-size: 0.65rem;
-  margin-bottom: 16px;
+  margin-bottom: var(--space-4);
 }
 
 .browseButton {
   border: none;
-  background: #0099ff;
+  background: var(--primary);
   color: #ffffff;
-  padding: 4px 12px 3px 12px;
-  border-radius: 3px;
-  font-size: 0.7rem;
+  padding-top: var(--space-1);
+  padding-bottom: var(--space-1);
+  padding-left: var(--space-3);
+  padding-right: var(--space-3);
+  border-radius: var(--radius-2);
+  font-size: var(--text-xxs);
   outline: none;
   cursor: pointer;
+}
+.browseButton:hover {
+  background: var(--primary-dark);
 }
 
 .backgroundContainer {

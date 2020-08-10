@@ -11,6 +11,7 @@ import { addItemToLayer } from "../../store/actions/layer";
 
 // components
 import Layers from "./Layers/Layers";
+import Heading from "../Commons/Heading";
 import HeadBar from "../Commons/HeadBar";
 import ObjectsContainer from "./ObjectsContainer/ObjectsContainer";
 import TemplatesContainer from "./TemplatesContainer/TemplatesContainer";
@@ -123,18 +124,6 @@ class LeftPane extends Component {
   render() {
     return (
       <div className={styles.container}>
-        {this.state.activeSegment === SEGMENT_TEMPLATE ? (
-          <>
-            <HeadBar
-              title="Choose Template"
-              onBackClick={() => {
-                this.switchActiveSegment(SEGMENT_OBJECT);
-              }}
-            />
-            <TemplatesContainer />
-          </>
-        ) : null}
-
         {this.state.activeSegment === SEGMENT_OBJECT ? (
           <>
             <div className={styles.toolsContainer}>
@@ -161,9 +150,22 @@ class LeftPane extends Component {
                 Choose a template
               </motion.button>
             </div>
+            <Heading style={{ paddingLeft: "12px" }}>LAYERS</Heading>
             <div className={styles.layersContainer}>
               <Layers />
             </div>
+          </>
+        ) : null}
+
+        {this.state.activeSegment === SEGMENT_TEMPLATE ? (
+          <>
+            <HeadBar
+              title="Choose Template"
+              onBackClick={() => {
+                this.switchActiveSegment(SEGMENT_OBJECT);
+              }}
+            />
+            <TemplatesContainer />
           </>
         ) : null}
       </div>

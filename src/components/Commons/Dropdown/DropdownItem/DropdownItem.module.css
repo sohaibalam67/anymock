@@ -1,0 +1,14 @@
+.dropdownItem {
+  height: 20px;
+  display: flex;
+  align-items: center;
+  transition: background var(--speed);
+  padding: 3px 12px 3px 12px;
+  cursor: pointer;
+  color: #fff;
+  font-size: var(--text-xs);
+}
+
+.dropdownItem:hover {
+  background-color: var(--primary);
+}

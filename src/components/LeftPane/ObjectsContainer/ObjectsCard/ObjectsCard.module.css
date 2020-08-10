@@ -14,14 +14,9 @@
   background-color: rgba(255, 255, 255, 0.1);
 }
 
-.icon {
-  height: 26px;
-  width: auto;
-}
-
 .title {
-  font-size: 9pt;
-  margin-top: 8px;
+  font-size: var(--text-xs);
+  margin-top: var(--space-2);
   color: #adb5bd;
 }
 

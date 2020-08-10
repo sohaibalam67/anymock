@@ -1,4 +1,10 @@
 import React, { Component } from "react";
+import styles from "./DevicePane.module.css";
+
+// packages
+import Select from "react-select";
+
+// redux
 import { connect } from "react-redux";
 import {
   updateDeviceScreenSource,
@@ -7,31 +13,37 @@ import {
   updateDeviceSreenFitByIndex,
   updateLayerItem,
 } from "../../../store/actions/layer";
-import ImageDrop from "../../Commons/ImageDrop/ImageDrop";
-import { addDeviceGroup } from "../../../helpers/image";
-import DeviceSelect from "./DeviceSelect/DeviceSelect";
-import { devices } from "../../../constants/devices";
-import { DEVICE_TYPES } from "../../../constants/deviceTypes";
-import DeviceCard from "../../Commons/DeviceCard";
-import styles from "./DevicePane.module.css";
-import Select from "react-select";
-import InputBox from "../../Commons/InputBox";
 import {
   getSelectedLayer,
   getSelectedLayerIndex,
   getSelectedDevice,
   getSelectedDeviceVariant,
 } from "../../../store/selectors";
-import { isNumber } from "../../../helpers/common";
+
+// components
+import Heading from "../../Commons/Heading";
+import InputBox from "../../Commons/InputBox";
+import DeviceCard from "../../Commons/DeviceCard";
+import DeviceSelect from "./DeviceSelect/DeviceSelect";
+import ImageDrop from "../../Commons/ImageDrop/ImageDrop";
+
+// helpers
+import { isNumber, isObject } from "../../../helpers/common";
+import { addDeviceGroup } from "../../../helpers/image";
+
+// constants
+import { devices } from "../../../constants/devices";
+import { DEVICE_TYPES } from "../../../constants/deviceTypes";
 import { SCREEN_SIZE_FIT, SCREEN_SIZE_FILL } from "../../../constants/screen";
+import {
+  DEFAULT_SELECT_THEME,
+  DEFAULT_SELECT_STYLES,
+} from "../../../constants/selectComponentStyles";
 
 class DevicePane extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      deviceSelectVisible: false,
-    };
-  }
+  state = {
+    deviceSelectVisible: false,
+  };
 
   setDeviceSelectVisible = (value) => {
     this.setState({ deviceSelectVisible: value });
@@ -39,6 +51,10 @@ class DevicePane extends Component {
 
   setImageFile = (source) => {
     let activeObject = this.props.canvas.getActiveObject();
+
+    if (!isObject(activeObject)) {
+      return;
+    }
 
     if (!Object.values(DEVICE_TYPES).includes(activeObject.device_type)) {
       return;
@@ -50,9 +66,8 @@ class DevicePane extends Component {
         scaleY: activeObject.device_screen_offset.height / img.height,
       });
       this.props.canvas.renderAll();
+      this.props.updateDeviceScreenSource(activeObject.id, source);
     });
-
-    this.props.updateDeviceScreenSource(activeObject.id, source);
   };
 
   changeFrame = async (device, variant) => {
@@ -61,6 +76,14 @@ class DevicePane extends Component {
     }
 
     let activeObject = this.props.canvas.getActiveObject();
+
+    if (!isObject(activeObject)) {
+      return;
+    }
+
+    if (!Object.values(DEVICE_TYPES).includes(activeObject.device_type)) {
+      return;
+    }
 
     let id = activeObject.id;
     let transforms = {
@@ -246,17 +269,8 @@ class DevicePane extends Component {
 
     return (
       <div>
-        <h6
-          style={{
-            fontSize: "9pt",
-            color: "#fff",
-            marginTop: "12px",
-            marginBottom: "12px",
-          }}
-        >
-          DEVICE SETTINGS
-        </h6>
-        <div style={{ paddingTop: "15px", paddingBottom: "15px" }}>
+        <Heading>DEVICE SETTINGS</Heading>
+        <div style={{ paddingBottom: "15px" }}>
           <div className={styles.optionRow}>
             <div className={styles.optionsLabel}>Position</div>
             <div className={styles.optionsInput}>
@@ -303,16 +317,7 @@ class DevicePane extends Component {
             </div>
           </div>
         </div>
-        <h6
-          style={{
-            fontSize: "9pt",
-            color: "#fff",
-            marginTop: "12px",
-            marginBottom: "12px",
-          }}
-        >
-          ACTIVE DEVICE
-        </h6>
+        <Heading>ACTIVE DEVICE</Heading>
         <div
           style={{
             borderRadius: "3px",
@@ -326,10 +331,9 @@ class DevicePane extends Component {
             onClick={() => {
               this.setDeviceSelectVisible(true);
             }}
-            style={{ padding: "0px", marginBottom: "12px" }}
-            thumbnailStyle={{
-              borderTopRightRadius: "0px",
-              borderBottomRightRadius: "0px",
+            style={{
+              background: "rgba(255,255,255,0.1)",
+              marginBottom: "12px",
             }}
           />
         </div>
@@ -344,76 +348,14 @@ class DevicePane extends Component {
               options={selectedDeviceVariants}
               getOptionValue={(option) => `${option}`}
               getOptionLabel={(option) => `${option.name}`}
-              styles={{
-                control: (provided) => ({
-                  ...provided,
-                  borderColor: "#2b2b2b",
-                  minHeight: "27px",
-                }),
-                valueContainer: (provided) => ({
-                  ...provided,
-                  paddingTop: "0px",
-                  paddingBottom: "0px",
-                }),
-                option: (provided) => ({
-                  ...provided,
-                  background: "#2b2b2b",
-                  color: "#fff",
-                  fontSize: "0.8rem",
-                }),
-                placeholder: (provided) => ({
-                  ...provided,
-                  color: "#fff",
-                  fontSize: "0.8rem",
-                  fontWeight: "600",
-                }),
-                singleValue: (provided) => ({
-                  ...provided,
-                  color: "#fff",
-                  fontSize: "0.8rem",
-                  fontWeight: "600",
-                }),
-                indicatorsContainer: (provided) => ({
-                  ...provided,
-                  maxHeight: "27px",
-                }),
-                menu: (provided) => ({
-                  ...provided,
-                  marginTop: "4px",
-                  boxShadow:
-                    "0 2px 3.4px rgba(0, 0, 0, 0.084),0 5.5px 9.4px rgba(0, 0, 0, 0.12),0 13.3px 22.6px rgba(0, 0, 0, 0.156),0 44px 75px rgba(0, 0, 0, 0.24)",
-                }),
-              }}
-              theme={(theme) => ({
-                ...theme,
-                colors: {
-                  ...theme.colors,
-                  primary25: "hotpink",
-                  primary: "black",
-                  neutral0: "#2b2b2b",
-                  neutral5: "#2b2b2b",
-                  neutral10: "#2b2b2b",
-                  neutral20: "#2e3740",
-                  neutral30: "#2b2b2b",
-                  neutral40: "#2b2b2b",
-                },
-              })}
+              styles={DEFAULT_SELECT_STYLES}
+              theme={DEFAULT_SELECT_THEME}
             />
           </div>
         </div>
 
-        <h6
-          style={{
-            fontSize: "9pt",
-            color: "#fff",
-            marginTop: "12px",
-            marginBottom: "12px",
-          }}
-        >
-          SCREEN SETTINGS
-        </h6>
-
-        <div style={{ paddingTop: "15px", paddingBottom: "15px" }}>
+        <Heading>SCREEN SETTINGS</Heading>
+        <div style={{ paddingBottom: "15px" }}>
           <ImageDrop
             title="Drop your screenshot here"
             file={screenSource}
@@ -426,58 +368,8 @@ class DevicePane extends Component {
                 value={screenSizeValue}
                 onChange={this.changeScreenFit}
                 options={options}
-                styles={{
-                  control: (provided) => ({
-                    ...provided,
-                    borderColor: "#2b2b2b",
-                    minHeight: "27px",
-                  }),
-                  valueContainer: (provided) => ({
-                    ...provided,
-                    paddingTop: "0px",
-                    paddingBottom: "0px",
-                  }),
-                  option: (provided) => ({
-                    ...provided,
-                    background: "#2b2b2b",
-                    color: "#fff",
-                    fontSize: "0.8rem",
-                  }),
-                  placeholder: (provided) => ({
-                    ...provided,
-                    color: "#fff",
-                    fontSize: "0.8rem",
-                    fontWeight: "600",
-                  }),
-                  singleValue: (provided) => ({
-                    ...provided,
-                    color: "#fff",
-                    fontSize: "0.8rem",
-                    fontWeight: "600",
-                  }),
-                  indicatorsContainer: (provided) => ({
-                    ...provided,
-                    maxHeight: "27px",
-                  }),
-                  menu: (provided) => ({
-                    ...provided,
-                    marginTop: "4px",
-                  }),
-                }}
-                theme={(theme) => ({
-                  ...theme,
-                  colors: {
-                    ...theme.colors,
-                    primary25: "hotpink",
-                    primary: "black",
-                    neutral0: "#2b2b2b",
-                    neutral5: "#2b2b2b",
-                    neutral10: "#2b2b2b",
-                    neutral20: "#2e3740",
-                    neutral30: "#2b2b2b",
-                    neutral40: "#2b2b2b",
-                  },
-                })}
+                styles={DEFAULT_SELECT_STYLES}
+                theme={DEFAULT_SELECT_THEME}
               />
             </div>
           </div>

@@ -6,7 +6,6 @@ import { getSelectedLayerIndex } from "../../../store/selectors";
 
 // components
 import LayerItem from "./LayerItem";
-import Heading from "../../Commons/Heading";
 
 // images
 import phone from "../../../assets/images/icons/objects/phone.svg";
@@ -14,7 +13,6 @@ import phone from "../../../assets/images/icons/objects/phone.svg";
 function Layers({ layers = [], selectedLayerIndex }) {
   return (
     <>
-      <Heading style={{ padding: "12px" }}>LAYERS</Heading>
       {layers.map((item, index) => (
         <LayerItem
           key={item.id}

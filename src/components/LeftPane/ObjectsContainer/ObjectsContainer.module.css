@@ -1,7 +1,6 @@
 .container {
-  padding: 12px;
-  overflow-x: hidden;
-  overflow-y: auto;
+  margin-top: var(--space-3);
+  margin-bottom: var(--space-3);
 }
 
 .cardsContainer {

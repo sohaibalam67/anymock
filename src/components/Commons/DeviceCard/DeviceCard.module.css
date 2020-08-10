@@ -1,8 +1,8 @@
 .deviceCard {
   display: flex;
   align-items: center;
-  padding: 8px;
-  border-radius: 3px;
+  padding: var(--space-2);
+  border-radius: var(--radius-2);
   cursor: pointer;
 }
 
@@ -16,8 +16,8 @@
   min-height: 45px;
   max-height: 45px;
   background-color: aliceblue;
-  margin-right: 10px;
-  border-radius: 3px;
+  margin-right: var(--space-3);
+  border-radius: var(--radius-1);
   background-repeat: no-repeat !important;
   background-position: center !important;
   background-size: cover !important;
@@ -26,13 +26,13 @@
 .title {
   color: #dddddd;
   font-weight: bold;
-  font-size: 0.75rem;
+  font-size: var(--text-xs);
   font-weight: bold;
-  margin-bottom: 2px;
+  margin-bottom: var(--space-0);
 }
 
 .subtitle {
   color: #636e72;
   font-weight: 500;
-  font-size: 0.8rem;
+  font-size: var(--text-xs);
 }

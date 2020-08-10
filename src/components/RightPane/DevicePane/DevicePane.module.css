@@ -6,9 +6,8 @@
 
 .optionsLabel {
   min-width: 60px;
-  color: #adb5bd;
-  font-size: 0.8rem;
-  font-weight: 600;
+  color: #eeeeee;
+  font-size: 0.75rem;
 }
 
 .optionsInput {
@@ -31,27 +30,6 @@
 
 .row > *:not(:first-child) {
   padding-left: 6px;
-}
-
-.inputBox {
-  width: 100%;
-  background-color: #2b2b2b;
-  border: 0px solid black;
-  outline: none;
-  color: white;
-  padding: 6px 12px 6px 12px;
-  padding-right: 32px;
-  border-radius: 4px;
-  font-size: 0.75rem;
-  border: 1px solid transparent;
-}
-
-.inputBox:focus {
-  outline: thin;
-  outline-style: solid;
-  outline: 1px solid rgb(3, 103, 170);
-  border: 1px solid rgb(3, 103, 170);
-  outline-offset: -2px;
 }
 
 .modifier {

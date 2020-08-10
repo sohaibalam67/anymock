@@ -1,0 +1,13 @@
+.dropdown {
+  position: absolute;
+  top: 50px;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  background-color: var(--bg);
+  border-radius: var(--radius-2);
+  overflow: hidden;
+  z-index: 100;
+  box-shadow: 0 2px 3.4px rgba(0, 0, 0, 0.084),
+    0 5.5px 9.4px rgba(0, 0, 0, 0.12), 0 13.3px 22.6px rgba(0, 0, 0, 0.156),
+    0 44px 75px rgba(0, 0, 0, 0.24);
+}
