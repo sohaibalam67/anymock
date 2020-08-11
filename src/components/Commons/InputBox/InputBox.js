@@ -24,6 +24,9 @@ function InputBox(props) {
         onChange={(event) => {
           setValue(event.target.value);
         }}
+        onFocus={(event) => {
+          event.target.select();
+        }}
         onBlur={() => {
           props.onChange(value);
         }}
