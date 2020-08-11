@@ -1,7 +1,7 @@
 export const DEVICE_TYPES = {
-  COMPUTER: "computer",
+  LAPTOP: "laptop",
   DISPLAY: "display",
-  HOME: "home",
+  BROWSER: "browser",
   PHONE: "phone",
   TABLET: "tablet",
   WATCH: "watch",

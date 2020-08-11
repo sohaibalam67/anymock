@@ -94,19 +94,19 @@ class LeftPane extends Component {
   };
 
   addLaptop = () => {
-    // this.addDevice(devices.laptops[0]);
+    this.addDevice(devices.laptops[0]);
   };
 
   addTablet = () => {
-    // this.addDevice(devices.tablets[0]);
+    this.addDevice(devices.tablets[0]);
   };
 
   addWatch = () => {
-    // this.addDevice(devices.watches[0]);
+    this.addDevice(devices.watches[0]);
   };
 
   addDisplay = () => {
-    // this.addDevice(devices.displays[0]);
+    this.addDevice(devices.displays[0]);
   };
 
   addText = () => {

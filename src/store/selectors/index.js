@@ -52,11 +52,27 @@ export const getSelectedDevice = createSelector(
     }
 
     let selectedDevice = null;
+    let allDevicesOfSameType = null;
 
     if (selectedLayer.type === DEVICE_TYPES.PHONE) {
-      for (let index = 0; index < devices.phones.length; index++) {
-        if (devices.phones[index].id === selectedLayer.device_id) {
-          selectedDevice = devices.phones[index];
+      allDevicesOfSameType = devices.phones;
+    } else if (selectedLayer.type === DEVICE_TYPES.LAPTOP) {
+      allDevicesOfSameType = devices.laptops;
+    } else if (selectedLayer.type === DEVICE_TYPES.TABLET) {
+      allDevicesOfSameType = devices.tablets;
+    } else if (selectedLayer.type === DEVICE_TYPES.WATCH) {
+      allDevicesOfSameType = devices.watches;
+    } else if (selectedLayer.type === DEVICE_TYPES.DISPLAY) {
+      allDevicesOfSameType = devices.displays;
+    }
+
+    if (
+      Array.isArray(allDevicesOfSameType) &&
+      allDevicesOfSameType.length > 0
+    ) {
+      for (let index = 0; index < allDevicesOfSameType.length; index++) {
+        if (allDevicesOfSameType[index].id === selectedLayer.device_id) {
+          selectedDevice = allDevicesOfSameType[index];
           break;
         }
       }
@@ -79,7 +95,7 @@ export const getSelectedDeviceVariant = createSelector(
 
     let selectedDeviceVariant = null;
 
-    if (selectedLayer.type === DEVICE_TYPES.PHONE) {
+    if (Object.values(DEVICE_TYPES).includes(selectedLayer.type)) {
       for (let index = 0; index < selectedDevice.variants.length; index++) {
         if (selectedDevice.variants[index].id === selectedLayer.variant_id) {
           selectedDeviceVariant = selectedDevice.variants[index];
