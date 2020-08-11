@@ -4,6 +4,7 @@ import {
   UPDATE_WIDTH,
   UPDATE_HEIGHT,
   UPDATE_BACKGROUND,
+  UPDATE_CANVAS_ZOOM,
   UPDATE_BACKGROUND_IMAGE,
   UPDATE_BACKGROUND_OPACITY,
 } from "../actions/actionTypes";
@@ -13,6 +14,7 @@ import { isNumber } from "../../helpers/common";
 
 const INITIAL_STATE = {
   canvas: null,
+  zoom: 40,
   preset: presets[0],
   width: 1600,
   height: 1200,
@@ -23,6 +25,7 @@ const INITIAL_STATE = {
 
 const canvasReducer = (state = INITIAL_STATE, action) => {
   let canvas = state.canvas;
+  let zoom = state.zoom;
   let preset = state.preset;
   let width = state.width;
   let height = state.height;
@@ -39,6 +42,16 @@ const canvasReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         canvas,
+      };
+
+    case UPDATE_CANVAS_ZOOM:
+      if (isNumber(action.zoom)) {
+        zoom = action.zoom;
+      }
+
+      return {
+        ...state,
+        zoom,
       };
 
     case UPDATE_PRESET:

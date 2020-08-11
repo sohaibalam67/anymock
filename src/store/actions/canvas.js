@@ -4,6 +4,7 @@ import {
   UPDATE_WIDTH,
   UPDATE_HEIGHT,
   UPDATE_BACKGROUND,
+  UPDATE_CANVAS_ZOOM,
   UPDATE_BACKGROUND_IMAGE,
   UPDATE_BACKGROUND_OPACITY,
 } from "./actionTypes";
@@ -12,6 +13,13 @@ export const updateCanvas = (canvas) => {
   return {
     type: UPDATE_CANVAS,
     canvas,
+  };
+};
+
+export const updateZoom = (zoom) => {
+  return {
+    type: UPDATE_CANVAS_ZOOM,
+    zoom,
   };
 };
 

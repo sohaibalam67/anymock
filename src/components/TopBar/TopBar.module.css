@@ -28,6 +28,9 @@
   max-width: var(--workarea-width);
   min-width: var(--workarea-width);
   min-height: calc(var(--panel-height) - 1px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .logo {
@@ -73,4 +76,38 @@
 
 .exportButton:hover {
   background-color: #0088ff;
+}
+
+.separator {
+  max-height: 30px;
+  min-height: 30px;
+  min-width: 1px;
+  background-color: var(--panel-border);
+  margin-left: var(--space-3);
+  margin-right: var(--space-3);
+}
+
+.controlsContainer {
+  display: flex;
+  align-items: center;
+  margin-left: 12px;
+  margin-right: 12px;
+  z-index: 99;
+  min-width: 200px;
+  max-width: 200px;
+}
+
+.zoomLabel {
+  color: rgba(255, 255, 255, 0.6);
+  margin-right: 12px;
+  font-size: 10pt;
+  margin-top: -5px;
+  min-width: 35px;
+  max-width: 35px;
+  font-family: monospace;
+}
+
+.sliderContainer {
+  width: 150px;
+  margin-right: 12px;
 }

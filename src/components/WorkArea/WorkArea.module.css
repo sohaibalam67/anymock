@@ -38,32 +38,3 @@
   justify-content: center;
   align-items: center;
 }
-
-.zoomControlContainer {
-  min-height: var(--topbar-height);
-  position: absolute;
-  width: calc(100% - 550px);
-  top: 0;
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.controlsContainer {
-  display: flex;
-  align-items: center;
-  margin-right: 25px;
-  z-index: 99;
-}
-
-.zoomLabel {
-  color: rgba(255, 255, 255, 0.6);
-  margin-right: 12px;
-  font-size: 9pt;
-  margin-top: -5px;
-}
-
-.sliderContainer {
-  width: 150px;
-  margin-right: 12px;
-}

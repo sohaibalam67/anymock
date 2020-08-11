@@ -4,11 +4,10 @@ import styles from "./WorkArea.module.css";
 // packages
 import { fabric } from "fabric";
 import Hotkeys from "react-hot-keys";
-import Slider from "@material-ui/core/Slider";
 
 // redux
 import { connect } from "react-redux";
-import { updateCanvas } from "../../store/actions/canvas";
+import { updateCanvas, updateZoom } from "../../store/actions/canvas";
 import {
   updateSelectedItemId,
   updateItemPositionByIndex,
@@ -29,13 +28,6 @@ import {
 import { CANVAS_PANE, DEVICE_PANE } from "../../constants/rightPane";
 
 class WorkArea extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      zoom: 40,
-    };
-  }
-
   componentDidMount() {
     // initialize canvas
     this.canvas = new fabric.Canvas("fabricCanvas", {
@@ -227,8 +219,8 @@ class WorkArea extends Component {
     this.line_v.opacity = 0;
   };
 
-  changeZoom = (event, value) => {
-    this.setState({ zoom: value });
+  changeZoom = (value) => {
+    this.props.updateZoom(value);
     this.canvas.calcOffset();
   };
 
@@ -277,15 +269,15 @@ class WorkArea extends Component {
     }
 
     if (keyName === "cmd+=") {
-      let zoom = this.state.zoom;
+      let zoom = this.props.zoom;
 
-      this.changeZoom(null, Math.min(zoom + 5, 100));
+      this.changeZoom(Math.min(zoom + 5, 100));
     }
 
     if (keyName === "cmd+-") {
-      let zoom = this.state.zoom;
+      let zoom = this.props.zoom;
 
-      this.changeZoom(null, Math.max(zoom - 5, 0));
+      this.changeZoom(Math.max(zoom - 5, 10));
     }
   }
 
@@ -300,24 +292,10 @@ class WorkArea extends Component {
           className={styles.container}
           onClick={this.deselectAllItemsOnCanvas}
         >
-          <div className={styles.zoomControlContainer}>
-            <div className={styles.controlsContainer}>
-              <span className={styles.zoomLabel}>{this.state.zoom}%</span>
-              <div className={styles.sliderContainer}>
-                <Slider
-                  value={this.state.zoom}
-                  min={10}
-                  step={1}
-                  max={100}
-                  onChange={this.changeZoom}
-                />
-              </div>
-            </div>
-          </div>
           <div
             style={{
               margin: "100px",
-              transform: `scale(${this.state.zoom / 100})`,
+              transform: `scale(${this.props.zoom / 100})`,
               transition: "transform .15s cubic-bezier(.05,.03,.35,1)",
             }}
           >
@@ -340,6 +318,7 @@ class WorkArea extends Component {
 }
 
 const mapStateToProps = (state) => ({
+  zoom: state.canvas.zoom,
   width: state.canvas.width,
   height: state.canvas.height,
   background: state.canvas.background,
@@ -350,6 +329,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   updateCanvas: (canvas) => dispatch(updateCanvas(canvas)),
+  updateZoom: (zoom) => dispatch(updateZoom(zoom)),
   setActivePane: (activePane) => dispatch(setActivePane(activePane)),
   updateSelectedItemId: (id) => dispatch(updateSelectedItemId(id)),
   updateItemPositionByIndex: (index, left, top) =>
