@@ -23,6 +23,7 @@ import {
 // components
 import Heading from "../../Commons/Heading";
 import InputBox from "../../Commons/InputBox";
+import Alignment from "../../Commons/Alignment";
 import DeviceCard from "../../Commons/DeviceCard";
 import DeviceSelect from "./DeviceSelect/DeviceSelect";
 import ImageDrop from "../../Commons/ImageDrop/ImageDrop";
@@ -235,6 +236,119 @@ class DevicePane extends Component {
     }
   };
 
+  handleLeftAlignClick = () => {
+    let activeObject = this.props.canvas.getActiveObject();
+
+    if (!isObject(activeObject)) {
+      return;
+    }
+
+    if (!Object.values(DEVICE_TYPES).includes(activeObject.device_type)) {
+      return;
+    }
+
+    activeObject.set({
+      left: 0,
+    });
+
+    activeObject.setCoords();
+    this.props.canvas.renderAll();
+  };
+  handleHorizontalCenterAlignClick = () => {
+    let activeObject = this.props.canvas.getActiveObject();
+
+    if (!isObject(activeObject)) {
+      return;
+    }
+
+    if (!Object.values(DEVICE_TYPES).includes(activeObject.device_type)) {
+      return;
+    }
+
+    activeObject.set({
+      left:
+        this.props.canvas.width / 2 -
+        (activeObject.width * activeObject.scaleX) / 2,
+    });
+
+    activeObject.setCoords();
+    this.props.canvas.renderAll();
+  };
+  handleRightAlignClick = () => {
+    let activeObject = this.props.canvas.getActiveObject();
+
+    if (!isObject(activeObject)) {
+      return;
+    }
+
+    if (!Object.values(DEVICE_TYPES).includes(activeObject.device_type)) {
+      return;
+    }
+
+    activeObject.set({
+      left: this.props.canvas.width - activeObject.width * activeObject.scaleX,
+    });
+
+    activeObject.setCoords();
+    this.props.canvas.renderAll();
+  };
+  handleTopAlignClick = () => {
+    let activeObject = this.props.canvas.getActiveObject();
+
+    if (!isObject(activeObject)) {
+      return;
+    }
+
+    if (!Object.values(DEVICE_TYPES).includes(activeObject.device_type)) {
+      return;
+    }
+
+    activeObject.set({
+      top: 0,
+    });
+
+    activeObject.setCoords();
+    this.props.canvas.renderAll();
+  };
+  handleVerticalCenterAlignClick = () => {
+    let activeObject = this.props.canvas.getActiveObject();
+
+    if (!isObject(activeObject)) {
+      return;
+    }
+
+    if (!Object.values(DEVICE_TYPES).includes(activeObject.device_type)) {
+      return;
+    }
+
+    activeObject.set({
+      top:
+        this.props.canvas.height / 2 -
+        (activeObject.height * activeObject.scaleY) / 2,
+    });
+
+    activeObject.setCoords();
+    this.props.canvas.renderAll();
+  };
+  handleBottomAlignClick = () => {
+    let activeObject = this.props.canvas.getActiveObject();
+
+    if (!isObject(activeObject)) {
+      return;
+    }
+
+    if (!Object.values(DEVICE_TYPES).includes(activeObject.device_type)) {
+      return;
+    }
+
+    activeObject.set({
+      top: this.props.canvas.height - activeObject.height * activeObject.scaleY,
+    });
+
+    activeObject.setCoords();
+    this.props.canvas.renderAll();
+  };
+
   render() {
     let options = [
       { value: SCREEN_SIZE_FIT, label: "Fit" },
@@ -269,6 +383,15 @@ class DevicePane extends Component {
 
     return (
       <div>
+        <Heading>ALIGNMENT</Heading>
+        <Alignment
+          leftAlign={this.handleLeftAlignClick}
+          horizontalCenterAlign={this.handleHorizontalCenterAlignClick}
+          rightAlign={this.handleRightAlignClick}
+          topAlign={this.handleTopAlignClick}
+          verticalCenterAlign={this.handleVerticalCenterAlignClick}
+          bottomAlign={this.handleBottomAlignClick}
+        />
         <Heading>DEVICE SETTINGS</Heading>
         <div style={{ paddingBottom: "15px" }}>
           <div className={styles.optionRow}>
@@ -321,7 +444,6 @@ class DevicePane extends Component {
         <div
           style={{
             borderRadius: "3px",
-            paddingTop: "15px",
           }}
         >
           <DeviceCard

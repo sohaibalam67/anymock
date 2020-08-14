@@ -1,0 +1,14 @@
+.container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.icon {
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.icon:hover {
+  background: rgba(255, 255, 255, 0.1);
+}

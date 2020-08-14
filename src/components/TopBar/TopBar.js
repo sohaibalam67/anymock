@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import styles from "./TopBar.module.css";
-import { motion } from "framer-motion";
 import { connect } from "react-redux";
 import { downloadImage } from "../../helpers/image";
 import Menu from "../Commons/Menu";
@@ -17,16 +16,7 @@ import { ReactComponent as ShortcutIcon } from "../../assets/images/icons/app/bo
 const logo = require("../../assets/images/logo.svg");
 
 function ExportButton() {
-  return (
-    <motion.button
-      className={styles.exportButton}
-      whileTap={{
-        scale: 0.96,
-      }}
-    >
-      Export Design
-    </motion.button>
-  );
+  return <button className={styles.exportButton}>Export Design</button>;
 }
 
 function Separator() {

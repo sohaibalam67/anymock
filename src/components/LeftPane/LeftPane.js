@@ -3,7 +3,7 @@ import styles from "./LeftPane.module.css";
 
 // packages
 import uuid from "react-uuid";
-import { motion } from "framer-motion";
+import { fabric } from "fabric";
 
 // redux
 import { connect } from "react-redux";
@@ -110,7 +110,43 @@ class LeftPane extends Component {
   };
 
   addText = () => {
-    // todo
+    let newtext = new fabric.Textbox("Edit this text", {
+      left: this.props.canvas.width > 100 ? 100 : 0,
+      top: this.props.canvas.height > 100 ? 100 : 0,
+      width: 400,
+      fontFamily: "sans-serif",
+      fill: "black",
+      transparentCorners: false,
+      lockRotation: true,
+      borderColor: "#0E98FC",
+      cornerColor: "#0E98FC",
+      centeredScaling: false,
+      borderOpacityWhenMoving: 1,
+      hasRotationPoint: false,
+      lockScalingFlip: true,
+      lockSkewingX: true,
+      lockSkewingY: true,
+      cursorWidth: 1,
+      cursorDuration: 1,
+      cursorDelay: 250,
+    });
+
+    // textboxes.push(newtext);
+    newtext.setControlsVisibility({
+      bl: true,
+      br: true,
+      tl: true,
+      tr: true,
+      mb: false,
+      ml: true,
+      mr: true,
+      mt: false,
+      mtr: false,
+    });
+    this.props.canvas.add(newtext).setActiveObject(newtext);
+    this.props.canvas.bringToFront(newtext);
+    this.props.canvas.renderAll();
+    newtext.enterEditing();
   };
 
   addImage = () => {
@@ -138,17 +174,14 @@ class LeftPane extends Component {
                 addImage={this.addImage}
                 addShape={this.addShape}
               />
-              <motion.button
+              <button
                 className={styles.chooseFromTemplatesButton}
-                whileTap={{
-                  scale: 0.96,
-                }}
                 onClick={() => {
                   this.switchActiveSegment(SEGMENT_TEMPLATE);
                 }}
               >
                 Choose a template
-              </motion.button>
+              </button>
             </div>
             <Heading style={{ paddingLeft: "12px" }}>LAYERS</Heading>
             <div className={styles.layersContainer}>

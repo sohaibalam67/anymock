@@ -3,7 +3,7 @@ import styles from "./DeviceCard.module.css";
 
 function DeviceCard(props) {
   let thumbnailStyle = props.thumbnailStyle ?? {};
-  thumbnailStyle.background = `url(${props.thumbnail})`;
+  thumbnailStyle.backgroundImage = `url(${props.thumbnail})`;
   return (
     <div
       className={styles.deviceCard}

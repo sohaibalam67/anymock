@@ -10,6 +10,11 @@
   justify-content: center;
 }
 
+/* TODO: Remove later */
+.container::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
 .rangeslider {
   margin: 20px 0;
   position: relative;
