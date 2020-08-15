@@ -27,6 +27,9 @@ import {
 // constants
 import { CANVAS_PANE, DEVICE_PANE } from "../../constants/rightPane";
 
+// icons
+import { ReactComponent as SyncIcon } from "../../assets/images/icons/app/sync-outline.svg";
+
 class WorkArea extends Component {
   componentDidMount() {
     // initialize canvas
@@ -297,36 +300,44 @@ class WorkArea extends Component {
 
   render() {
     return (
-      <Hotkeys
-        keyName="backspace,cmd+a,control+a,ctrl+a,cmd+=,cmd+-,cmd+],cmd+["
-        onKeyDown={this.onKeyDown.bind(this)}
-        allowRepeat
-      >
-        <div
-          className={styles.container}
-          onClick={this.deselectAllItemsOnCanvas}
+      <>
+        <Hotkeys
+          keyName="backspace,cmd+a,control+a,ctrl+a,cmd+=,cmd+-,cmd+],cmd+["
+          onKeyDown={this.onKeyDown.bind(this)}
+          allowRepeat
         >
           <div
-            style={{
-              margin: "100px",
-              transform: `scale(${this.props.zoom / 100})`,
-              transition: "transform .15s cubic-bezier(.05,.03,.35,1)",
-            }}
+            className={styles.container}
+            onClick={this.deselectAllItemsOnCanvas}
           >
             <div
               style={{
-                position: "absolute",
-                minWidth: `${Math.max(this.props.width, 2) - 2}px`,
-                minHeight: `${Math.max(this.props.height, 2) - 2}px`,
-                margin: "1px",
-                background:
-                  "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAEhJREFUWAnt1rENADAIA0HICuy/IZ4BsoMjpXn6l9A1kN09YUxVGXXEseoHMQsggAACCCCAQM4d56pKcnL+AQQQQAABBBD4L7D9Pwr+3ufr7AAAAABJRU5ErkJggg==')",
+                margin: "100px",
+                transform: `scale(${this.props.zoom / 100})`,
+                transition: "transform .15s cubic-bezier(.05,.03,.35,1)",
               }}
-            ></div>
-            <canvas id="fabricCanvas"></canvas>
+            >
+              <div
+                style={{
+                  position: "absolute",
+                  minWidth: `${Math.max(this.props.width, 2) - 2}px`,
+                  minHeight: `${Math.max(this.props.height, 2) - 2}px`,
+                  margin: "1px",
+                  background:
+                    "url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAEhJREFUWAnt1rENADAIA0HICuy/IZ4BsoMjpXn6l9A1kN09YUxVGXXEseoHMQsggAACCCCAQM4d56pKcnL+AQQQQAABBBD4L7D9Pwr+3ufr7AAAAABJRU5ErkJggg==')",
+                }}
+              ></div>
+              <canvas id="fabricCanvas"></canvas>
+            </div>
           </div>
-        </div>
-      </Hotkeys>
+        </Hotkeys>
+        {this.props.processing ? (
+          <span className={styles.processing}>
+            <SyncIcon width={18} height={18} className={styles.syncIcon} />
+            &nbsp; Please wait...
+          </span>
+        ) : null}
+      </>
     );
   }
 }
@@ -335,6 +346,7 @@ const mapStateToProps = (state) => ({
   zoom: state.canvas.zoom,
   width: state.canvas.width,
   height: state.canvas.height,
+  processing: state.canvas.processing,
   background: state.canvas.background,
   backgroundImage: state.canvas.backgroundImage,
   backgroundOpacity: state.canvas.backgroundOpacity,

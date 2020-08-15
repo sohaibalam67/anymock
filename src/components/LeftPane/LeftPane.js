@@ -8,6 +8,7 @@ import { fabric } from "fabric";
 // redux
 import { connect } from "react-redux";
 import { addItemToLayer } from "../../store/actions/layer";
+import { updateCanvasProcessing } from "../../store/actions/canvas";
 
 // components
 import Layers from "./Layers/Layers";
@@ -44,6 +45,8 @@ class LeftPane extends Component {
     transforms = { top: 0, left: 0, angle: 0, scaleX: 1, scaleY: 1 }
   ) => {
     let id = uuid();
+
+    this.props.updateCanvasProcessing(true);
 
     let deviceInfo = {
       device_id: device.id,
@@ -82,6 +85,7 @@ class LeftPane extends Component {
         screenSource: null,
         screenSize: SCREEN_SIZE_FILL,
       });
+      this.props.updateCanvasProcessing(false);
     }
   };
 
@@ -215,6 +219,8 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   addItemToLayer: (item) => dispatch(addItemToLayer(item)),
+  updateCanvasProcessing: (processing) =>
+    dispatch(updateCanvasProcessing(processing)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(LeftPane);

@@ -8,6 +8,7 @@ import {
   UPDATE_CANVAS_ZOOM,
   UPDATE_BACKGROUND_IMAGE,
   UPDATE_BACKGROUND_OPACITY,
+  UPDATE_CANVAS_PROCESSING,
 } from "../actions/actionTypes";
 
 import { presets, CUSTOM_CANVAS } from "../../constants/canvas";
@@ -22,6 +23,7 @@ const INITIAL_STATE = {
   background: "#ffffff",
   backgroundOpacity: 100,
   backgroundImage: null,
+  processing: false,
 };
 
 const canvasReducer = (state = INITIAL_STATE, action) => {
@@ -33,6 +35,7 @@ const canvasReducer = (state = INITIAL_STATE, action) => {
   let background = state.background;
   let backgroundImage = state.backgroundImage;
   let backgroundOpacity = state.backgroundOpacity;
+  let processing = state.processing;
 
   switch (action.type) {
     case RESET_CANVAS:
@@ -50,6 +53,14 @@ const canvasReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         canvas,
+      };
+
+    case UPDATE_CANVAS_PROCESSING:
+      processing = action.processing;
+
+      return {
+        ...state,
+        processing,
       };
 
     case UPDATE_CANVAS_ZOOM:

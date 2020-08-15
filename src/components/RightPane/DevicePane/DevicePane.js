@@ -13,6 +13,7 @@ import {
   updateDeviceSreenFitByIndex,
   updateLayerItem,
 } from "../../../store/actions/layer";
+import { updateCanvasProcessing } from "../../../store/actions/canvas";
 import {
   getSelectedLayer,
   getSelectedLayerIndex,
@@ -86,6 +87,8 @@ class DevicePane extends Component {
       return;
     }
 
+    this.props.updateCanvasProcessing(true);
+
     let id = activeObject.id;
     let transforms = {
       scaleX: activeObject.scaleX,
@@ -126,6 +129,8 @@ class DevicePane extends Component {
       device_id: device.id,
       variant_id: variant.id,
     });
+
+    this.props.updateCanvasProcessing(false);
   };
 
   changeScreenFit = (value) => {
@@ -549,6 +554,8 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(updateItemAngleByIndex(index, angle)),
   updateDeviceSreenFitByIndex: (index, fit) =>
     dispatch(updateDeviceSreenFitByIndex(index, fit)),
+  updateCanvasProcessing: (processing) =>
+    dispatch(updateCanvasProcessing(processing)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DevicePane);

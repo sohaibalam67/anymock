@@ -8,6 +8,7 @@ import {
   UPDATE_CANVAS_ZOOM,
   UPDATE_BACKGROUND_IMAGE,
   UPDATE_BACKGROUND_OPACITY,
+  UPDATE_CANVAS_PROCESSING,
 } from "./actionTypes";
 
 export const updateCanvas = (canvas) => {
@@ -20,6 +21,13 @@ export const updateCanvas = (canvas) => {
 export const resetCanvas = () => {
   return {
     type: RESET_CANVAS,
+  };
+};
+
+export const updateCanvasProcessing = (processing) => {
+  return {
+    type: UPDATE_CANVAS_PROCESSING,
+    processing,
   };
 };
 
