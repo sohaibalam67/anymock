@@ -46,7 +46,7 @@ class WorkArea extends Component {
 
     // canvas events
     this.canvas.on({
-      "object:rotating": this.centerLines,
+      // "object:rotating": this.centerLines,
       "object:moving": this.centerLines,
       "object:modified": this.centerLines,
       "object:scaling": this.centerLines,
@@ -268,23 +268,37 @@ class WorkArea extends Component {
       this.canvas.setActiveObject(selection).renderAll();
     }
 
-    if (keyName === "cmd+=") {
+    if (keyName === "cmd+=" || keyName === "ctrl+=") {
       let zoom = this.props.zoom;
 
       this.changeZoom(Math.min(zoom + 5, 100));
     }
 
-    if (keyName === "cmd+-") {
+    if (keyName === "cmd+-" || keyName === "ctrl+-") {
       let zoom = this.props.zoom;
 
       this.changeZoom(Math.max(zoom - 5, 10));
+    }
+
+    if (keyName === "cmd+]" || keyName === "ctrl+]") {
+      let activeObject = this.canvas.getActiveObject();
+      this.canvas.preserveObjectStacking = true;
+      this.canvas.bringForward(activeObject);
+      this.canvas.renderAll();
+    }
+
+    if (keyName === "cmd+[" || keyName === "ctrl+[") {
+      let activeObject = this.canvas.getActiveObject();
+      this.canvas.preserveObjectStacking = true;
+      this.canvas.sendBackwards(activeObject);
+      this.canvas.renderAll();
     }
   }
 
   render() {
     return (
       <Hotkeys
-        keyName="backspace,cmd+a,control+a,ctrl+a,cmd+=,cmd+-"
+        keyName="backspace,cmd+a,control+a,ctrl+a,cmd+=,cmd+-,cmd+],cmd+["
         onKeyDown={this.onKeyDown.bind(this)}
         allowRepeat
       >

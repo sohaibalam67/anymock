@@ -19,42 +19,60 @@ function Alignment({
 }) {
   return (
     <div className={styles.container}>
-      <AlignLeftIcon
-        width={13}
-        height={13}
-        className={styles.icon}
-        onClick={leftAlign}
-      />
-      <AlignHorizontalCenterIcon
-        width={13}
-        height={13}
-        className={styles.icon}
-        onClick={horizontalCenterAlign}
-      />
-      <AlignRightIcon
-        width={13}
-        height={13}
-        className={styles.icon}
-        onClick={rightAlign}
-      />
-      <AlignTopIcon
-        width={13}
-        height={13}
-        className={styles.icon}
-        onClick={topAlign}
-      />
-      <AlignVerticalCenterIcon
-        width={13}
-        height={13}
-        className={styles.icon}
-        onClick={verticalCenterAlign}
-      />
-      <AlignBottomIcon
-        width={13}
-        height={13}
-        className={styles.icon}
-        onClick={bottomAlign}
-      />
+      <span className={styles.iconContainer}>
+        <AlignLeftIcon
+          width={13}
+          height={13}
+          className={styles.icon}
+          onClick={leftAlign}
+        />
+        <span className={styles.iconTitle}>Left</span>
+      </span>
+      <span className={styles.iconContainer}>
+        <AlignHorizontalCenterIcon
+          width={13}
+          height={13}
+          className={styles.icon}
+          onClick={horizontalCenterAlign}
+        />
+        <span className={styles.iconTitle}>Center</span>
+      </span>
+      <span className={styles.iconContainer}>
+        <AlignRightIcon
+          width={13}
+          height={13}
+          className={styles.icon}
+          onClick={rightAlign}
+        />
+        <span className={styles.iconTitle}>Right</span>
+      </span>
+      <span className={styles.iconContainer}>
+        <AlignTopIcon
+          width={13}
+          height={13}
+          className={styles.icon}
+          onClick={topAlign}
+        />
+        <span className={styles.iconTitle}>Top</span>
+      </span>
+      <span className={styles.iconContainer}>
+        <AlignVerticalCenterIcon
+          width={13}
+          height={13}
+          className={styles.icon}
+          onClick={verticalCenterAlign}
+        />
+        <span className={styles.iconTitle}>Middle</span>
+      </span>
+      <span className={styles.iconContainer}>
+        <AlignBottomIcon
+          width={13}
+          height={13}
+          className={styles.icon}
+          onClick={bottomAlign}
+        />
+        <span className={styles.iconTitle}>Bottom</span>
+      </span>
     </div>
   );
 }

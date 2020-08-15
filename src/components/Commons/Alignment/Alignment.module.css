@@ -12,3 +12,15 @@
 .icon:hover {
   background: rgba(255, 255, 255, 0.1);
 }
+
+.iconContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.iconTitle {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 0.65rem;
+  margin-top: var(--space-1);
+}

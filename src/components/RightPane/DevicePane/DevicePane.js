@@ -247,8 +247,10 @@ class DevicePane extends Component {
       return;
     }
 
+    let boundingBox = activeObject.getBoundingRect();
+
     activeObject.set({
-      left: 0,
+      left: activeObject.left - boundingBox.left,
     });
 
     activeObject.setCoords();
@@ -265,10 +267,14 @@ class DevicePane extends Component {
       return;
     }
 
+    let boundingBox = activeObject.getBoundingRect();
+
     activeObject.set({
       left:
-        this.props.canvas.width / 2 -
-        (activeObject.width * activeObject.scaleX) / 2,
+        this.props.canvas.width / 2 +
+        activeObject.left -
+        boundingBox.left -
+        boundingBox.width / 2,
     });
 
     activeObject.setCoords();
@@ -285,8 +291,11 @@ class DevicePane extends Component {
       return;
     }
 
+    let boundingBox = activeObject.getBoundingRect();
+    let boundingBoxRight = boundingBox.left + boundingBox.width;
+
     activeObject.set({
-      left: this.props.canvas.width - activeObject.width * activeObject.scaleX,
+      left: this.props.canvas.width - (boundingBoxRight - activeObject.left),
     });
 
     activeObject.setCoords();
@@ -303,8 +312,10 @@ class DevicePane extends Component {
       return;
     }
 
+    let boundingBox = activeObject.getBoundingRect();
+
     activeObject.set({
-      top: 0,
+      top: activeObject.top - boundingBox.top,
     });
 
     activeObject.setCoords();
@@ -321,10 +332,14 @@ class DevicePane extends Component {
       return;
     }
 
+    let boundingBox = activeObject.getBoundingRect();
+
     activeObject.set({
       top:
-        this.props.canvas.height / 2 -
-        (activeObject.height * activeObject.scaleY) / 2,
+        this.props.canvas.height / 2 +
+        activeObject.top -
+        boundingBox.top -
+        boundingBox.height / 2,
     });
 
     activeObject.setCoords();
@@ -341,8 +356,11 @@ class DevicePane extends Component {
       return;
     }
 
+    let boundingBox = activeObject.getBoundingRect();
+    let boundingBoxBottom = boundingBox.top + boundingBox.height;
+
     activeObject.set({
-      top: this.props.canvas.height - activeObject.height * activeObject.scaleY,
+      top: this.props.canvas.height - (boundingBoxBottom - activeObject.top),
     });
 
     activeObject.setCoords();
@@ -383,15 +401,17 @@ class DevicePane extends Component {
 
     return (
       <div>
-        <Heading>ALIGNMENT</Heading>
-        <Alignment
-          leftAlign={this.handleLeftAlignClick}
-          horizontalCenterAlign={this.handleHorizontalCenterAlignClick}
-          rightAlign={this.handleRightAlignClick}
-          topAlign={this.handleTopAlignClick}
-          verticalCenterAlign={this.handleVerticalCenterAlignClick}
-          bottomAlign={this.handleBottomAlignClick}
-        />
+        <div style={{ paddingBottom: "15px" }}>
+          <Heading>ALIGNMENT</Heading>
+          <Alignment
+            leftAlign={this.handleLeftAlignClick}
+            horizontalCenterAlign={this.handleHorizontalCenterAlignClick}
+            rightAlign={this.handleRightAlignClick}
+            topAlign={this.handleTopAlignClick}
+            verticalCenterAlign={this.handleVerticalCenterAlignClick}
+            bottomAlign={this.handleBottomAlignClick}
+          />
+        </div>
         <Heading>DEVICE SETTINGS</Heading>
         <div style={{ paddingBottom: "15px" }}>
           <div className={styles.optionRow}>
