@@ -10,10 +10,13 @@ import ActionButton from "./ActionButton";
 import { updateZoom } from "../../store/actions/canvas";
 import Heading from "../Commons/Heading";
 import Slider from "@material-ui/core/Slider";
+import { resetAll } from "../../store/actions/reset";
 import { ReactComponent as ImportIcon } from "../../assets/images/icons/app/import.svg";
 import { ReactComponent as SaveIcon } from "../../assets/images/icons/app/save.svg";
 import { ReactComponent as ResetIcon } from "../../assets/images/icons/app/refresh.svg";
 import { ReactComponent as ShortcutIcon } from "../../assets/images/icons/app/book.svg";
+import { ReactComponent as CloseIcon } from "../../assets/images/icons/app/close-outline.svg";
+import { ReactComponent as WarningIcon } from "../../assets/images/icons/app/warning-outline.svg";
 
 const logo = require("../../assets/images/logo.svg");
 
@@ -28,6 +31,7 @@ function Separator() {
 class TopBar extends Component {
   state = {
     hotkeysModalOpen: false,
+    resetModalOpen: false,
   };
 
   openHotkeysModal = () => {
@@ -38,9 +42,30 @@ class TopBar extends Component {
     this.setState({ hotkeysModalOpen: false });
   };
 
+  openResetModal = () => {
+    this.setState({ resetModalOpen: true });
+  };
+
+  closeResetModal = () => {
+    this.setState({ resetModalOpen: false });
+  };
+
   changeZoom = (event, value) => {
     this.props.updateZoom(value);
     this.props.canvas.calcOffset();
+  };
+
+  resetCanvas = () => {
+    let objs = this.props.canvas.getObjects().filter((obj) => {
+      return !(obj.id === "line_h" || obj.id === "line_v");
+    });
+
+    this.props.canvas.remove(...objs);
+    this.props.canvas.backgroundImage = null;
+    this.props.canvas.renderAll();
+
+    this.props.resetAll();
+    this.closeResetModal();
   };
 
   render() {
@@ -66,6 +91,7 @@ class TopBar extends Component {
             <ActionButton
               icon={<ResetIcon width={16} height={16} />}
               title="Reset"
+              onClick={this.openResetModal}
             />
             <ActionButton
               icon={<ShortcutIcon width={16} height={16} />}
@@ -120,6 +146,13 @@ class TopBar extends Component {
           onClose={this.closeHotkeysModal}
         >
           <div className={styles.hotkeysModalContainer}>
+            <CloseIcon
+              width={22}
+              height={22}
+              alt="close"
+              onClick={this.closeHotkeysModal}
+              className={styles.closeButton}
+            />
             <Heading
               style={{
                 color: "#000",
@@ -180,6 +213,36 @@ class TopBar extends Component {
             </div>
           </div>
         </Modal>
+
+        <Modal open={this.state.resetModalOpen} onClose={this.closeResetModal}>
+          <div className={styles.resetModalContainer}>
+            <WarningIcon width={32} height={32} />
+            <Heading
+              style={{
+                color: "#000",
+                textAlign: "center",
+                fontSize: "0.9rem",
+                marginBottom: "6px",
+              }}
+            >
+              Do you really want to reset the canvas?
+            </Heading>
+            <span className={styles.warningSubheading}>
+              All your changes will be lost.
+            </span>
+            <div className={styles.warningButtonGroup}>
+              <button
+                className={styles.cancelButton}
+                onClick={this.closeResetModal}
+              >
+                Cancel
+              </button>
+              <button className={styles.resetButton} onClick={this.resetCanvas}>
+                Reset
+              </button>
+            </div>
+          </div>
+        </Modal>
       </>
     );
   }
@@ -192,6 +255,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   updateZoom: (zoom) => dispatch(updateZoom(zoom)),
+  resetAll: () => dispatch(resetAll()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(TopBar);

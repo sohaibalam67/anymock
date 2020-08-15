@@ -1,4 +1,5 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>browser</title>
 <path d="M416 64H96C69.4903 64 48 85.4903 48 112V400C48 426.51 69.4903 448 96 448H416C442.51 448 464 426.51 464 400V112C464 85.4903 442.51 64 416 64Z" stroke="white" stroke-width="32" stroke-linejoin="round"/>
 <path d="M397.82 64H114.18C77.69 64 48 94.15 48 131.2V176H64C64 160 80 144 96 144H416C432 144 448 160 448 176H464V131.2C464 94.15 434.31 64 397.82 64Z" fill="white"/>
 </svg>

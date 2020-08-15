@@ -4,6 +4,7 @@ import { SCREEN_SIZE_FILL, SCREEN_SIZE_FIT } from "../../constants/screen";
 
 import {
   ADD_LAYER_ITEM,
+  RESET_LAYERS,
   UPDATE_SELECTED_ITEM_ID,
   UPDATE_ITEM_ANGLE_BY_INDEX,
   UPDATE_ITEM_POSITION_BY_INDEX,
@@ -23,6 +24,12 @@ const layersReducer = (state = INITIAL_STATE, action) => {
   let selectedItemId = state.selectedItemId;
 
   switch (action.type) {
+    case RESET_LAYERS:
+      return {
+        ...state,
+        ...INITIAL_STATE,
+      };
+
     case ADD_LAYER_ITEM:
       if (typeof action.item === "object" && action.item.hasOwnProperty("id")) {
         layers.push(action.item);

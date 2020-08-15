@@ -1,5 +1,6 @@
 import {
   UPDATE_CANVAS,
+  RESET_CANVAS,
   UPDATE_PRESET,
   UPDATE_WIDTH,
   UPDATE_HEIGHT,
@@ -13,6 +14,12 @@ export const updateCanvas = (canvas) => {
   return {
     type: UPDATE_CANVAS,
     canvas,
+  };
+};
+
+export const resetCanvas = () => {
+  return {
+    type: RESET_CANVAS,
   };
 };
 

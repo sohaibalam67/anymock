@@ -1,4 +1,5 @@
 import {
+  RESET_LAYERS,
   ADD_LAYER_ITEM,
   UPDATE_LAYER_DEVICE_SCREEN_SOURCE,
   UPDATE_ITEM_POSITION_BY_INDEX,
@@ -8,6 +9,12 @@ import {
   UPDATE_LAYER_ITEM,
   DELETE_ITEMS_BY_IDS,
 } from "./actionTypes";
+
+export const resetLayer = () => {
+  return {
+    type: RESET_LAYERS,
+  };
+};
 
 export const addItemToLayer = (item) => {
   return {

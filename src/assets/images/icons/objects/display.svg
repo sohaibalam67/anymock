@@ -1,4 +1,5 @@
 <svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+<title>display</title>
 <path d="M448 64H64C46.3269 64 32 78.3269 32 96V352C32 369.673 46.3269 384 64 384H448C465.673 384 480 369.673 480 352V96C480 78.3269 465.673 64 448 64Z" stroke="white" stroke-width="32" stroke-linejoin="round"/>
 <path d="M304 448L296 384H216L208 448H304Z" fill="white" stroke="white" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>
 <path d="M368 448H144" stroke="white" stroke-width="32" stroke-linecap="round" stroke-linejoin="round"/>

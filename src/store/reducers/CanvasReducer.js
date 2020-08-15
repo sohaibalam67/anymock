@@ -1,5 +1,6 @@
 import {
   UPDATE_CANVAS,
+  RESET_CANVAS,
   UPDATE_PRESET,
   UPDATE_WIDTH,
   UPDATE_HEIGHT,
@@ -34,6 +35,13 @@ const canvasReducer = (state = INITIAL_STATE, action) => {
   let backgroundOpacity = state.backgroundOpacity;
 
   switch (action.type) {
+    case RESET_CANVAS:
+      return {
+        ...state,
+        ...INITIAL_STATE,
+        canvas,
+      };
+
     case UPDATE_CANVAS:
       if (action.canvas) {
         canvas = action.canvas;
