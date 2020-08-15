@@ -27,7 +27,7 @@ function Separator() {
 
 class TopBar extends Component {
   state = {
-    hotkeysModalOpen: true,
+    hotkeysModalOpen: false,
   };
 
   openHotkeysModal = () => {
