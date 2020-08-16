@@ -75,6 +75,7 @@ class TopBar extends Component {
           <div className={styles.leftContainer}>
             <div className={styles.brandContainer}>
               <img src={logo} alt="anymock logo" className={styles.logo} />
+              <span style={{ color: "#fff", marginLeft: "6px" }}>Anymock</span>
               <span className={styles.proBadge}>PRO</span>
             </div>
           </div>
