@@ -116,7 +116,7 @@
 .hotkeysModalContainer {
   position: relative;
   min-width: 500px;
-  min-height: 250px;
+  min-height: 270px;
   background: #fff;
   border-radius: var(--radius-3);
   padding: var(--space-3);

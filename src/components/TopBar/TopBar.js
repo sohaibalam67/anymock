@@ -212,6 +212,23 @@ class TopBar extends Component {
                 Send selected item backward
               </div>
             </div>
+            <div className={styles.row}>
+              <div className={styles.keyShortcut}>
+                hold &nbsp;<kbd>shift</kbd>&nbsp; + &nbsp; click on items
+              </div>
+              <div className={styles.shortcutDescription}>
+                Select multiple items
+              </div>
+            </div>
+            <div className={styles.row}>
+              <div className={styles.keyShortcut}>
+                hold &nbsp;<kbd>alt</kbd>&nbsp; or &nbsp;<kbd>option</kbd>&nbsp;
+                + &nbsp; scale
+              </div>
+              <div className={styles.shortcutDescription}>
+                Scale from center as origin
+              </div>
+            </div>
           </div>
         </Modal>
 
