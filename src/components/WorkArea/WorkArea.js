@@ -23,12 +23,15 @@ import {
   mergeColorAndOpacity,
   opacityPercentToHex,
 } from "../../helpers/common";
+import { initAligningGuidelines } from "../../helpers/aligning_guidelines";
 
 // constants
 import { CANVAS_PANE, DEVICE_PANE } from "../../constants/rightPane";
 
 // icons
 import { ReactComponent as SyncIcon } from "../../assets/images/icons/app/sync-outline.svg";
+
+const MOVE_GRID = 1;
 
 class WorkArea extends Component {
   componentDidMount() {
@@ -38,9 +41,14 @@ class WorkArea extends Component {
         this.props.background,
         opacityPercentToHex(this.props.backgroundOpacity)
       ),
+      enableRetinaScaling: true,
       preserveObjectStacking: true,
-      width: this.props.width,
-      height: this.props.height,
+      controlsAboveOverlay: false,
+      selectionCompatibility: true,
+      stopContextMenu: true,
+      fireRightClick: true,
+      width: this.props.width || 1600,
+      height: this.props.height || 1200,
     });
 
     this.canvas.state = [];
@@ -48,16 +56,34 @@ class WorkArea extends Component {
     this.canvas.stateaction = true;
 
     // canvas events
-    this.canvas.on({
-      // "object:rotating": this.centerLines,
-      "object:moving": this.centerLines,
-      "object:modified": this.centerLines,
-      "object:scaling": this.centerLines,
-      "selection:cleared": this.selectionCleared,
-      "object:selected": this.objectSelected,
-      "selection:updated": this.objectSelected,
-      "mouse:up": this.objectMouseUp,
-    });
+    this.canvas
+      .on({
+        "object:moving": this.centerLines,
+        "object:modified": this.centerLines,
+        "object:scaling": this.centerLines,
+        "selection:cleared": this.selectionCleared,
+        "object:selected": this.objectSelected,
+        "selection:updated": this.objectSelected,
+        "mouse:up": this.objectMouseUp,
+      })
+      .on("object:rotating", (opt) => {
+        const { target } = opt;
+        if (target) {
+          if (opt.e.shiftKey) target.set({ snapAngle: 10 });
+          else target.set({ snapAngle: 1 });
+        }
+      })
+      .on("mouse:down", (opt) => {
+        if (opt.target) {
+          opt.target.origPos = opt.target.getCenterPoint();
+
+          opt.target.set({
+            dragStart: { x: opt.target.left, y: opt.target.top },
+          });
+        }
+      });
+
+    initAligningGuidelines(this.canvas);
 
     // horizontal alignment line
     this.line_h = new fabric.Line(
@@ -172,6 +198,34 @@ class WorkArea extends Component {
 
   // Show alignment guides
   centerLines = (event) => {
+    const { target, e } = event;
+
+    if (!target) return;
+
+    if (e.shiftKey && target.origPos) {
+      const delta = target.getCenterPoint().subtract(target.origPos);
+      // Lock vertical movements
+      if (Math.abs(delta.x) >= Math.abs(delta.y)) {
+        target.lockMovementX = false;
+        target.lockMovementY = true;
+      }
+
+      // Lock horizontal movements
+      if (Math.abs(delta.x) <= Math.abs(delta.y)) {
+        target.lockMovementY = false;
+        target.lockMovementX = true;
+      }
+    } else {
+      target.lockMovementY = false;
+      target.lockMovementX = false;
+    }
+
+    // Snap to GRID [1, 1]
+    target.set({
+      left: Math.round(target.left / MOVE_GRID) * MOVE_GRID,
+      top: Math.round(target.top / MOVE_GRID) * MOVE_GRID,
+    });
+
     // TODO: activeGuideLine switch
     if (true) {
       const snapZone = 10;
