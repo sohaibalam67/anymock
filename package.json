@@ -9,6 +9,7 @@
     "@testing-library/user-event": "^7.1.2",
     "fabric": "^3.6.3",
     "lodash": "^4.17.19",
+    "match-sorter": "^4.2.0",
     "react": "^16.13.1",
     "react-color": "^2.18.1",
     "react-dom": "^16.13.1",
@@ -22,7 +23,8 @@
     "react-uuid": "^1.0.2",
     "redux": "^4.0.5",
     "redux-thunk": "^2.3.0",
-    "reselect": "^4.0.0"
+    "reselect": "^4.0.0",
+    "webfontloader": "^1.6.28"
   },
   "scripts": {
     "start": "react-scripts start",

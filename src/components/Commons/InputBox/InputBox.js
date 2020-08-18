@@ -1,8 +1,14 @@
 import React, { useRef, useState, useEffect } from "react";
 import styles from "./InputBox.module.css";
 
-function InputBox(props) {
-  const [value, setValue] = useState("");
+function InputBox({
+  value = "",
+  placeholder = "",
+  modifier = "",
+  live = false,
+  onChange = (f) => f,
+}) {
+  const [_value, setValue] = useState("");
 
   const mounted = useRef();
 
@@ -10,35 +16,36 @@ function InputBox(props) {
     if (!mounted.current) {
       // componentDidMount logic
       mounted.current = true;
-      setValue(props.value);
+      setValue(value);
     } else {
       // componentDidUpdate logic
-      setValue(props.value);
+      setValue(value);
     }
-  }, [props.value]);
+  }, [value]);
 
   return (
     <div className={styles.container}>
       <input
         className={styles.inputBox}
         onChange={(event) => {
+          onChange(event.target.value);
           setValue(event.target.value);
         }}
         onFocus={(event) => {
           event.target.select();
         }}
         onBlur={() => {
-          props.onChange(value);
+          onChange(_value);
         }}
         onKeyDown={(e) => {
           if (e.keyCode === 13) {
-            props.onChange(value);
+            onChange(_value);
           }
         }}
-        placeholder={props.placeholder}
-        value={value}
+        placeholder={placeholder}
+        value={_value}
       />
-      <span className={styles.modifier}>{props.modifier ?? ""}</span>
+      <span className={styles.modifier}>{modifier}</span>
     </div>
   );
 }

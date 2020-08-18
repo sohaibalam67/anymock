@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import styles from "./DeviceSelect.module.css";
+import matchsorter from "match-sorter";
 import DeviceCard from "../../../Commons/DeviceCard";
 import HeadBar from "../../../Commons/HeadBar";
 import { connect } from "react-redux";
@@ -7,10 +8,21 @@ import { devices } from "../../../../constants/devices";
 import { DEVICE_TYPES } from "../../../../constants/deviceTypes";
 import { isObject } from "../../../../helpers/common";
 import { getSelectedDevice } from "../../../../store/selectors";
+import InputBox from "../../../Commons/InputBox";
 
 class DeviceSelect extends Component {
+  state = {
+    searchQuery: "",
+  };
+
   changeFrame = (device) => {
     this.props.changeFrame(device, device.variants[0]);
+  };
+
+  onSearchQueryChange = (searchQuery) => {
+    this.setState({
+      searchQuery,
+    });
   };
 
   render() {
@@ -21,21 +33,40 @@ class DeviceSelect extends Component {
       Object.values(DEVICE_TYPES).includes(this.props.selectedDevice.type)
     ) {
       if (this.props.selectedDevice.type === DEVICE_TYPES.PHONE) {
-        allDevices = devices.phones;
+        allDevices = matchsorter(devices.phones, this.state.searchQuery, {
+          keys: ["name"],
+        });
       } else if (this.props.selectedDevice.type === DEVICE_TYPES.LAPTOP) {
-        allDevices = devices.laptops;
+        allDevices = matchsorter(devices.laptops, this.state.searchQuery, {
+          keys: ["name"],
+        });
       } else if (this.props.selectedDevice.type === DEVICE_TYPES.TABLET) {
-        allDevices = devices.tablets;
+        allDevices = matchsorter(devices.tablets, this.state.searchQuery, {
+          keys: ["name"],
+        });
       } else if (this.props.selectedDevice.type === DEVICE_TYPES.WATCH) {
-        allDevices = devices.watches;
+        allDevices = matchsorter(devices.watches, this.state.searchQuery, {
+          keys: ["name"],
+        });
       } else if (this.props.selectedDevice.type === DEVICE_TYPES.DISPLAY) {
-        allDevices = devices.displays;
+        allDevices = matchsorter(devices.displays, this.state.searchQuery, {
+          keys: ["name"],
+        });
       }
     }
 
     return (
       <div className={styles.container}>
-        <HeadBar title="Choose Frame" onBackClick={this.props.close} />
+        <HeadBar
+          title={
+            <InputBox
+              live
+              placeholder="Search device"
+              onChange={this.onSearchQueryChange}
+            />
+          }
+          onBackClick={this.props.close}
+        />
         <div className={styles.scrollView}>
           {allDevices.map((device) => (
             <DeviceCard
