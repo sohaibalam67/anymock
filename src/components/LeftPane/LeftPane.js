@@ -180,9 +180,9 @@ class LeftPane extends Component {
               />
               <button
                 className={styles.chooseFromTemplatesButton}
-                onClick={() => {
-                  this.switchActiveSegment(SEGMENT_TEMPLATE);
-                }}
+                // onClick={() => {
+                //   this.switchActiveSegment(SEGMENT_TEMPLATE);
+                // }}
               >
                 Choose a template
               </button>
