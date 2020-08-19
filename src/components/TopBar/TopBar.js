@@ -1,16 +1,26 @@
 import React, { Component } from "react";
 import styles from "./TopBar.module.css";
+
+// packages
+import Slider from "@material-ui/core/Slider";
+
+// redux
 import { connect } from "react-redux";
-import { downloadImage } from "../../helpers/image";
+import { resetAll } from "../../store/actions/reset";
+import { updateZoom } from "../../store/actions/canvas";
+
+// components
 import Menu from "../Commons/Menu";
 import Modal from "../Commons/Modal";
-import DropdownItem from "../Commons/Dropdown/DropdownItem";
-import Dropdown from "../Commons/Dropdown";
-import ActionButton from "./ActionButton";
-import { updateZoom } from "../../store/actions/canvas";
 import Heading from "../Commons/Heading";
-import Slider from "@material-ui/core/Slider";
-import { resetAll } from "../../store/actions/reset";
+import ActionButton from "./ActionButton";
+import Dropdown from "../Commons/Dropdown";
+import DropdownItem from "../Commons/Dropdown/DropdownItem";
+
+// helpers
+import { downloadImage } from "../../helpers/image";
+
+// icons
 import { ReactComponent as ImportIcon } from "../../assets/images/icons/app/import.svg";
 import { ReactComponent as SaveIcon } from "../../assets/images/icons/app/save.svg";
 import { ReactComponent as ResetIcon } from "../../assets/images/icons/app/refresh.svg";

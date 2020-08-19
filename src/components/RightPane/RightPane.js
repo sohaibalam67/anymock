@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import styles from "./RightPane.module.css";
 
+// redux
 import { connect } from "react-redux";
 
+// components
 import CanvasPane from "./CanvasPane/CanvasPane";
-import { DEVICE_PANE } from "../../constants/rightPane";
 import DevicePane from "./DevicePane/DevicePane";
+
+// constants
+import { DEVICE_PANE } from "../../constants/rightPane";
 
 class RightPane extends Component {
   render() {

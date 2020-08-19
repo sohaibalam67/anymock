@@ -1,14 +1,24 @@
 import React, { Component } from "react";
 import styles from "./DeviceSelect.module.css";
+
+// packages
 import matchsorter from "match-sorter";
-import DeviceCard from "../../../Commons/DeviceCard";
-import HeadBar from "../../../Commons/HeadBar";
+
+// redux
 import { connect } from "react-redux";
+import { getSelectedDevice } from "../../../../store/selectors";
+
+// components
+import HeadBar from "../../../Commons/HeadBar";
+import InputBox from "../../../Commons/InputBox";
+import DeviceCard from "../../../Commons/DeviceCard";
+
+// constants
 import { devices } from "../../../../constants/devices";
 import { DEVICE_TYPES } from "../../../../constants/deviceTypes";
+
+// helpers
 import { isObject } from "../../../../helpers/common";
-import { getSelectedDevice } from "../../../../store/selectors";
-import InputBox from "../../../Commons/InputBox";
 
 class DeviceSelect extends Component {
   state = {

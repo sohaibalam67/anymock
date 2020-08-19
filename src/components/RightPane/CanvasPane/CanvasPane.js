@@ -7,6 +7,14 @@ import { SketchPicker } from "react-color";
 
 // redux
 import { connect } from "react-redux";
+import {
+  updatePreset,
+  updateWidth,
+  updateHeight,
+  updateBackground,
+  updateCanvasBackgroundImage,
+  updateCanvasBackgroundOpacity,
+} from "../../../store/actions/canvas";
 
 // components
 import InputBox from "../../Commons/InputBox";
@@ -23,15 +31,6 @@ import {
   DEFAULT_SELECT_THEME,
   DEFAULT_SELECT_STYLES,
 } from "../../../constants/selectComponentStyles";
-
-import {
-  updatePreset,
-  updateWidth,
-  updateHeight,
-  updateBackground,
-  updateCanvasBackgroundImage,
-  updateCanvasBackgroundOpacity,
-} from "../../../store/actions/canvas";
 
 class CanvasPane extends Component {
   constructor(props) {
