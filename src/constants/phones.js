@@ -7,10 +7,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 59,
-      top: 76,
-      width: 482,
-      height: 1042,
+      left: 39,
+      top: 32,
+      width: 522,
+      height: 1130,
     },
     thumbnail: require("../assets/images/devices/phones/Apple iPhone X/apple_iphone_x_thumbnail.webp"),
     variants: [
@@ -77,10 +77,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 62,
-      top: 62,
-      width: 476,
-      height: 1028,
+      left: 46,
+      top: 43,
+      width: 507,
+      height: 1098,
     },
     thumbnail: require("../assets/images/devices/phones/Apple iPhone XR/apple_iphone_xr_thumbnail.webp"),
     variants: [
@@ -192,10 +192,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 72,
-      top: 181,
-      width: 456,
-      height: 810,
+      left: 41,
+      top: 156,
+      width: 518,
+      height: 921,
     },
     thumbnail: require("../assets/images/devices/phones/Apple iPhone 6s/apple_iphone_6s_thumbnail.webp"),
     variants: [
@@ -262,10 +262,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 72,
-      top: 181,
-      width: 456,
-      height: 810,
+      left: 41,
+      top: 156,
+      width: 518,
+      height: 921,
     },
     thumbnail: require("../assets/images/devices/phones/Apple iPhone 7/apple_iphone_7_thumbnail.webp"),
     variants: [
@@ -302,10 +302,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 97,
-      top: 195,
-      width: 406,
-      height: 720,
+      left: 43,
+      top: 157,
+      width: 516,
+      height: 917,
     },
     thumbnail: require("../assets/images/devices/phones/Apple iPhone 7 Plus/apple_iphone_7_plus_thumbnail.webp"),
     variants: [
@@ -342,10 +342,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 62,
-      top: 176,
-      width: 476,
-      height: 844,
+      left: 41,
+      top: 150,
+      width: 518,
+      height: 920,
     },
     thumbnail: require("../assets/images/devices/phones/Apple iPhone 8/apple_iphone_8_thumbnail.webp"),
     variants: [
@@ -372,10 +372,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 72,
-      top: 145,
-      width: 456,
-      height: 809,
+      left: 40,
+      top: 139,
+      width: 521,
+      height: 924,
     },
     thumbnail: require("../assets/images/devices/phones/Apple iPhone 8 Plus/apple_iphone_8_plus_thumbnail.webp"),
     variants: [
@@ -402,10 +402,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 58,
-      top: 58,
-      width: 484,
-      height: 1047,
+      left: 45,
+      top: 43,
+      width: 509,
+      height: 1100,
     },
     thumbnail: require("../assets/images/devices/phones/Apple iPhone 11/apple_iphone_11_thumbnail.webp"),
     variants: [
@@ -447,10 +447,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 56,
-      top: 56,
-      width: 488,
-      height: 1056,
+      left: 39,
+      top: 35,
+      width: 522,
+      height: 1130,
     },
     thumbnail: require("../assets/images/devices/phones/Apple iPhone 11 Pro/apple_iphone_11_pro_thumbnail.webp"),
     variants: [
@@ -482,10 +482,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 51,
-      top: 51,
-      width: 498,
-      height: 1075,
+      left: 36,
+      top: 32,
+      width: 529,
+      height: 1143,
     },
     thumbnail: require("../assets/images/devices/phones/Apple iPhone 11 Pro Max/apple_iphone_11_pro_max_thumbnail.webp"),
     variants: [
@@ -517,10 +517,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 71,
-      top: 199,
-      width: 458,
-      height: 813,
+      left: 50,
+      top: 186,
+      width: 506,
+      height: 899,
     },
     thumbnail: require("../assets/images/devices/phones/Apple iPhone SE/apple_iphone_se_thumbnail.webp"),
     variants: [
@@ -552,10 +552,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 56,
-      top: 51,
-      width: 488,
-      height: 1057,
+      left: 38,
+      top: 35,
+      width: 524,
+      height: 1131,
     },
     thumbnail: require("../assets/images/devices/phones/Apple iPhone XS/apple_iphone_xs_thumbnail.webp"),
     variants: [
@@ -582,10 +582,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 54,
-      top: 54,
-      width: 492,
-      height: 1061,
+      left: 36,
+      top: 33,
+      width: 529,
+      height: 1142,
     },
     thumbnail: require("../assets/images/devices/phones/Apple iPhone XS Max/apple_iphone_xs_max_thumbnail.webp"),
     variants: [
@@ -612,10 +612,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 46,
-      top: 112,
-      width: 508,
-      height: 1014,
+      left: 27,
+      top: 99,
+      width: 541,
+      height: 1081,
     },
     thumbnail: require("../assets/images/devices/phones/Google Pixel 3/google_pixel_3_thumbnail.webp"),
     variants: [
@@ -642,10 +642,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 51,
-      top: 51,
-      width: 498,
-      height: 1022,
+      left: 25,
+      top: 26,
+      width: 544,
+      height: 1116,
     },
     thumbnail: require("../assets/images/devices/phones/Google Pixel 3 XL/google_pixel_3xl_thumbnail.webp"),
     variants: [
@@ -672,10 +672,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 46,
-      top: 93,
-      width: 508,
-      height: 1071,
+      left: 22,
+      top: 73,
+      width: 551,
+      height: 1162,
     },
     thumbnail: require("../assets/images/devices/phones/Google Pixel 4/google_pixel_4_thumbnail.webp"),
     variants: [
@@ -702,10 +702,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 36,
-      top: 91,
-      width: 528,
-      height: 1114,
+      left: 22,
+      top: 74,
+      width: 554,
+      height: 1167,
     },
     thumbnail: require("../assets/images/devices/phones/Google Pixel 4 XL/google_pixel_4xl_thumbnail.webp"),
     variants: [
@@ -787,10 +787,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 46,
-      top: 149,
-      width: 508,
-      height: 902,
+      left: 30,
+      top: 115,
+      width: 540,
+      height: 960,
     },
     thumbnail: require("../assets/images/devices/phones/Huawei P8/huawei_p8_thumbnail.webp"),
     variants: [
@@ -862,10 +862,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 65,
-      top: 162,
-      width: 470,
-      height: 837,
+      left: 39,
+      top: 135,
+      width: 518,
+      height: 920,
     },
     thumbnail: require("../assets/images/devices/phones/Motorola Moto G/motorola_moto_g_thumbnail.webp"),
     variants: [
@@ -1072,10 +1072,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 68,
-      top: 171,
-      width: 464,
-      height: 824,
+      left: 44,
+      top: 139,
+      width: 513,
+      height: 919,
     },
     thumbnail: require("../assets/images/devices/phones/Samsung Galaxy Grand Prime/samsung_galaxy_grand_prime_thumbnail.webp"),
     variants: [
@@ -1142,10 +1142,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 46,
-      top: 46,
-      width: 508,
-      height: 1070,
+      left: 14,
+      top: 16,
+      width: 576,
+      height: 1214,
     },
     thumbnail: require("../assets/images/devices/phones/Samsung Galaxy Note10/samsung_galaxy_note_10_thumbnail.webp"),
     variants: [
@@ -1182,10 +1182,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 36,
-      top: 36,
-      width: 528,
-      height: 1113,
+      left: 14,
+      top: 16,
+      width: 576,
+      height: 1216,
     },
     thumbnail: require("../assets/images/devices/phones/Samsung Galaxy Note10+/samsung_galaxy_note_10+_thumbnail.webp"),
     variants: [
@@ -1237,10 +1237,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 64,
-      top: 130,
-      width: 472,
-      height: 836,
+      left: 46,
+      top: 112,
+      width: 512,
+      height: 910,
     },
     thumbnail: require("../assets/images/devices/phones/Samsung Galaxy S3/samsung_galaxy_s3_thumbnail.webp"),
     variants: [
@@ -1257,10 +1257,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 54,
-      top: 136,
-      width: 492,
-      height: 874,
+      left: 37,
+      top: 119,
+      width: 526,
+      height: 933,
     },
     thumbnail: require("../assets/images/devices/phones/Samsung Galaxy S5/samsung_galaxy_s5_thumbnail.webp"),
     variants: [
@@ -1282,10 +1282,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 48,
-      top: 139,
-      width: 504,
-      height: 894,
+      left: 27,
+      top: 127,
+      width: 545,
+      height: 966,
     },
     thumbnail: require("../assets/images/devices/phones/Samsung Galaxy S7/samsung_galaxy_s7_thumbnail.webp"),
     variants: [
@@ -1317,10 +1317,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 36,
-      top: 116,
-      width: 528,
-      height: 1084,
+      left: 18,
+      top: 72,
+      width: 564,
+      height: 1156,
     },
     thumbnail: require("../assets/images/devices/phones/Samsung Galaxy S8/samsung_galaxy_s8_thumbnail.webp"),
     variants: [
@@ -1357,10 +1357,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 36,
-      top: 87,
-      width: 528,
-      height: 1084,
+      left: 17,
+      top: 69,
+      width: 566,
+      height: 1162,
     },
     thumbnail: require("../assets/images/devices/phones/Samsung Galaxy S9/samsung_galaxy_s9_thumbnail.webp"),
     variants: [
@@ -1402,10 +1402,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 36,
-      top: 54,
-      width: 528,
-      height: 1114,
+      left: 16,
+      top: 28,
+      width: 567,
+      height: 1197,
     },
     thumbnail: require("../assets/images/devices/phones/Samsung Galaxy S10/samsung_galaxy_s10_thumbnail.webp"),
     variants: [
@@ -1442,10 +1442,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 36,
-      top: 54,
-      width: 528,
-      height: 1114,
+      left: 16,
+      top: 25,
+      width: 568,
+      height: 1198,
     },
     thumbnail: require("../assets/images/devices/phones/Samsung Galaxy S10+/samsung_galaxy_s10+_thumbnail.webp"),
     variants: [
@@ -1487,10 +1487,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 65,
-      top: 65,
-      width: 470,
-      height: 1044,
+      left: 17,
+      top: 22,
+      width: 563,
+      height: 1250,
     },
     thumbnail: require("../assets/images/devices/phones/Samsung Galaxy S20/samsung_galaxy_s20_thumbnail.webp"),
     variants: [
@@ -1517,10 +1517,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 65,
-      top: 65,
-      width: 470,
-      height: 1044,
+      left: 14,
+      top: 18,
+      width: 568,
+      height: 1258,
     },
     thumbnail: require("../assets/images/devices/phones/Samsung Galaxy S20 Ultra/samsung_galaxy_s20_ultra_thumbnail.webp"),
     variants: [
@@ -1542,10 +1542,10 @@ export const phones = [
     type: DEVICE_TYPES.PHONE,
     baseWidth: 600,
     screenOffset: {
-      left: 65,
-      top: 65,
-      width: 470,
-      height: 1044,
+      left: 14,
+      top: 18,
+      width: 568,
+      height: 1259,
     },
     thumbnail: require("../assets/images/devices/phones/Samsung Galaxy S20+/samsung_galaxy_s20+_thumbnail.webp"),
     variants: [
