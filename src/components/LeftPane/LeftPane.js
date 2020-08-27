@@ -64,6 +64,7 @@ class LeftPane extends Component {
       deviceInfo.device_name,
       deviceInfo,
       sample_screen,
+      SCREEN_SIZE_FILL,
       transforms
     );
 

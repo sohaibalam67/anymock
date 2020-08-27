@@ -1,5 +1,6 @@
 import { fabric } from "fabric";
 import uuid from "react-uuid";
+import { SCREEN_SIZE_FIT } from "../constants/screen";
 
 export const addImage = (url) => {
   return new Promise((resolve, reject) => {
@@ -17,6 +18,7 @@ export const addDeviceGroup = async (
   name,
   device,
   screen,
+  screen_fit,
   transforms = { top: 0, left: 0, scaleX: 1, scaleY: 1, angle: 0 }
 ) => {
   let frameInstance = null;
@@ -42,13 +44,28 @@ export const addDeviceGroup = async (
     return null;
   }
 
+  let screenScaleFactor = screenshotInstance.width / device.screenOffset.width;
+
   screenshotInstance.set({
     id: "screen",
     name: "screen",
     left: device.screenOffset.left,
     top: device.screenOffset.top,
     scaleX: device.screenOffset.width / screenshotInstance.width,
-    scaleY: device.screenOffset.height / screenshotInstance.height,
+    scaleY:
+      screen_fit === SCREEN_SIZE_FIT
+        ? device.screenOffset.width / screenshotInstance.width
+        : device.screenOffset.height / screenshotInstance.height,
+    clipPath: new fabric.Rect({
+      originX: "center",
+      originY: "top",
+      top:
+        screen_fit === SCREEN_SIZE_FIT
+          ? -screenshotInstance.height / 2
+          : -(device.screenOffset.height * screenScaleFactor) / 2,
+      width: device.screenOffset.width * screenScaleFactor,
+      height: device.screenOffset.height * screenScaleFactor,
+    }),
   });
 
   frameInstance.bringToFront();

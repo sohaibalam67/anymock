@@ -3,6 +3,7 @@ import styles from "./DevicePane.module.css";
 
 // packages
 import Select from "react-select";
+import { fabric } from "fabric";
 
 // redux
 import { connect } from "react-redux";
@@ -115,6 +116,7 @@ class DevicePane extends Component {
       deviceInfo.device_name,
       deviceInfo,
       items[0].getSrc(),
+      SCREEN_SIZE_FIT,
       transforms
     );
 
@@ -136,6 +138,9 @@ class DevicePane extends Component {
   changeScreenFit = (value) => {
     let activeObject = this.props.canvas.getActiveObject();
 
+    let screenScaleFactor =
+      activeObject._objects[0].width / activeObject.device_screen_offset.width;
+
     if (value.value === SCREEN_SIZE_FILL) {
       activeObject._objects[0].set({
         scaleX:
@@ -144,6 +149,7 @@ class DevicePane extends Component {
         scaleY:
           activeObject.device_screen_offset.height /
           activeObject._objects[0].height,
+        clipPath: null,
       });
     }
 
@@ -155,6 +161,13 @@ class DevicePane extends Component {
         scaleY:
           activeObject.device_screen_offset.width /
           activeObject._objects[0].width,
+        clipPath: new fabric.Rect({
+          originX: "center",
+          originY: "top",
+          top: -activeObject._objects[0].height / 2,
+          width: activeObject.device_screen_offset.width * screenScaleFactor,
+          height: activeObject.device_screen_offset.height * screenScaleFactor,
+        }),
       });
     }
 
