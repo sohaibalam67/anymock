@@ -368,7 +368,6 @@ class WorkArea extends Component {
               style={{
                 margin: "100px",
                 transform: `scale(${this.props.zoom / 100})`,
-                transition: "transform .15s cubic-bezier(.05,.03,.35,1)",
               }}
             >
               <div
