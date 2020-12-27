@@ -16,7 +16,7 @@ Here is link if you want to try it. Use Chrome. There are lots of bugs and perf 
 
 # I wanna know more! 😬
 ### Dribbble shot
-Add multiple devices on the same canvas to create a nice dribbble shot. Templates support is not yet available now, but when it ships, creating a dribbble shot would be trivially easy. For now, you'll have to arrange devices on canvas on your own.
+Add multiple devices on the same canvas to create a nice dribbble shot. Templates support is not available yet, but when it ships, creating a dribbble shot would be trivially easy. For now, you'll have to arrange devices on canvas on your own.
 
 ![dribbble shot](https://pbs.twimg.com/media/Em3ES8ZUcAEI1BR?format=jpg&name=large)
 
@@ -60,3 +60,4 @@ All the major hotkeys are supported, with more hotkeys being added as the app de
 Here is what you should be able to do when the app is finished with basic features.
 
 ![final shot](https://pbs.twimg.com/media/Em32_GDVQAA-7xc?format=jpg&name=large)
+<img alt="Anymock Readme" src="https://sohaibalam67-github.herokuapp.com/readme/github?id=anymock_old_readme" />
